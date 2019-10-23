@@ -1,0 +1,7 @@
+Damage = 2
+Range = 7500
+Cost = 250
+Reload = 15
+Velocity = 50
+Tracking = 0
+Size = 10

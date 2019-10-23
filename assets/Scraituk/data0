@@ -1,0 +1,11 @@
+Primary = 8
+Secondary = -1
+Health = 60
+Energy = 2000
+Mass = 20
+Size = 50
+Acceleration = 4
+Vmax = 600
+Turn = 60
+SlotPrim = -10, -3
+SlotPrim = 10, -3
