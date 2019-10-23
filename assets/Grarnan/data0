@@ -7,6 +7,7 @@ Size = 100
 Acceleration = 2
 Vmax = 400
 Turn = 40
+Generation = 240
 SlotPrim = -25, -5
 SlotPrim = 25, -5
 SlotSecn = 0, 50

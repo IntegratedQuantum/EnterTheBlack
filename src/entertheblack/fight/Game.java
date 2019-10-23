@@ -10,8 +10,8 @@ import entertheblack.menu.MainMenu;
 
 public class Game extends Screen {
 	Ship sh1, sh2;
-	int bgx = 0;
-	int bgy = 0;
+	int bgx;
+	int bgy;
 	boolean move = false;
 	boolean move2 = false;
 	boolean turnleft = false;
@@ -24,12 +24,7 @@ public class Game extends Screen {
 	boolean rocketshoot2 = false;
 	int xmiddle = 960;
 	int ymiddle = 540;
-	public int die = 0;
-	public int ship1 = 0, ship2 = 0;
-	
-	/*public Game() {
-		reset(0, 0);
-	}*/
+	public int die = 0; // Which player won.
 	
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == Assets.Controls[5]) {
@@ -64,12 +59,7 @@ public class Game extends Screen {
 		}
 		if (e.getKeyCode() == 27) {
 			Assets.screen = new MainMenu();
-		}
-		while (die != 0) {
-			if (e.getKeyCode() == 27) {
-				Assets.screen = new MainMenu();
-				die = 0;
-			} 
+			die = 0;
 		}
 	}
 
@@ -107,6 +97,8 @@ public class Game extends Screen {
 	}
 	
 	public void update() {
+		if(die != 0)
+			return;
 		sh1.fly(sh2, move, turnright, turnleft);
 		sh1.shoot(shootingactive, rocketshoot);
 		sh2.fly(sh1, move2, turnright2, turnleft2);
@@ -114,15 +106,11 @@ public class Game extends Screen {
 		
 		if (sh1.health <= 0) {
 			this.die = 2;
+			return;
 		}
 		if (sh2.health <= 0) {
 			this.die = 1;
-		}
-		if (sh1.energy < Assets.getShipStat(this.ship1, Assets.ENERGY)) {
-			sh1.energy++;
-		}
-		if (sh2.energy < Assets.getShipStat(this.ship2, Assets.ENERGY)) {
-			sh2.energy++;
+			return;
 		}
 		if (this.bgx <= -1000) {
 			this.bgx += 1000;
@@ -186,10 +174,10 @@ public class Game extends Screen {
 		g2d.drawImage(Assets.hb, 50, 50, 100, 390, null);
 		g2d.drawImage(Assets.hb, 50, 550, 100, 390, null);
 		g2d.setColor(Color.GRAY);
-		g2d.fillRect(58, 58, 54, (int)((374 - sh1.health*370.0/Assets.getShipStat(ship1, Assets.HEALTH))));
-		g2d.fillRect(58, 558, 54, (int)((374 - sh2.health*370.0/Assets.getShipStat(ship2, Assets.HEALTH))));
-		g2d.fillRect(118, 58, 24, (int)((374 - sh1.energy*370.0/Assets.getShipStat(ship1, Assets.ENERGY))));
-		g2d.fillRect(118, 558, 24, (int)((374 - sh2.energy*370.0/Assets.getShipStat(ship2, Assets.ENERGY))));
+		g2d.fillRect(58, 58, 54, (int)((374 - sh1.health*370.0/Assets.getShipStat(sh1.type, Assets.HEALTH))));
+		g2d.fillRect(58, 558, 54, (int)((374 - sh2.health*370.0/Assets.getShipStat(sh2.type, Assets.HEALTH))));
+		g2d.fillRect(118, 58, 24, (int)((374 - sh1.energy*370.0/Assets.getShipStat(sh1.type, Assets.ENERGY))));
+		g2d.fillRect(118, 558, 24, (int)((374 - sh2.energy*370.0/Assets.getShipStat(sh2.type, Assets.ENERGY))));
 		g2d.setColor(Color.WHITE);
 		g2d.drawString("Player 1", 50, 40);
 		g2d.drawString("Player 2", 50, 540);
@@ -205,5 +193,9 @@ public class Game extends Screen {
 		bgx = bgy = 0;
 		sh1 = new Ship(type1, 1600, 490);
 		sh2 = new Ship(type2, 400, 490);
+	}
+	
+	public void reset() {
+		reset(sh1.type, sh2.type);
 	}
 }

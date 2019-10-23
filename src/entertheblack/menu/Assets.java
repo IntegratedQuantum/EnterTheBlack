@@ -200,27 +200,16 @@ public class Assets {
 				ships.add(getImage(species[i]+"/"+j+".png"));
 				int[] shipData = process(readFile(species[i]+"/data"+j), SHIP);
 				shipstatsint.add(shipData);
-				/*String[] shipData = readFile(species[i]+"/data"+j).split(";");
-				int[] shipDataI = new int[shipData.length];
-				for(int k = 0; k < shipData.length; k++) {
-					shipDataI[k] = parseInt(shipData[k]);
-				}
-				shipstatsint.add(shipDataI);*/
 			}
 			for(int j = 0; j < numWeapons; j++) {
 				projectiles.add(getImage(species[i]+"/w"+j+".png"));
 				int[] weaponData = process(readFile(species[i]+"/dataw"+j), WEAPON);
 				weaponint.add(weaponData);
-				/*String[] weaponData = readFile(species[i]+"/dataw"+j).split(";");
-				int[] weaponDataI = new int[weaponData.length];
-				for(int k = 0; k < weaponData.length; k++) {
-					weaponDataI[k] = parseInt(weaponData[k]);
-				}
-				weaponint.add(weaponDataI);*/
 			}
 			nShip += numShips;
 			nWeapon += numWeapons;
 		}
+		System.out.println("Loaded a total of "+nShip+" ships and "+nWeapon+" weapons.");
 		game.reset(0,  0);
 	}
 }

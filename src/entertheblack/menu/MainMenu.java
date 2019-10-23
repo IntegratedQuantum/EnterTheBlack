@@ -33,13 +33,14 @@ public class MainMenu extends Screen {
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == 17) {
 			if (buttonsel == -1) {
-				//Assets.screen = new SGame(-1);
+				Assets.screen = new SGame(-1);
 			}
 			if (buttonsel == -2) {
 				Assets.screen = new ShipSelection();
 			}
 			if (buttonsel == -3) {
 				Assets.screen = Assets.game;
+				Assets.game.reset();
 			}
 			if (buttonsel == -4) {
 				Assets.screen = new Options();

@@ -5,36 +5,23 @@ import java.awt.event.KeyEvent;
 
 import entertheblack.gui.Screen;
 
-public class SGame extends Screen {
-	World world;
-	public SGame(int save) {
-		if(save >= 0) {
-			loadWorld();
-		} else {
-			generateWorld();
-		}
-	}
-
-	private void generateWorld() {
-		
-	}
-
-	private void loadWorld() {
-		
-	}
+public class System extends Screen {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void paint(Graphics2D g) {
+		// TODO Auto-generated method stub
 		
 	}
 

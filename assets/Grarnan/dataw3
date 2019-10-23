@@ -1,7 +1,7 @@
-Damage = 0
-Range = 0
-Cost = 0
-Reload = 0
+Damage = 20
+Range = 10000
+Cost = 2000
+Reload = 500
 Velocity = 30
-Tracking = 0
-Size = 10
+Tracking = 5
+Size = 20

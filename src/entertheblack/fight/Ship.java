@@ -16,8 +16,9 @@ public class Ship {
 	double a;
 	double vmax;
 	double ω;
+	double gen; // energy generation.
 	int health;
-	int energy;
+	double energy;
 	int cooldownturn;
 	int shoot1cd;
 	int shoot2cd;
@@ -33,6 +34,7 @@ public class Ship {
 		a = Assets.getShipStat(type, Assets.ACC);
 		vmax = Assets.getShipStat(type, Assets.VMAX)/100.0;
 		ω = Assets.getShipStat(type, Assets.TURN)/1000.0;
+		gen = Assets.getShipStat(type, Assets.GEN)/60.0;
 		α = 0;
 		cooldownturn = 0;
 		size = Assets.getShipStat(type, Assets.SIZE);
@@ -84,6 +86,11 @@ public class Ship {
 				projectiles.remove(i);
 			}
 		}
+		
+		energy += gen;
+		
+		if(energy > Assets.getShipStat(type, Assets.ENERGY))
+			energy = Assets.getShipStat(type, Assets.ENERGY);
 	}
 
 	public void shoot(boolean type1, boolean type2) {
