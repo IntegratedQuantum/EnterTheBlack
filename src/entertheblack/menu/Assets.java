@@ -120,6 +120,12 @@ public class Assets {
 		} catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
+	
+	public static BufferedImage randPlanetImage(double dist) {
+		
+		
+		return null;
+	}
 
 	static int parseInt(String str) {
 		return Integer.parseInt(str.trim());
