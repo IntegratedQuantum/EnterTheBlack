@@ -1,11 +1,16 @@
 package entertheblack.menu;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
+
 import javax.imageio.ImageIO;
 
 import entertheblack.fight.Game;
@@ -28,6 +33,7 @@ public class Assets {
 	public static Screen screen = new MainMenu();
 	public static Game game = new Game();
 	private static HashMap<String, Integer> shipArgs = new HashMap<>(), weaponArgs = new HashMap<>();
+	private static HashMap<String, Image> stars = new HashMap<>(), planets = new HashMap<>();
 	static {
 		shipArgs.put("SlotSecn", -2);
 		shipArgs.put("SlotPrim", -1);
@@ -121,10 +127,42 @@ public class Assets {
 		return null;
 	}
 	
-	public static BufferedImage randPlanetImage(double dist) {
-		
-		
-		return null;
+	private static void loadStars() {
+		 File[] f = (new File("assets/stars/")).listFiles();
+		for (File file : f) {
+			if (file != null) {
+				String name = file.getName();
+				try {
+					stars.put(name, ImageIO.read(file));
+					System.out.println("Loaded image "+name+".");
+				} catch (IOException e) {}
+			}
+		}
+	}
+	
+	private static void loadPlanets() {
+		 File[] f = (new File("assets/planets/")).listFiles();
+		for (File file : f) {
+			if (file != null) {
+				String name = file.getName();
+				try {
+					planets.put(name, ImageIO.read(file));
+					System.out.println("Loaded image "+name+".");
+				} catch (IOException e) {}
+			}
+		}
+	}
+	
+	public static Image randPlanetImg(double eng) {
+		Entry<String, Image> [] imgs = planets.entrySet().toArray(new Entry[0]);
+		int selection = (int)(Math.random()*imgs.length);
+		return imgs[selection].getValue();
+	}
+	
+	public static Image randStarImg(double eng) {
+		Entry<String, Image> [] imgs = stars.entrySet().toArray(new Entry[0]);
+		int selection = (int)(Math.random()*imgs.length);
+		return imgs[selection].getValue();
 	}
 
 	static int parseInt(String str) {
@@ -194,6 +232,8 @@ public class Assets {
 		btnsl = getImage("btnsl.png");
 		btnpr = getImage("btnpr.png");
 		hb = getImage("hb.png");
+		loadStars();
+		loadPlanets();
 		String [] species = readFile("species.txt").split("\n");
 		int nShip = 0;
 		int nWeapon = 0;

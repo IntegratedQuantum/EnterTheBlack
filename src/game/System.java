@@ -6,23 +6,27 @@ import java.awt.event.KeyEvent;
 import entertheblack.gui.Screen;
 
 public class System extends Screen {
+	World world;
+	Star reference;
+	public System(World w, int sys) {
+		world = w;
+		reference = world.getStar(sys);
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void paint(Graphics2D g) {
-		// TODO Auto-generated method stub
-		
+		g.translate(960, 540);
+		reference.paint(g);
 	}
 
 }
