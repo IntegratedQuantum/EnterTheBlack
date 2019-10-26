@@ -161,15 +161,12 @@ public class Game extends Screen {
 			sh1.y = 1;
 		} 
 	}
-	int xyz = 0;
 	public void paint(Graphics2D g2d) {
-		xyz++;
-		
 		g2d.setColor(Color.BLACK);
-		g2d.fillRect(0, 0, 1920, 1080);
+		g2d.fillRect(0, 0, 1920, 1080); // Removing this line strangely results in lags. USE THIS IN EVERY DYNAMIC PAINT!
 		int[][] arrayOfInt = { { -1000, -1000 }, { -1000, 0 }, { -1000, 1000 }, { 0, -1000 }, { 0, 1000 }, { 1000, -1000 }, { 1000, 0 }, { 1000, 1000 }, { 2000, -1000 }, { 2000, 0 }, { 2000, 1000 }, { 2000, 2000 }, { -1000, 2000 }, { 0, 2000 }, { 1000, 2000 }, { 0, 0 } };
 		for (int i = 0; i < 16; i++) {
-			g2d.drawImage(Assets.bg, xyz%1920+bgx + arrayOfInt[i][0], bgy + arrayOfInt[i][1], null);
+			g2d.drawImage(Assets.bg, bgx + arrayOfInt[i][0], bgy + arrayOfInt[i][1], null);
 		}
 		sh1.paint(g2d);
 		sh2.paint(g2d);

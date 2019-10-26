@@ -7,7 +7,7 @@ import entertheblack.menu.Assets;
 
 // Planets are in general all kinds of solar bodys that fly around somewhere.
 public class Planet {
-	private static final double MIN = 1000, MAX = 10000, ρ = 20, G = 1;
+	private static final double MIN = 1000, MAX = 10000, ρ = 1, G = 1;
 	double m, r, d, ω, α;
 	int x, y;
 	int lastDate;
