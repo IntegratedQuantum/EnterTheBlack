@@ -5,7 +5,7 @@ public class World {
 	public World(int size) {
 		systems = new Star[size];
 		for(int i = 0; i < size; i++) {
-			systems[i] = new Star(5);
+			systems[i] = new Star(5, 0);
 		}
 	}
 	

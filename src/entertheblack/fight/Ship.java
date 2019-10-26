@@ -9,10 +9,10 @@ import entertheblack.menu.Assets;
 public class Ship {
 	static final int[] grs = { 0, 100, 200, 300, 400, 450 };
 	int type;
-	double x, y;
+	public double x, y;
 	double vx, vy;
 	double size;
-	double r;
+	public double r;
 	double a;
 	double vmax;
 	double ω;
@@ -40,6 +40,30 @@ public class Ship {
 		size = Assets.getShipStat(type, Assets.SIZE);
 		r = size/2;
 		projectiles = new ArrayList<>();
+	}
+	
+	// Flight out side of fighting areas doesn't need to account for enemy ships and energy, health, ...
+	public void fly(boolean move, boolean turnRight, boolean turnLeft) {
+		if (move) {
+			vx = ((200-a)*vx + a*Math.cos(α - Math.PI/2))/200;
+			vy = ((200-a)*vy + a*Math.sin(α - Math.PI/2))/200;
+		}
+		x = x + vx*vmax;
+		y = y + vy*vmax;
+		vx = 0.9999*vx;
+		vy = 0.9999*vy;
+		
+		if (turnLeft && !turnRight) {
+			if (α <= 0) {
+				α += 2*Math.PI;
+			}
+			α -= ω;
+		} else if (turnRight) {
+			if (α >= 2*Math.PI) {
+				α -= 2*Math.PI;
+			}
+			α += ω;
+		}
 	}
 	
 	public void fly(Ship en, boolean move, boolean turnRight, boolean turnLeft) {
