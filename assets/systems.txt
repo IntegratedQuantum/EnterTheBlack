@@ -1,0 +1,56 @@
+Sol {
+	Sun {
+		Mass = 332900
+		Radius = 200
+		Distance = 0
+		Image = sun.png
+	}
+	Mercury {
+		Mass = 0.055
+		Radius = 20
+		Distance = 400
+		Image = mercury.png
+	}
+	Venus {
+		Mass = 0.815
+		Radius = 40
+		Distance = 700
+		Image = venus.png
+	}
+	Earth {
+		Mass = 1
+		Radius = 50
+		Distance = 1000
+		Image = earth.png
+	}
+	Mars {
+		Mass = 0.107
+		Radius = 30
+		Distance = 1500
+		Image = mars.png
+	}
+	Jupiter {
+		Mass = 318
+		Radius = 90
+		Distance = 2200
+		Image = jupiter.png
+	}
+	Saturn {
+		Mass = 95
+		Radius = 80
+		Distance = 3000
+		Image = saturn.png
+	}
+	Uranus {
+		Mass = 14
+		Radius = 50
+		Distance = 3500
+		Image = uranus.png
+	}
+	Neptune {
+		Mass = 30.1
+		Radius = 60
+		Distance = 4000
+		Image = neptune.png
+	}
+}

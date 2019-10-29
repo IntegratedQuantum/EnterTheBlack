@@ -2,15 +2,19 @@ package game;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.HashMap;
 
 import entertheblack.menu.Assets;
 
 // Planets are in general all kinds of solar bodys that fly around somewhere.
 public class Planet {
+	private static final String MASS = "Mass", RADIUS = "Radius", DIST = "Distance", IMAGE = "Image";
+	
 	private static final double MIN = 1000, MAX = 10000, ρ = 1, G = 1;
-	double m, r, d, ω, α;
+	double m, r, d, ω, α, ωSelf, αSelf;
 	int x, y;
 	int lastDate;
+	String name;
 	Planet orbiting;
 	Image img;
 	
@@ -25,6 +29,8 @@ public class Planet {
 		lastDate = -1;
 		updateOrbit(0);
 		img = Assets.randPlanetImg(d/orbiting.m); // TODO: moons
+		ωSelf = Math.random()/100;
+		αSelf = 2*Math.PI*Math.random();
 	}
 	
 	public Planet() { // Star
@@ -36,20 +42,57 @@ public class Planet {
 		lastDate = 0;
 		updateOrbit(0);
 		img = Assets.randStarImg(m); // TODO: moons
+		ωSelf = Math.random()/100;
+		αSelf = 2*Math.PI*Math.random();
 	}
 	
+	public Planet(String name, String file, Planet orbiting) {
+		this.orbiting = orbiting;
+		this.name = name;
+		String[] entries = file.split("\n");
+		for(int i = 0; i < entries.length; i++) {
+			String[] val = entries[i].split("=");
+			val[0] = val[0].trim();
+			if(val.length < 2)
+				continue;
+			java.lang.System.out.println(val[0] + " " + (val[0] == MASS));
+			if(val[0].equals(MASS))
+				m = Double.parseDouble(val[1]);
+			if(val[0].equals(RADIUS))
+				r = Double.parseDouble(val[1]);
+			if(val[0].equals(DIST))
+				d = Double.parseDouble(val[1]);
+			if(val[0].equals(IMAGE))
+				img = Assets.getPlanetImg(val[1]);
+		}
+		ω = α = 0;
+		if(orbiting != null) {
+			double v = Math.sqrt(G*orbiting.m/d); // F_R  = F_G
+			ω = 2*Math.PI*v/d;
+			α = 2*Math.PI*Math.random();
+		}
+		lastDate = -1;
+		updateOrbit(0);
+		ωSelf = Math.random()/100;
+		αSelf = 2*Math.PI*Math.random();
+	}
+
 	public void updateOrbit(int date) { // TODO: Planet creation after exact start.
-		if(date == lastDate)
+		if(date == lastDate || orbiting == null)
 			return;
 		orbiting.updateOrbit(date); // Ensure the center is up to date to prevent glitches.
-		date -= lastDate;
-		α += ω*date;
-		x = (int)(Math.cos(α)*d + orbiting.x);
-		y = (int)(Math.sin(α)*d + orbiting.x);
 		lastDate = date;
+		date -= lastDate;
+		double date2 = date/10000000.0;
+		α += ω*date2;
+		x = (int)(Math.cos(α)*d + orbiting.x);
+		y = (int)(Math.sin(α)*d + orbiting.y);
+		αSelf += ωSelf*date2;
 	}
 	
 	public void paint(Graphics2D g) {
+		g.rotate(αSelf);
 		g.drawImage(img, (int)(x-r), (int)(y-r), (int)(2*r), (int)(2*r), null);
+		g.rotate(-αSelf);
 	}
 }

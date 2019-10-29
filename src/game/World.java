@@ -1,12 +1,14 @@
 package game;
+
+import entertheblack.menu.Assets;
+
 // A world contains all star systems and their planets.
 public class World {
+	
 	Star [] systems;
+	StarMap map;
 	public World(int size) {
-		systems = new Star[size];
-		for(int i = 0; i < size; i++) {
-			systems[i] = new Star(5, 0);
-		}
+		map = new StarMap(Assets.readFile("systems.txt"));
 	}
 	
 	public World(String save) {
@@ -14,6 +16,6 @@ public class World {
 	}
 	
 	public Star getStar(int i) {
-		return systems[i];
+		return map.systems.get(i);
 	}
 }

@@ -113,7 +113,7 @@ public class Assets {
 		return weaponint.get(type)[stat];
 	}
 
-	static String readFile(String fileName) {
+	public static String readFile(String fileName) {
 		try {
 			return new Scanner(new File("assets/"+fileName)).useDelimiter("\\Z").next();
 		} catch(Exception e) {e.printStackTrace();}
@@ -151,6 +151,15 @@ public class Assets {
 				} catch (IOException e) {}
 			}
 		}
+	}
+	
+	public static Image getPlanetImg(String key) {
+		Image ret = stars.get(key);
+		if(ret == null)
+			ret = planets.get(key);
+		if(ret == null)
+			return randPlanetImg(1);
+		return ret;
 	}
 	
 	public static Image randPlanetImg(double eng) {

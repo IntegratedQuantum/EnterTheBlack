@@ -147,19 +147,19 @@ public class Game extends Screen {
 		if (sh1.x < 0) {
 			sh1.x = sh2.x;
 			sh2.x = 1;
-		} 
+		}
 		if (sh1.y < 0) {
 			sh1.y = sh2.y;
 			sh2.y = 1;
-		} 
+		}
 		if (sh2.x < 0) {
 			sh2.x = sh1.x;
 			sh1.x = 1;
-		} 
+		}
 		if (sh2.y < 0) {
 			sh2.y = sh1.y;
 			sh1.y = 1;
-		} 
+		}
 	}
 	public void paint(Graphics2D g2d) {
 		g2d.setColor(Color.BLACK);
