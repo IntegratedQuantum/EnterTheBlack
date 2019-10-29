@@ -1,4 +1,4 @@
-package game;
+package entertheblack.game;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -7,7 +7,6 @@ import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 
 public class SGame extends Screen {
-	World world;
 	public SGame(int save) {
 		if(save >= 0) {
 			loadWorld();
@@ -16,8 +15,12 @@ public class SGame extends Screen {
 		}
 	}
 
+	public SGame() {
+		// Use the old world.
+	}
+
 	private void generateWorld() {
-		world = new World(1);
+		Assets.curWorld = new World(1);
 	}
 
 	private void loadWorld() {
@@ -36,9 +39,7 @@ public class SGame extends Screen {
 
 	@Override
 	public void paint(Graphics2D g) {
-		// TODO: Add intro before entering game!
-		Assets.screen = new System(world, 0);
-		
+		Assets.screen = Assets.curWorld.getStar(0);
 	}
 
 }

@@ -5,8 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import entertheblack.game.SGame;
 import entertheblack.gui.Screen;
-import game.SGame;
 
 public class MainMenu extends Screen {
 	static int[] buttons = {190, 340, 490, 640, 790, 940};

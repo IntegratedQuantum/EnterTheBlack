@@ -17,6 +17,7 @@ public class Ship {
 	double vmax;
 	double ω;
 	double gen; // energy generation.
+	double m = 100; // TODO: Add to data file.
 	int health;
 	double energy;
 	int cooldownturn;
@@ -65,6 +66,10 @@ public class Ship {
 			α += ω;
 		}
 	}
+
+	private double getvx(double a, double v1, double v2, double theta1, double theta2, double m1, double m2) {
+		return Math.cos(a)*(v1*Math.cos(theta1-a)*(m1-m2)+2*m2*v2*Math.cos(theta2-a))/(m1+m2)+v1*Math.sin(theta1-a)*Math.cos(a+Math.PI/2);
+	}
 	
 	public void fly(Ship en, boolean move, boolean turnRight, boolean turnLeft) {
 		if (move) {
@@ -75,7 +80,39 @@ public class Ship {
 		y = y + vy*vmax;
 		vx = 0.9999*vx;
 		vy = 0.9999*vy;
-		while (x < en.x + en.size && x > en.x + en.size - 5 && y + size > en.y + 1 && y < en.y + en.size - 1) {
+		
+		// Collision
+		double Δx = en.x - x;
+		double Δy = en.y - y;
+		double radius = Math.sqrt(Δx*Δx + Δy*Δy);
+		if(radius < r + en.r) {
+			double α = Math.atan((Δy)/(Δx));
+			if(en.x < x)
+				α += Math.PI;
+			double v1 = Math.sqrt(vx*vx+vy*vy);
+			double theta1 = Math.atan(vy/vx);
+			if(vx < 0)
+				theta1 += Math.PI;
+			if(theta1 != theta1)
+				theta1 = 0; // prevent NaN when standing still!
+			double v2 = Math.sqrt(en.vx*en.vx+en.vy*en.vy);
+			double theta2 = Math.atan(en.vy/en.vx);
+			if(en.vx < 0)
+				theta2 += Math.PI;
+			if(theta2 != theta2)
+				theta2 = 0; // prevent NaN when standing still!
+			vx = getvx(α, v1, v2, theta1, theta2, m, en.m);
+			vy = Math.sin(α)*(v1*Math.cos(theta1-α)*(m - en.m)+2*en.m*v2*Math.cos(theta2-α))/(m+en.m)+v1*Math.sin(theta1-α)*Math.sin(α+Math.PI/2);
+			en.vx = getvx(α, v2, v1, theta2, theta1, en.m, m);
+			en.vy = Math.sin(α)*(v2*Math.cos(theta2-α)*(en.m-m)+2*m*v1*Math.cos(theta1-α))/(en.m+m)+v2*Math.sin(theta2-α)*Math.sin(α+Math.PI/2);
+			// Move both ships to prevent post collision bugs.
+			x += Δx*(radius - r - en.r)/(r + en.r);
+			y += Δy*(radius - r - en.r)/(r + en.r);
+			en.x -= Δx*(radius - r - en.r)/(r + en.r);
+			en.y -= Δy*(radius - r - en.r)/(r + en.r);
+			// TODO: Make damage to the ships
+		}
+		/*while (x < en.x + en.size && x > en.x + en.size - 5 && y + size > en.y + 1 && y < en.y + en.size - 1) {
 			x++;
 			vx = 0;
 		}
@@ -90,7 +127,7 @@ public class Ship {
 		while (en.y < y + size && en.y > y + size - 5 && en.x + en.size > x + 1 && en.x < x + size - 1) {
 			y--;
 			vy = 0;
-		}
+		}*/
 		
 		if (turnLeft && !turnRight) {
 			if (α <= 0) {

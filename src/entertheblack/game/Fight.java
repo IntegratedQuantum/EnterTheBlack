@@ -1,4 +1,4 @@
-package game;
+package entertheblack.game;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;

@@ -1,4 +1,4 @@
-package game;
+package entertheblack.game;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -17,7 +17,7 @@ public class Planet {
 	int techLevel; // Tech level needed to land here.
 	int life = 0; // How many specimen can live here.
 	int lastDate;
-	String species = null; // Species governing this planet.
+	public String species = null; // Species governing this planet.
 	String name;
 	Planet orbiting;
 	Image img;

@@ -1,4 +1,4 @@
-package game;
+package entertheblack.game;
 
 import java.util.ArrayList;
 import java.util.List;

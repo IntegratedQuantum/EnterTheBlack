@@ -1,14 +1,21 @@
-package game;
+package entertheblack.game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import entertheblack.fight.Ship;
+import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
+import entertheblack.menu.MainMenu;
 
-public class Star {
+public class Star extends Screen {
+	boolean move = false;
+	boolean left = false;
+	boolean right = false;
+	
 	private static final int size = 4096;
 	double zoom = 540.0/size;
 	public Planet[] planets;
@@ -17,10 +24,41 @@ public class Star {
 	int x, y; // Position on the map.
 	Ship ship;
 	String name;
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == Assets.Controls[1]) {
+			right = true;
+		}
+		if (e.getKeyCode() == Assets.Controls[0]) {
+			left = true;
+		}
+		if (e.getKeyCode() == Assets.Controls[4]) {
+			move = true;
+		}
+		if(e.getKeyCode() == 27) {
+			Assets.screen = new MainMenu();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == Assets.Controls[1]) {
+			right = false;
+		}
+		if (e.getKeyCode() == Assets.Controls[0]) {
+			left = false;
+		}
+		if (e.getKeyCode() == Assets.Controls[4]) {
+			move = false;
+		}
+	}
+	
 	public void activate(int mainShip) {
 		ship = new Ship(mainShip, 0, size - (size >> 2));
 		zoomLock = planets[0];
 	}
+	
 	public Star(String name, String file) { // Data must not contain ' '!
 		this.name = name;
 		// Get the coordinates in the map:
@@ -74,7 +112,10 @@ public class Star {
 		
 		activate(0);
 	}
+	
 	public void paint(Graphics2D g) {
+		g.translate(960, 540);
+		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1920, 1080); // Removing this line strangely results in lags. USE THIS IN EVERY DYNAMIC PAINT!
 		g.scale(zoom, zoom);
@@ -89,8 +130,10 @@ public class Star {
 		g.translate((int)(lockStrength*zoomLock.x), (int)(lockStrength*zoomLock.y));
 		g.scale(-zoom, -zoom);
 	}
+	
 	int d = 0;
-	public boolean update(boolean move, boolean right, boolean left) {
+	@Override
+	public void update() {
 		ship.fly(move, right, left);
 		d++;
 		// Determine the zoomLock which is the closest planet to the ship.
@@ -110,6 +153,9 @@ public class Star {
 		if(r > zoomLock.r*8) {
 			lockStrength = 0;
 		} else if (r < zoomLock.r*2) {
+			if(r < zoomLock.r) {
+				Assets.screen = new LandingScreen(zoomLock); // Automatically land on the planet.
+			}
 			lockStrength = 1;
 		} else {
 			lockStrength = 1-(r - zoomLock.r*2)/6/zoomLock.r;
@@ -121,6 +167,8 @@ public class Star {
 		lockStrength *= 2; // Lock the position faster to ensure the ship is always visible.
 		if(lockStrength > 1)
 			lockStrength = 1;
-		return ship.y-ship.r < -size || ship.x-ship.r < -size || ship.x+ship.r > size || ship.y+ship.r > size;
+		if(ship.y-ship.r < -size || ship.x-ship.r < -size || ship.x+ship.r > size || ship.y+ship.r > size) {
+			Assets.screen = new MainMenu();
+		}
 	}
 }

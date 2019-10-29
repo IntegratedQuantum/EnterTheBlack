@@ -14,6 +14,7 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 
 import entertheblack.fight.Game;
+import entertheblack.game.World;
 import entertheblack.gui.Screen;
 
 public class Assets {
@@ -56,6 +57,8 @@ public class Assets {
 		weaponArgs.put("Tracking", 5);
 		weaponArgs.put("Size", 6);
 	}
+	
+	public static World curWorld;
 	// {primary weapon, secondary, health, energy, ?, size, acceleration, numOfPrSlot, numOfSecSlot}
 	/*static int[][] shipstatsint = {
 		{0, 1, 120, 1000, 10, 100, 100, 2, 1, -25, -5, 25, -5, 0, 50 },

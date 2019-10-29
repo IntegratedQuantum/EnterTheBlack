@@ -1,4 +1,4 @@
-package game;
+package entertheblack.game;
 
 import entertheblack.menu.Assets;
 
@@ -7,8 +7,10 @@ public class World {
 	
 	Star [] systems;
 	StarMap map;
+	public Player player;
 	public World(int size) {
 		map = new StarMap(Assets.readFile("systems.txt"));
+		player = new Player();
 	}
 	
 	public World(String save) {
