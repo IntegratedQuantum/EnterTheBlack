@@ -1,56 +1,86 @@
 Sol {
+	X = 0
+	Y = 0
 	Sun {
 		Mass = 332900
 		Radius = 200
 		Distance = 0
 		Image = sun.png
+		T = 5000
+		Life = 0
+		Tech Level = 10
 	}
 	Mercury {
 		Mass = 0.055
 		Radius = 20
 		Distance = 400
 		Image = mercury.png
+		T = 400
+		Life = 0
+		Tech Level = 3
 	}
 	Venus {
 		Mass = 0.815
 		Radius = 40
 		Distance = 700
 		Image = venus.png
+		T = 737
+		Life = 0
+		Tech Level = 4
 	}
 	Earth {
 		Mass = 1
 		Radius = 50
 		Distance = 1000
 		Image = earth.png
+		T = 288
+		Life = 100
+		Government = Human
+		Tech Level = 0
 	}
 	Mars {
 		Mass = 0.107
 		Radius = 30
 		Distance = 1500
 		Image = mars.png
+		T = 210
+		Life = 1
+		Tech Level = 1
 	}
 	Jupiter {
 		Mass = 318
 		Radius = 90
 		Distance = 2200
 		Image = jupiter.png
+		T = 165
+		Life = 0
+		Tech Level = 9
 	}
 	Saturn {
 		Mass = 95
 		Radius = 80
 		Distance = 3000
 		Image = saturn.png
+		T = 134
+		Life = 0
+		Tech Level = 8
 	}
 	Uranus {
 		Mass = 14
 		Radius = 50
 		Distance = 3500
 		Image = uranus.png
+		T = 76
+		Life = 0
+		Tech Level = 8
 	}
 	Neptune {
 		Mass = 30.1
 		Radius = 60
 		Distance = 4000
 		Image = neptune.png
+		T = 72
+		Life = 0
+		Tech Level = 8
 	}
 }

@@ -157,8 +157,10 @@ public class Assets {
 		Image ret = stars.get(key);
 		if(ret == null)
 			ret = planets.get(key);
-		if(ret == null)
+		if(ret == null) {
+			System.err.println("No Planet/Star Image named \""+key+"\" found!");
 			return randPlanetImg(1);
+		}
 		return ret;
 	}
 	

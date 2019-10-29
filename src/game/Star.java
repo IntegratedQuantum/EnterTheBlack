@@ -14,6 +14,7 @@ public class Star {
 	public Planet[] planets;
 	Planet zoomLock; // The planet that is in the center of zoom. Used to smoothly close into planets.
 	double lockStrength = 0; // Factor of how planet-centered and how star-centered the current camera position is.
+	int x, y; // Position on the map.
 	Ship ship;
 	String name;
 	public void activate(int mainShip) {
@@ -22,7 +23,20 @@ public class Star {
 	}
 	public Star(String name, String file) { // Data must not contain ' '!
 		this.name = name;
-		java.lang.System.out.println("Loading star system "+name+".");
+		// Get the coordinates in the map:
+		String[] lines = file.split("\n");
+		for(int i = 0; i < lines.length; i++) {
+			String[] val = lines[i].split("=");
+			if(val.length < 2)
+				continue;
+			if(val[0].equals("X")) {
+				x = Integer.parseInt(val[1]);
+			} else if(val[0].equals("Y")) {
+				y = Integer.parseInt(val[1]);
+			}
+		}
+		
+		java.lang.System.out.println("Loading star system "+name+" at ("+x+", "+y+").");
 		char [] data = file.toCharArray();
 		int depth = 0;
 		List<Planet> lPlanets = new ArrayList<>();
@@ -36,6 +50,8 @@ public class Star {
 					depth = 1;
 				} else if(data[i] != '\n') {
 					stb.append(data[i]);
+				} else {
+					stb = new StringBuilder(); // Name will only be the line directly in front of '{'
 				}
 				break;
 			default:

@@ -18,7 +18,7 @@ public class StarMap {
 					name = stb.toString();
 					stb = new StringBuilder();
 					depth = 1;
-				} else if(data[i] != ' ' && data[i] != '\n') {
+				} else if(data[i] != ' ' && data[i] != '\n' && data[i] != '	') {
 					stb.append(data[i]);
 				}
 				break;
@@ -30,7 +30,7 @@ public class StarMap {
 					}
 					else
 						stb.append(data[i]);
-				} else if(data[i] != ' ') {
+				} else if(data[i] != ' ' && data[i] != '	') {
 					stb.append(data[i]);
 					if(data[i] == '{')
 						depth++;

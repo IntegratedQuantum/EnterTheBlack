@@ -8,12 +8,16 @@ import entertheblack.menu.Assets;
 
 // Planets are in general all kinds of solar bodys that fly around somewhere.
 public class Planet {
-	private static final String MASS = "Mass", RADIUS = "Radius", DIST = "Distance", IMAGE = "Image";
+	private static final String MASS = "Mass", RADIUS = "Radius", DIST = "Distance", IMAGE = "Image", TEMP = "T", LIFE = "Life", GOV = "Government", TECH = "TechLevel";
 	
 	private static final double MIN = 1000, MAX = 10000, ρ = 1, G = 1;
 	double m, r, d, ω, α, ωSelf, αSelf;
+	int T; // Temperature in Kelvin.
 	int x, y;
+	int techLevel; // Tech level needed to land here.
+	int life = 0; // How many specimen can live here.
 	int lastDate;
+	String species = null; // Species governing this planet.
 	String name;
 	Planet orbiting;
 	Image img;
@@ -52,18 +56,26 @@ public class Planet {
 		String[] entries = file.split("\n");
 		for(int i = 0; i < entries.length; i++) {
 			String[] val = entries[i].split("=");
-			val[0] = val[0].trim();
 			if(val.length < 2)
 				continue;
-			java.lang.System.out.println(val[0] + " " + (val[0] == MASS));
 			if(val[0].equals(MASS))
 				m = Double.parseDouble(val[1]);
-			if(val[0].equals(RADIUS))
+			else if(val[0].equals(RADIUS))
 				r = Double.parseDouble(val[1]);
-			if(val[0].equals(DIST))
+			else if(val[0].equals(DIST))
 				d = Double.parseDouble(val[1]);
-			if(val[0].equals(IMAGE))
+			else if(val[0].equals(IMAGE))
 				img = Assets.getPlanetImg(val[1]);
+			else if(val[0].equals(TEMP))
+				T = Integer.parseInt(val[1]);
+			else if(val[0].equals(GOV)) {
+				species = val[1];
+				java.lang.System.out.println("Loaded planet "+name+" governed by "+species+".");
+			} else if(val[0].equals(TECH))
+				techLevel = Integer.parseInt(val[1]);
+			else if(val[0].equals(LIFE)) {
+				life = Integer.parseInt(val[1]);
+			}
 		}
 		ω = α = 0;
 		if(orbiting != null) {
@@ -91,8 +103,10 @@ public class Planet {
 	}
 	
 	public void paint(Graphics2D g) {
+		g.translate(x, y);
 		g.rotate(αSelf);
-		g.drawImage(img, (int)(x-r), (int)(y-r), (int)(2*r), (int)(2*r), null);
+		g.drawImage(img, (int)(-r), (int)(-r), (int)(2*r), (int)(2*r), null);
 		g.rotate(-αSelf);
+		g.translate(-x, -y);
 	}
 }
