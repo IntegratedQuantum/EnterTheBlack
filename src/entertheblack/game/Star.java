@@ -16,6 +16,8 @@ public class Star extends Screen {
 	boolean move = false;
 	boolean left = false;
 	boolean right = false;
+
+	boolean inRange = false;
 	
 	private static final int size = 4096;
 	double zoom = 540.0/size;
@@ -152,13 +154,16 @@ public class Star extends Screen {
 		}
 		// Create the lockstrength which should smoothly transition from 0 to 1 as the ship gets closer.
 		if(r > zoomLock.r*8) {
+			inRange = false;
 			lockStrength = 0;
 		} else if (r < zoomLock.r*2) {
-			if(r < zoomLock.r) {
-				Assets.screen = new LandingScreen(zoomLock); // Automatically land on the planet.
+			if(r < zoomLock.r && !inRange) {
+				Assets.screen = new LandingScreen(zoomLock, this); // Automatically land on the planet.
+				inRange = true;
 			}
 			lockStrength = 1;
 		} else {
+			inRange = false;
 			lockStrength = 1-(r - zoomLock.r*2)/6/zoomLock.r;
 		}
 		

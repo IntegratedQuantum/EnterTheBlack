@@ -13,8 +13,10 @@ import entertheblack.menu.Assets;
 
 public class LandingScreen extends Screen {
 	Planet planet;
+	Star last;
 	
-	public LandingScreen(Planet p) {
+	public LandingScreen(Planet p, Star last) {
+		this.last = last;
 		if(p.species != null) {
 			// TODO: Interaction screen.
 		}
@@ -24,7 +26,10 @@ public class LandingScreen extends Screen {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == 27) {
-			Assets.screen = new SGame();
+			Assets.screen = last;
+		}
+		else {
+			Assets.screen = new Surface(this, planet);
 		}
 	}
 
