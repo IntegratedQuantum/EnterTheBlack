@@ -1,0 +1,32 @@
+{
+	Name = Starfighter
+	Primary = Green Laser
+	Secondary = -1
+	Health = 60
+	Energy = 2000
+	Mass = 20
+	Size = 50
+	Acceleration = 4
+	Vmax = 600
+	Turn = 60
+	Generation = 240
+	SlotPrim = -10, -3
+	SlotPrim = 10, -3
+	Image = starfighter
+}
+{
+	Name = White Starfighter
+	Primary = Advanced Green Laser
+	Secondary = -1
+	Health = 40
+	Energy = 2500
+	Mass = 25
+	Size = 50
+	Acceleration = 4
+	Vmax = 600
+	Turn = 60
+	Generation = 300
+	SlotPrim = -10, -3
+	SlotPrim = 10, -3
+	Image = starfighter_white
+}

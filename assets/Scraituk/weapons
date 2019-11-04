@@ -1,0 +1,22 @@
+{
+	Name = Green Laser
+	Damage = 3
+	Range = 1000
+	Cost = 100
+	Reload = 37
+	Velocity = 60
+	Tracking = 0
+	Size = 10
+	Image = laser_green
+}
+{
+	Name = Advanced Green Laser
+	Damage = 3
+	Range = 1100
+	Cost = 125
+	Reload = 30
+	Velocity = 60
+	Tracking = 0
+	Size = 10
+	Image = laser_green
+}

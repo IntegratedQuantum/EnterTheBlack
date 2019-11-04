@@ -1,0 +1,22 @@
+{
+	Name = Red Laser
+	Damage = 1
+	Range = 1000
+	Cost = 50
+	Reload = 33
+	Velocity = 40
+	Tracking = 0
+	Size = 10
+	Image = laser_red
+}
+{
+	Name = Rocket
+	Damage = 7
+	Range = 2000
+	Cost = 400
+	Reload = 250
+	Velocity = 50
+	Tracking = 10
+	Size = 10
+	Image = rocket
+}

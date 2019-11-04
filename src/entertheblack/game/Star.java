@@ -10,6 +10,7 @@ import entertheblack.fight.Ship;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
+import entertheblack.storage.ShipData;
 
 public class Star extends Screen {
 	boolean move = false;
@@ -54,7 +55,7 @@ public class Star extends Screen {
 		}
 	}
 	
-	public void activate(int mainShip) {
+	public void activate(ShipData mainShip) {
 		ship = new Ship(mainShip, 0, size - (size >> 2));
 		zoomLock = planets[0];
 	}
@@ -110,7 +111,7 @@ public class Star extends Screen {
 		
 		planets = lPlanets.toArray(new Planet[0]);
 		
-		activate(0);
+		activate(Assets.shipData.get(0));
 	}
 	
 	public void paint(Graphics2D g) {

@@ -4,11 +4,10 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import entertheblack.menu.Assets;
+import entertheblack.storage.ShipData;
 
 public class Ship {
-	static final int[] grs = { 0, 100, 200, 300, 400, 450 };
-	int type;
+	ShipData sd;
 	public double x, y;
 	double vx, vy;
 	double size;
@@ -18,27 +17,27 @@ public class Ship {
 	double ω;
 	double gen; // energy generation.
 	double m = 100; // TODO: Add to data file.
-	int health;
+	double health;
 	double energy;
 	int cooldownturn;
 	int shoot1cd;
 	int shoot2cd;
 	double α;
 	List<Projectile> projectiles;
-	public Ship(int type, int x, int y) {
-		this.type = type;
+	public Ship(ShipData sd, int x, int y) {
+		this.sd = sd;
 		this.x = x;
 		this.y = y;
 		vx = vy = 0;
-		health = Assets.getShipStat(type, Assets.HEALTH);
-		energy = Assets.getShipStat(type, Assets.ENERGY);
-		a = Assets.getShipStat(type, Assets.ACC);
-		vmax = Assets.getShipStat(type, Assets.VMAX)/100.0;
-		ω = Assets.getShipStat(type, Assets.TURN)/1000.0;
-		gen = Assets.getShipStat(type, Assets.GEN)/60.0;
+		health = sd.health;
+		energy = sd.energy;
+		a = sd.acceleration;
+		vmax = sd.vmax/100.0;
+		ω = sd.turnRate/1000.0;
+		gen = sd.energyGeneration/60.0;
 		α = 0;
 		cooldownturn = 0;
-		size = Assets.getShipStat(type, Assets.SIZE);
+		size = sd.size;
 		r = size/2;
 		projectiles = new ArrayList<>();
 	}
@@ -110,24 +109,13 @@ public class Ship {
 			y += Δy*(radius - r - en.r)/(r + en.r);
 			en.x -= Δx*(radius - r - en.r)/(r + en.r);
 			en.y -= Δy*(radius - r - en.r)/(r + en.r);
-			// TODO: Make damage to the ships
+			// Slightly reduce speed after hit, to simulate energy loss by structural damage. TODO: Conserve momentum!
+			vx *= 0.9;
+			vy *= 0.9;
+			en.vx *= 0.9;
+			en.vy *= 0.9;
+			// TODO: Make damage to the ships based on dp/dt!
 		}
-		/*while (x < en.x + en.size && x > en.x + en.size - 5 && y + size > en.y + 1 && y < en.y + en.size - 1) {
-			x++;
-			vx = 0;
-		}
-		while (y < en.y + en.size && y > en.y + en.size - 5 && x + size > en.x + 1 && x < en.x + en.size - 1) {
-			y++;
-			vy = 0;
-		}
-		while (en.x < x + size && en.x > x + size - 5 && en.y + en.size > y + 1 && en.y < y + size - 1) {
-			x--;
-			vx = 0;
-		}
-		while (en.y < y + size && en.y > y + size - 5 && en.x + en.size > x + 1 && en.x < x + size - 1) {
-			y--;
-			vy = 0;
-		}*/
 		
 		if (turnLeft && !turnRight) {
 			if (α <= 0) {
@@ -150,8 +138,8 @@ public class Ship {
 		
 		energy += gen;
 		
-		if(energy > Assets.getShipStat(type, Assets.ENERGY))
-			energy = Assets.getShipStat(type, Assets.ENERGY);
+		if(energy > sd.energy)
+			energy = sd.energy;
 	}
 
 	public void shoot(boolean type1, boolean type2) {
@@ -187,21 +175,21 @@ public class Ship {
 	}
 
 	private void shoot1() {
-		if (type != 3 && energy >= Assets.getWeaponStat(Assets.getShipStat(type, Assets.PRIMARY), 2) * Assets.getShipStat(type, Assets.SLOTS) && shoot1cd <= 0) {
-			for (int i = 0; i < Assets.getShipStat(type, Assets.SLOTS); i++) {
-				projectiles.add(new Projectile(this, Assets.getShipStat(type, Assets.SLOTS + 2 + i*2), Assets.getShipStat(type, Assets.SLOTS + 3 + i*2), Assets.getShipStat(type, Assets.PRIMARY)));
-				shoot1cd = Assets.getWeaponStat(Assets.getShipStat(type, Assets.PRIMARY), 3);
-				energy -= Assets.getWeaponStat(Assets.getShipStat(type, Assets.PRIMARY), 2);
+		if (sd.wd1!= null/*has primary weapon/system*/ && energy >= sd.wd1.cost * sd.prim.size() && shoot1cd <= 0) {
+			for (int i = 0; i < sd.prim.size(); i++) {
+				projectiles.add(new Projectile(this, sd.wd1, sd.prim.get(i)));
+				shoot1cd = sd.wd1.reload;
+				energy -= sd.wd1.cost;
 			}
 		}
 	}
 
 	private void shoot2() {
-		if (Assets.getShipStat(type, 1) >= 0 && energy >= Assets.getWeaponStat(Assets.getShipStat(type, Assets.SECONDARY), 2) * Assets.getShipStat(type, Assets.SLOTS+1) && shoot2cd <= 0) {
-			for (int i = Assets.getShipStat(type, Assets.SLOTS); i < Assets.getShipStat(type, Assets.SLOTS+1)+Assets.getShipStat(type, Assets.SLOTS); i++) {
-				projectiles.add(new Projectile(this, Assets.getShipStat(type, Assets.SLOTS+2 + i*2), Assets.getShipStat(type, Assets.SLOTS+3 + i*2), Assets.getShipStat(type, Assets.SECONDARY)));
-				shoot2cd = Assets.getWeaponStat(Assets.getShipStat(type, Assets.SECONDARY), 3);
-				energy -= Assets.getWeaponStat(Assets.getShipStat(type, Assets.SECONDARY), 2);
+		if (sd.wd2 != null/*has secondary weapon/system*/ && energy >= sd.wd2.cost * sd.secn.size() && shoot2cd <= 0) {
+			for (int i = 0; i < sd.secn.size(); i++) {
+				projectiles.add(new Projectile(this, sd.wd2, sd.secn.get(i)));
+				shoot2cd = sd.wd2.reload;
+				energy -= sd.wd2.cost;
 			}
 		}
 	}
@@ -210,7 +198,7 @@ public class Ship {
 		g2d.translate((int)((x + r)), (int)((y + r)));
 		g2d.rotate(α);
 		g2d.translate(-((int)((x + r))), -((int)((y + r))));
-		g2d.drawImage(Assets.ships.get(type), (int)(x), (int)(y), (int)size, (int)size, null);
+		g2d.drawImage(sd.img, (int)(x), (int)(y), (int)size, (int)size, null);
 		g2d.translate((int)((x + r)), (int)((y + r)));
 		g2d.rotate(-α);
 		g2d.translate(-((int)((x + r))), -((int)((y + r))));

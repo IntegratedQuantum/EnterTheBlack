@@ -1,0 +1,66 @@
+{
+	Name = Blue Laser
+	Damage = 2
+	Range = 7500
+	Cost = 250
+	Reload = 15
+	Velocity = 50
+	Tracking = 0
+	Size = 10
+	Image = laser_blue
+}
+{
+	Name = More Blue Laser
+	Damage = 44
+	Range = 7500
+	Cost = 5000
+	Reload = 1000
+	Velocity = 50
+	Tracking = 0
+	Size = 10
+	Image = laser_blue
+}
+{
+	Name = Big Red Laser
+	Damage = 5
+	Range = 1500
+	Cost = 250
+	Reload = 75
+	Velocity = 30
+	Tracking = 0
+	Size = 10
+	Image = laser_red_big
+}
+{
+	Name = Fireball
+	Damage = 20
+	Range = 10000
+	Cost = 2000
+	Reload = 500
+	Velocity = 30
+	Tracking = 5
+	Size = 20
+	Image = laser_red_big
+}
+{
+	Name = More Red Laser
+	Damage = 20
+	Range = 1000
+	Cost = 750
+	Reload = 200
+	Velocity = 40
+	Tracking = 0
+	Size = 10
+	Image = laser_red
+}
+{
+	Name = Red Laser
+	Damage = 1
+	Range = 1000
+	Cost = 50
+	Reload = 33
+	Velocity = 40
+	Tracking = 0
+	Size = 10
+	Image = laser_red
+}

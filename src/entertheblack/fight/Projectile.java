@@ -1,52 +1,41 @@
 package entertheblack.fight;
 
-import java.awt.image.BufferedImage;
-
-import entertheblack.menu.Assets;
+import entertheblack.storage.Slot;
+import entertheblack.storage.WeaponData;
 
 import java.awt.Graphics2D;
 
 public class Projectile {
-	BufferedImage proj;
+	WeaponData wd;
 	double x, y;
 	double vx, vy;
 	double α;
 	int r;
 	double mass;
-	int lifeTime;
-	int type;
+	double range; // Range in pixels
 	double guiding;
-	public Projectile(Ship source, int slotX, int slotY, int type) {
-		this.type = type;
+	public Projectile(Ship source, WeaponData wd, Slot slot) {
+		this.wd = wd;
 		x = source.x + source.r - 2;
 		y = source.y + source.r - 2;
-		x += Math.sqrt((slotX*slotX + slotY*slotY)) * Math.sin(source.α + Math.atan((slotX / slotY)));
-		y += -Math.sqrt((slotX*slotX + slotY*slotY)) * Math.cos(source.α + Math.atan((slotX / slotY)));
-		vy = -(Assets.getWeaponStat(type, 4) / 10) * Math.cos(source.α) + source.vy;
-		vx = (Assets.getWeaponStat(type, 4) / 10) * Math.sin(source.α) + source.vx;
+		x += Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.sin(source.α + Math.atan(((double)slot.x / (double)slot.y)) + slot.α);
+		y += -Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.cos(source.α + Math.atan(((double)slot.x / (double)slot.y)) + slot.α);
+		vy = -(wd.velocity / 10) * Math.cos(source.α) + source.vy;
+		vx = (wd.velocity / 10) * Math.sin(source.α) + source.vx;
 		α = source.α;
-		proj = Assets.getProjectile(type);
 		r = 10;
-		guiding = -Assets.getWeaponStat(type, 5)/1000.0;
-		/*
-		this.x = x;
-		this.y = y;
-		this.vx = vx;
-		this.vy = vy;
-		r = radius;
-		mass = 0;
-		this.type = type;*/
+		guiding = -wd.tracking/1000.0;
 	}
 	// Returns true if lifetime limit reached or target is it.
 	public boolean update(Ship en) {
 		x += vx;
 		y += vy;
-		lifeTime++;
-		if (lifeTime >= Assets.getWeaponStat(type, 1)) {
+		range += Math.sqrt(vx*vx+vy*vy);
+		if (range >= wd.range) {
 			return true;
 		}
 		if (x - r < en.x + en.size && y - r < en.y + en.size && x + r > en.x && y + r > en.y) {
-			en.health = en.health - Assets.getWeaponStat(type, 0);
+			en.health = en.health - wd.dmg;
 			return true;
 		}
 		if(guiding != 0) {
@@ -90,7 +79,7 @@ public class Projectile {
 		g2d.translate((int)x, (int)y);
 		g2d.rotate(α);
 		g2d.translate(-(int)x, -(int)y);
-		g2d.drawImage(proj, (int)x - r, (int)y - r, r*2, r*2, null);
+		g2d.drawImage(wd.img, (int)x - r, (int)y - r, r*2, r*2, null);
 		g2d.translate((int)(x), (int)(y));
 		g2d.rotate(-α);
 		g2d.translate(-((int)(x)), -((int)(y)));
