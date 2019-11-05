@@ -58,7 +58,7 @@ public class Ship {
 				α += 2*Math.PI;
 			}
 			α -= ω;
-		} else if (turnRight) {
+		} else if (turnRight && !turnLeft) {
 			if (α >= 2*Math.PI) {
 				α -= 2*Math.PI;
 			}

@@ -28,7 +28,7 @@ public class LandingScreen extends Screen {
 		if(e.getKeyCode() == 27) {
 			Assets.screen = last;
 		}
-		else {
+		if(e.getKeyChar() == 'l') {
 			Assets.screen = new Surface(this, planet);
 		}
 	}
@@ -70,6 +70,7 @@ public class LandingScreen extends Screen {
 		g.setColor(Color.BLACK);
 		g.fillRect(0,  0,  1920,  1080);
 		g.drawImage(Assets.bg, 0, 0, 1920, 1080, null);
+		planet.drawNoiseMap(g);
 		g.drawImage(planet.img, 860, 440, 200, 200, null);
 		g.setColor(Color.WHITE);
 		drawStringCentered(g, planet.name, 80, 960, 360);

@@ -47,12 +47,12 @@ public class Noise {
 	}
 	public static double[][] generateNoiseMap(long seed, int width,int height) {
 		double[][] ret = new double[width][height];
-		for(int k = 1; k <= 8; k++) {
+		for(int k = 4; k <= 11; k++) {
 			Noise.height = 1 << k;
 			Noise.width = 2 << k;
 			for(int i = 0; i < width; i++) {
 				for(int j = 0; j < height; j++) {
-					ret[i][j] += noise((double)i*Noise.width/width, (double)j*Noise.height/height, seed)/8;
+					ret[i][j] += noise((double)i*Noise.width/width, (double)j*Noise.height/height, seed)/7;
 				}
 			}
 		}

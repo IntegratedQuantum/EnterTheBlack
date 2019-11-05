@@ -1,9 +1,12 @@
 package entertheblack.game;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
 
 // Planets are in general all kinds of solar bodys that fly around somewhere.
@@ -108,5 +111,36 @@ public class Planet {
 		g.drawImage(img, (int)(-r), (int)(-r), (int)(2*r), (int)(2*r), null);
 		g.rotate(-αSelf);
 		g.translate(-x, -y);
+	}
+	
+	Image groundMap;
+	
+	public void generateSurfaceMap() {
+		double[][] dMap = Noise.generateNoiseMap(0, 800, 400);
+		groundMap = new BufferedImage(800, 400, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g = (Graphics2D)groundMap.getGraphics();
+		Color[][] noiseMap = new Color[800][400];
+		for(int i = 0; i < noiseMap.length; i++) {
+			for(int j = 0; j < noiseMap[i].length; j++) {
+				int d = (int)(dMap[i][j]*128)+128;
+				if(d > 255) {
+					System.out.println(d);
+					d = 255;
+				}
+				if(d < 0) {
+					System.out.println(d);
+					d = 255;
+				}
+				g.setColor(new Color(d, d, d));
+				g.fillRect(i, j, 1, 1);
+				noiseMap[i][j] = new Color(d, d, d);
+			}
+		}
+	}
+	
+	public void drawNoiseMap(Graphics2D g) {
+		if(groundMap == null)
+			generateSurfaceMap();
+		g.drawImage(groundMap, 0, 1080-groundMap.getHeight(null), null);
 	}
 }

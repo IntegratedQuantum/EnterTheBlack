@@ -10,52 +10,60 @@ import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
 
 public class Surface extends Screen {
+	boolean move = false;
+	boolean left = false;
+	boolean right = false;
+	
 	LandingScreen previous;
-	Color [][] map;
+	LandingVehicle lv;
 	Planet planet;
 	
 	public Surface(LandingScreen prev, Planet p) {
 		previous = prev;
 		planet = p;
-		double[][] dMap = Noise.generateNoiseMap(0, 800, 400);
-		map = new Color[800][400];
-		for(int i = 0; i < map.length; i++) {
-			for(int j = 0; j < map[i].length; j++) {
-				int d = (int)(dMap[i][j]*128)+128;
-				if(d > 255) {
-					System.out.println(d);
-					d = 255;
-				}
-				if(d < 0) {
-					System.out.println(d);
-					d = 255;
-				}
-				map[i][j] = new Color(d, d, d);
-			}
-		}
-		
+		lv = new LandingVehicle((int)(Math.random()*planet.groundMap.getWidth(null)), (int)(Math.random()*planet.groundMap.getHeight(null)), 0);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+		if (e.getKeyCode() == Assets.Controls[1]) {
+			right = true;
+		}
+		if (e.getKeyCode() == Assets.Controls[0]) {
+			left = true;
+		}
+		if (e.getKeyCode() == Assets.Controls[4]) {
+			move = true;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == 27) {
-			Assets.screen = new MainMenu();
+		if (e.getKeyCode() == Assets.Controls[1]) {
+			right = false;
 		}
+		if (e.getKeyCode() == Assets.Controls[0]) {
+			left = false;
+		}
+		if (e.getKeyCode() == Assets.Controls[4]) {
+			move = false;
+		}
+		if(e.getKeyCode() == 27) {
+			Assets.screen = previous;
+		}
+	}
+	
+	public void update() {
+		lv.update(move, right, left);
 	}
 
 	@Override
 	public void paint(Graphics2D g) {
-		for(int i = 0; i < map.length; i++) {
-			for(int j = 0; j < map[i].length; j++) {
-				g.setColor(map[i][j]);
-				g.fillRect(i, j+1080-map[i].length, 1, 1);
-			}
-		}
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, 1920, 1080);
+		g.drawImage(planet.groundMap, (int)( - lv.x*100), (int)( - lv.y*100), 800000, 400000, null);
+		planet.drawNoiseMap(g);
+		lv.paint(g);
 	}
 
 }

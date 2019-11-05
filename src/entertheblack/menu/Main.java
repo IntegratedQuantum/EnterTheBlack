@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
@@ -114,6 +115,7 @@ public class Main extends JPanel implements KeyListener {
 	public void paint(Graphics g) {
 		threadStarted = true;
 		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.scale(graphiccvarx, graphiccvary);
 		Assets.screen.paint(g2d);
 	}
