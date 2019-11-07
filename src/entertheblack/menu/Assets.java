@@ -159,6 +159,10 @@ public class Assets {
 			weaponData.add(new WeaponData(weapons[i]));
 		}
 	}
+	
+	static void loadResources() {
+		
+	}
 
 	static void loadData() {
 		bg = getImage("bg.png");
@@ -166,6 +170,7 @@ public class Assets {
 		btnsl = getImage("btnsl.png");
 		btnpr = getImage("btnpr.png");
 		hb = getImage("hb.png");
+		loadResources();
 		loadStars();
 		loadPlanets();
 		String [] species = readFile("species.txt").split("\n");

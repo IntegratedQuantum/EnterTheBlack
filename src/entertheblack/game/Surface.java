@@ -55,15 +55,28 @@ public class Surface extends Screen {
 	
 	public void update() {
 		lv.update(move, right, left);
+		lv.collect(planet.resources);
 	}
 
 	@Override
 	public void paint(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1920, 1080);
-		g.drawImage(planet.groundMap, (int)( - lv.x*100), (int)( - lv.y*100), 800000, 400000, null);
+		g.drawImage(planet.groundMap, (int)(-lv.x*8000/800 + 960), (int)(-lv.y*4000/400 + 340), 8000, 4000, null); // TODO make it smoother.
+		if(lv.x > 600)
+			g.drawImage(planet.groundMap, (int)(8000 - lv.x*8000/800 + 960), (int)(-lv.y*4000/400 + 340), 8000, 4000, null);
+		if(lv.x < 200)
+			g.drawImage(planet.groundMap, (int)(-lv.x*8000/800 + 960 - 8000), (int)(-lv.y*4000/400 + 340), 8000, 4000, null);
 		planet.drawNoiseMap(g);
+		for(int i = 0; i < planet.resources.size(); i++) {
+			planet.resources.get(i).paint(g, lv.x, lv.y);
+		}
 		lv.paint(g);
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(800, 680, 1120, 400);
+		g.drawImage(Assets.hb, 800, 680, null);
+		g.drawImage(LandingVehicle.img, 920, 700, 320, 320, null);
+		//TODO: Second rect on the right side.
 	}
 
 }

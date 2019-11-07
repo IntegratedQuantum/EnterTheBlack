@@ -115,7 +115,7 @@ public class Main extends JPanel implements KeyListener {
 	public void paint(Graphics g) {
 		threadStarted = true;
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); TOO laggy and doesn't really help!
 		g2d.scale(graphiccvarx, graphiccvary);
 		Assets.screen.paint(g2d);
 	}

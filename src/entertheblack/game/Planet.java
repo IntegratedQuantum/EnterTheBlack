@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
@@ -115,6 +118,8 @@ public class Planet {
 	
 	Image groundMap;
 	
+	List<Resource> resources = new ArrayList<>();
+	
 	public void generateSurfaceMap() {
 		double[][] dMap = Noise.generateNoiseMap(0, 800, 400);
 		groundMap = new BufferedImage(800, 400, BufferedImage.TYPE_INT_RGB);
@@ -122,7 +127,14 @@ public class Planet {
 		Color[][] noiseMap = new Color[800][400];
 		for(int i = 0; i < noiseMap.length; i++) {
 			for(int j = 0; j < noiseMap[i].length; j++) {
-				int d = (int)(dMap[i][j]*128)+128;
+				double value = dMap[i][j];
+				// Place resources:
+				Random rand = new Random();
+				rand.setSeed(Double.doubleToRawLongBits(value));
+				if(rand.nextDouble() <= 0.00005) {
+					resources.add(new Resource(i, j, null, (int)(20*rand.nextDouble())));
+				}
+				int d = (int)(value*128)+128;
 				if(d > 255) {
 					System.out.println(d);
 					d = 255;
