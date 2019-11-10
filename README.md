@@ -16,7 +16,10 @@ A 2d space game where you can explore the galaxy and where you can make friends 
 - You can change which keys you need to press to fire/turn/thrust.
 ## How to compile/run the game:
 You don't need to download any libraries(isn't that great?)!
+
 You can compile it however you want. I personally use eclipse to do that, but the project should be compatible with other ways to compile it.
+
+To run it you can either use your IDE or execute the main class(Main.java).
 ## Help me:
 This project will take a long time to complete if I work on it all by myself. I appreciate any help I can get. If you want to help you can always make a PR. If you are unsure you can first make an Issue describing the feature you would like to add.
 ## Credits:
