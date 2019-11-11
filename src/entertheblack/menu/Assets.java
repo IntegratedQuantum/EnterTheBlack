@@ -13,6 +13,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import entertheblack.fight.Game;
+import entertheblack.game.ResourceType;
 import entertheblack.game.World;
 import entertheblack.gui.Screen;
 import entertheblack.storage.ShipData;
@@ -37,6 +38,8 @@ public class Assets {
 	public static List<ShipData> shipData = new ArrayList<>();
 	public static List<WeaponData> weaponData = new ArrayList<>();
 	
+	public static ResourceType[] resources;
+	
 	public static String[] weaponname = { "Red Laser", "Missile", "Blue Laser", "More Blue Laser", "Big Red Laser", "Fireball", "More red Laser", "Red Laser", "Green Laser", "Advanced Green Laser" };
 	
 	public static int[] Controls = { 37, 39, 17, 16, 38, 65, 68, 70, 71, 87 };
@@ -56,7 +59,7 @@ public class Assets {
 	public static BufferedImage getImage(String fileName) {
 		try {
 			return ImageIO.read(new File("assets/"+fileName));
-		} catch(Exception e) {e.printStackTrace();}
+		} catch(Exception e) {}//e.printStackTrace();}
 		return null;
 	}
 	
@@ -146,6 +149,18 @@ public class Assets {
 		return ret.toArray(new String[0]);
 	}
 	
+	public static String readdSpaces(String str) {
+		char[] chars = str.toCharArray();
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < chars.length; i++) {
+			if(i != 0 && chars[i] <= 'Z' && chars[i] >= 'A') {
+				sb.append(' ');
+			}
+			sb.append(chars[i]);
+		}
+		return sb.toString();
+	}
+	
 	static void createShipData(String data) {
 		String[] ships = divideAndTrim(data);
 		for(int i = 0; i < ships.length; i++) {
@@ -161,7 +176,12 @@ public class Assets {
 	}
 	
 	static void loadResources() {
-		
+		String res = readFile("resources.txt");
+		String[] data = divideAndTrim(res);
+		resources = new ResourceType[data.length];
+		for(int i = 0; i < data.length; i++) {
+			resources[i] = new ResourceType(data[i]);
+		}
 	}
 
 	static void loadData() {
@@ -170,9 +190,9 @@ public class Assets {
 		btnsl = getImage("btnsl.png");
 		btnpr = getImage("btnpr.png");
 		hb = getImage("hb.png");
-		loadResources();
 		loadStars();
 		loadPlanets();
+		loadResources();
 		String [] species = readFile("species.txt").split("\n");
 		for(int i = 0; i < species.length; i++) {
 			createShipData(readFile(species[i]+"/ships"));

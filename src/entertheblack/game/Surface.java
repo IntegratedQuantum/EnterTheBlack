@@ -50,6 +50,8 @@ public class Surface extends Screen {
 		}
 		if(e.getKeyCode() == 27) {
 			Assets.screen = previous;
+			Assets.curWorld.player.inv.merge(lv.inv);
+			System.out.println(Assets.curWorld.player.inv);
 		}
 	}
 	

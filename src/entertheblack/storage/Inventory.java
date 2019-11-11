@@ -53,4 +53,16 @@ public class Inventory {
 		resources.add(new ResourceStack(r.type));
 		add(r); // TODO: Don't go through that array again!
 	}
+	
+	public String toString() {
+		StringBuilder ret = new StringBuilder();
+		for(ResourceStack r : resources) {
+			if(r.type != null)
+				ret.append(r.type.name + ": "+r.amount);
+			else
+				ret.append("null: "+r.amount);
+		}
+		
+		return ret.toString();
+	}
 }

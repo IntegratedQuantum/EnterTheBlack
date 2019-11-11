@@ -1,0 +1,30 @@
+{
+	Name = Common Metals
+	Value = 5
+	Names: Iron, Aluminum
+}
+{
+	Name = Common Radioactive
+	Value = 10
+	Names: Uranium, Thorium
+}
+{
+	Name = Precious Metals
+	Value = 8
+	Names: Gold, Silver, Platinum
+}
+{
+	Name = Common Materials
+	Value = 1
+	Names: Hydrogen, Helium, Carbon, Nitrogen, Oxygen
+}
+{
+	Name = Noble Gases
+	Value = 4
+	Names: Neon, Argon, Krypton
+}
+{
+	Name = Rare Nonmetals
+	Value = 5
+	Names: Phosphorus, Sulfur
+}

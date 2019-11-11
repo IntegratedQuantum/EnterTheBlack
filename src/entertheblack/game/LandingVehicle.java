@@ -1,5 +1,6 @@
 package entertheblack.game;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.List;
@@ -90,5 +91,7 @@ public class LandingVehicle {
 		g.drawImage(img, -8, -8, 16, 16, null);
 		g.rotate(-α);
 		g.translate(-x, -y - 680);
+		g.setColor(Color.BLACK);
+		g.drawString(""+inv.total+"/"+INV_SIZE, 1800, 680);
 	}
 }
