@@ -16,6 +16,8 @@ public class Star extends Screen {
 	boolean move = false;
 	boolean left = false;
 	boolean right = false;
+	
+	ArrayList<Fleet> fleets;
 
 	boolean inRange = false;
 	
@@ -59,7 +61,10 @@ public class Star extends Screen {
 	
 	public void activate(ShipData mainShip) {
 		ship = new Ship(mainShip, 0, size - (size >> 2));
+		fleets = new ArrayList<>();
 		zoomLock = planets[0];
+		
+		// TODO: initialize fleets!
 	}
 	
 	public Star(String name, String file) { // Data must not contain ' '!
@@ -129,6 +134,9 @@ public class Star extends Screen {
 		for(int i = 0; i < planets.length; i++) {
 			planets[i].paint(g);
 		}
+		for(Fleet f : fleets) {
+			f.paint(g);
+		}
 		ship.paint(g);
 		g.translate((int)(lockStrength*zoomLock.x), (int)(lockStrength*zoomLock.y));
 		g.scale(-zoom, -zoom);
@@ -165,6 +173,9 @@ public class Star extends Screen {
 		} else {
 			inRange = false;
 			lockStrength = 1-(r - zoomLock.r*2)/6/zoomLock.r;
+		}
+		for(Fleet f : fleets) {
+			f.update(ship);
 		}
 		
 		r += zoomLock.r*4;
