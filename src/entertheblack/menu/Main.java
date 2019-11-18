@@ -10,11 +10,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import entertheblack.fight.Game;
+import entertheblack.fight.MPGame;
 import entertheblack.gui.Screen;
 
 public class Main extends JPanel implements KeyListener {
-	static Game game = new Game();
+	static MPGame game = new MPGame();
 	static Screen screen;
 	Color grey = new Color(127, 127, 127);
 	Color light = new Color(200, 200, 200);

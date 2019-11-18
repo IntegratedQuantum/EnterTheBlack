@@ -13,6 +13,8 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import entertheblack.fight.Game;
+import entertheblack.fight.MPGame;
+import entertheblack.fight.SPGame;
 import entertheblack.game.ResourceType;
 import entertheblack.game.World;
 import entertheblack.gui.Screen;
@@ -21,7 +23,7 @@ import entertheblack.storage.WeaponData;
 
 public class Assets {
 	public static Screen screen = new MainMenu();
-	public static Game game = new Game();
+	public static Game game = new MPGame();
 	private static HashMap<String, Image> stars = new HashMap<>(), planets = new HashMap<>();
 	
 	public static World curWorld;

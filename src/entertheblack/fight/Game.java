@@ -1,47 +1,33 @@
 package entertheblack.fight;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.Color;
 
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
-import entertheblack.menu.MainMenu;
 
-public class Game extends Screen {
-	Ship sh1, sh2;
+// Contains all redundant methods from SPGame and MPGame.
+
+public abstract class Game extends Screen {
+	public Ship sh1, sh2;
 	int bgx;
 	int bgy;
 	boolean move = false;
-	boolean move2 = false;
 	boolean turnleft = false;
 	boolean turnright = false;
-	boolean turnleft2 = false;
-	boolean turnright2 = false;
 	boolean shootingactive = false;
-	boolean shootingactive2 = false;
 	boolean rocketshoot = false;
-	boolean rocketshoot2 = false;
+	public boolean move2 = false;
+	public boolean turnleft2 = false;
+	public boolean turnright2 = false;
+	public boolean shootingactive2 = false;
+	public boolean rocketshoot2 = false;
 	int xmiddle = 960;
 	int ymiddle = 540;
 	public int die = 0; // Which player won.
 	
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == Assets.Controls[5]) {
-			turnleft2 = true;
-		}
-		if (e.getKeyCode() == Assets.Controls[6]) {
-			turnright2 = true;
-		}
-		if (e.getKeyCode() == Assets.Controls[7]) {
-			shootingactive2 = true;
-		}
-		if (e.getKeyCode() == Assets.Controls[8]) {
-			rocketshoot2 = true;
-		}
-		if (e.getKeyCode() == Assets.Controls[9]) {
-			move2 = true;
-		}
 		if (e.getKeyCode() == Assets.Controls[3]) {
 			rocketshoot = true;
 		}
@@ -57,10 +43,6 @@ public class Game extends Screen {
 		if (e.getKeyCode() == Assets.Controls[4]) {
 			move = true;
 		}
-		if (e.getKeyCode() == 27) {
-			Assets.screen = new MainMenu();
-			die = 0;
-		}
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -70,26 +52,11 @@ public class Game extends Screen {
 		if (e.getKeyCode() == Assets.Controls[4]) {
 			move = false;
 		}
-		if (e.getKeyCode() == Assets.Controls[7]) {
-			shootingactive2 = false;
-		}
-		if (e.getKeyCode() == Assets.Controls[8]) {
-			rocketshoot2 = false;
-		}
-		if (e.getKeyCode() == Assets.Controls[9]) {
-			move2 = false;
-		}
 		if (e.getKeyCode() == Assets.Controls[0]) {
 			turnleft = false;
 		}
 		if (e.getKeyCode() == Assets.Controls[1]) {
 			turnright = false;
-		}
-		if (e.getKeyCode() == Assets.Controls[5]) {
-			turnleft2 = false;
-		}
-		if (e.getKeyCode() == Assets.Controls[6]) {
-			turnright2 = false;
 		}
 		if (e.getKeyCode() == Assets.Controls[3]) {
 			rocketshoot = false;
@@ -177,15 +144,6 @@ public class Game extends Screen {
 		g2d.fillRect(58, 558, 54, (int)((374 - sh2.health*370.0/sh2.sd.health)));
 		g2d.fillRect(118, 58, 24, (int)((374 - sh1.energy*370.0/sh1.sd.energy)));
 		g2d.fillRect(118, 558, 24, (int)((374 - sh2.energy*370.0/sh2.sd.energy)));
-		g2d.setColor(Color.WHITE);
-		g2d.drawString("Player 1", 50, 40);
-		g2d.drawString("Player 2", 50, 540);
-		g2d.drawString("Player 1", (int)(sh1.x), (int)((sh1.y - 10)));
-		g2d.drawString("Player 2", (int)(sh2.x), (int)((sh2.y - 10)));
-		if (die != 0) {
-			g2d.drawString("Player " + die + " won the game!", 900, 500);
-			g2d.drawString("Press escape to quit to title.", 900, 525);
-		}
 	}
 	
 	public void reset(int type1, int type2) {

@@ -12,7 +12,7 @@ public class Ship {
 	double vx, vy;
 	double size;
 	public double r;
-	double a;
+	public double a;
 	double vmax;
 	double ω;
 	double gen; // energy generation.
@@ -22,7 +22,7 @@ public class Ship {
 	int cooldownturn;
 	int shoot1cd;
 	int shoot2cd;
-	double α;
+	public double α;
 	List<Projectile> projectiles;
 	public Ship(ShipData sd, int x, int y) {
 		this.sd = sd;
