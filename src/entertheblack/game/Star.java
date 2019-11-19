@@ -64,7 +64,16 @@ public class Star extends Screen {
 		fleets = new ArrayList<>();
 		zoomLock = planets[0];
 		
-		// TODO: initialize fleets!
+		// TODO: Properly initialize fleets!
+		fleets.add(new Fleet("Human", getPlanet("Earth").x, getPlanet("Earth").y, Assets.shipData.get(0)));
+	}
+	
+	public Planet getPlanet(String name) {
+		for(int i = 0; i < planets.length; ++i) {
+			if(planets[i].name.equals(name))
+				return planets[i];
+		}
+		return null;
 	}
 	
 	public Star(String name, String file) { // Data must not contain ' '!

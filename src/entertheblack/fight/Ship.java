@@ -7,7 +7,7 @@ import java.util.List;
 import entertheblack.storage.ShipData;
 
 public class Ship {
-	ShipData sd;
+	public ShipData sd;
 	public double x, y;
 	double vx, vy;
 	double size;
