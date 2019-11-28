@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import entertheblack.game.SGame;
+import entertheblack.gui.Customize;
 import entertheblack.gui.Screen;
 
 public class MainMenu extends Screen {
@@ -47,6 +48,8 @@ public class MainMenu extends Screen {
 				Assets.screen = new Options();
 			}
 			if (buttonsel == -5) {
+				// Used only for feature testing!
+				Assets.screen = new Customize(Assets.shipData.get(0));
 				// Credits?
 			}
 			if (buttonsel == -6) {

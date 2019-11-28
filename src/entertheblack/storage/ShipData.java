@@ -19,14 +19,12 @@ public class ShipData {
 	public double energyGeneration;
 	public String name;
 	public Image img;
+	public int x, y;
 	public List<Slot> prim = new ArrayList<>();
 	public List<Slot> secn = new ArrayList<>();
+	public List<ShipSlot> slots = new ArrayList<>(); // Slots that can be put things into. 
 	public ShipData(String data) { // Only accepts trimmed data!
 		String[] lines = data.split("\n");
-		/*int len = parts.length; // First try to dynamic length determination... Terminated due to uncertainty in file structure.
-		if(type == SHIP) {
-			len = SLOTS+2 + (len - SLOTS)*2; // Information on the weapon slots is delivered differently.
-		}*/
 		for(int i = 0; i < lines.length; i++) {
 			String [] parts = lines[i].split("=");
 			if(parts.length < 2)
@@ -57,6 +55,12 @@ public class ShipData {
 				prim.add(new Slot(parts[1].split(",")));
 			} else if(parts[0].equals("SlotSecn")) {
 				secn.add(new Slot(parts[1].split(",")));
+			} else if(parts[0].equals("Slot")) {
+				slots.add(new ShipSlot(parts[1].split(",")));
+			} else if(parts[0].equals("X")) {
+				x = Integer.parseInt(parts[1]); // Maximum number of slots in x dimension
+			} else if(parts[0].equals("Y")) {
+				y = Integer.parseInt(parts[1]); // Maximum number of slots in y dimension
 			} else if(parts[0].equals("Image")) {
 				img = Assets.getImage("ships/"+parts[1]+".png");
 				if(img == null) {
