@@ -79,4 +79,9 @@ public class LandingScreen extends Screen {
 		drawStringLeft(g, planet.techLevel > Assets.curWorld.player.techLevel ? "Insufficient technology to Land" : "Ready to land!", 20, 1100, 550);
 	}
 
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {
+		// TODO Buttons for scan, land, …
+	}
+
 }

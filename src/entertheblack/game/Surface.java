@@ -3,6 +3,7 @@ package entertheblack.game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import entertheblack.Util.Noise;
 import entertheblack.gui.Screen;
@@ -80,5 +81,8 @@ public class Surface extends Screen {
 		g.drawImage(LandingVehicle.img, 920, 700, 320, 320, null);
 		//TODO: Second rect on the right side.
 	}
+
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {} // Not needed.
 
 }

@@ -1,60 +1,59 @@
 package entertheblack.menu;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import entertheblack.game.SGame;
+import entertheblack.gui.ActionListener;
 import entertheblack.gui.Customize;
 import entertheblack.gui.Screen;
+import entertheblack.gui.components.Button;
 
-public class MainMenu extends Screen {
-	static int[] buttons = {190, 340, 490, 640, 790, 940};
-	static String[] btn = {"Singleplayer", "Change ship", "Multiplayer", "Options", "DO NOT PRESS!", "Quit"};
+public class MainMenu extends Screen implements ActionListener {
+	List<Button> buttons = new ArrayList<>();
 	int buttonsel = 1;
+	
+	public MainMenu() {
+		buttons.add(new Button(690, 190, 500, 50, this, 1, "Singleplayer"));
+		buttons.add(new Button(690, 340, 500, 50, this, 2, "Change Ship"));
+		buttons.add(new Button(690, 490, 500, 50, this, 3, "Multiplayer"));
+		buttons.add(new Button(690, 640, 500, 50, this, 4, "Options"));
+		buttons.add(new Button(690, 790, 500, 50, this, 5, "Test")); // Used to test new features.
+		buttons.add(new Button(690, 940, 500, 50, this, 6, "Quit"));
+	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (Assets.gamemode == 0) {
-			if (e.getKeyCode() == 38 && buttonsel != 1) {
-				this.buttonsel--;
-			}
-			
-			if (e.getKeyCode() == 40 && buttonsel < btn.length) {
-				this.buttonsel++;
-			}
-			
-			if (e.getKeyCode() == 17 && buttonsel > 0) {
-				this.buttonsel *= -1;
-			}
+		if(buttonsel < 0 && e.getKeyCode() != 17) {
+			this.buttonsel *= -1;
+			buttons.get(buttonsel-1).pressedB = false;
+		}
+		
+		if (e.getKeyCode() == 38 && buttonsel > 1) {
+			buttons.get(buttonsel-1).selectedB = false;
+			this.buttonsel--;
+			buttons.get(buttonsel-1).selectedB = true;
+		}
+		
+		if (e.getKeyCode() == 40 && buttonsel < buttons.size() && buttonsel > 0) {
+			buttons.get(buttonsel-1).selectedB = false;
+			this.buttonsel++;
+			buttons.get(buttonsel-1).selectedB = true;
+		}
+		
+		if (e.getKeyCode() == 17 && buttonsel > 0) {
+			buttons.get(buttonsel-1).pressedB = true;
+			this.buttonsel *= -1;
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == 17) {
-			if (buttonsel == -1) {
-				Assets.screen = new SGame(-1);
-			}
-			if (buttonsel == -2) {
-				Assets.screen = new ShipSelection();
-			}
-			if (buttonsel == -3) {
-				Assets.screen = Assets.game;
-				Assets.game.reset();
-			}
-			if (buttonsel == -4) {
-				Assets.screen = new Options();
-			}
-			if (buttonsel == -5) {
-				// Used only for feature testing!
-				Assets.screen = new Customize(Assets.shipData.get(0));
-				// Credits?
-			}
-			if (buttonsel == -6) {
-				System.exit(1);
-			}
+		if (e.getKeyCode() == 17 && buttonsel < 0) {
+			buttons.get(-buttonsel-1).trigger();
 		}
 	}
 
@@ -62,18 +61,40 @@ public class MainMenu extends Screen {
 	public void paint(Graphics2D g) {
 		g.drawImage(Assets.bg, 0, 0, 1920, 1080, null);
 		g.setFont(new Font("Sansserif", 0, 20));
-		for (int i = 0; i < btn.length; i++) {
-			g.setColor(Color.BLACK);
-			g.drawImage(Assets.btn, 690, buttons[i], 500, 50, null);
-			if (i + 1 == buttonsel * -1 || i + 1 == buttonsel) {
-				g.drawImage(Assets.btnsl, 690, buttons[i], 500, 50, null);
-			}
-			g.fillRect(695, (buttons[i] + 5), 490, 40);
-			if (i + 1 == buttonsel * -1) {
-				g.drawImage(Assets.btnpr, 695, (buttons[i] + 5), 490, 40, null);
-			}
-			g.setColor(Color.WHITE);
-			g.drawString(btn[i], 700, (buttons[i] + 25));
+		for(Button b : buttons) {
+			b.paint(g);
+		}
+	}
+
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {
+		for(Button b : buttons) {
+			b.mouseUpdate(x, y, pressed);
+		}
+	}
+
+	@Override
+	public void pressed(int id) {
+		switch(id) {
+		case 1:
+			Assets.screen = new SGame(-1);
+			break;
+		case 2:
+			Assets.screen = new ShipSelection();
+			break;
+		case 3:
+			Assets.screen = Assets.game;
+			Assets.game.reset();
+			break;
+		case 4:
+			Assets.screen = new Options();
+			break;
+		case 5:
+			Assets.screen = new Customize(Assets.shipData.get(0));
+			break;
+		case 6:
+			System.exit(1);
+			break;
 		}
 	}
 }

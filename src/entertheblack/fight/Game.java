@@ -3,6 +3,7 @@ package entertheblack.fight;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
@@ -156,4 +157,7 @@ public abstract class Game extends Screen {
 		sh1 = new Ship(sh1.sd, 1600, 490);
 		sh2 = new Ship(sh2.sd, 400, 490);
 	}
+	
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {} // Not needed.
 }

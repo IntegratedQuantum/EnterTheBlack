@@ -6,6 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,7 +16,7 @@ import javax.swing.JPanel;
 import entertheblack.fight.MPGame;
 import entertheblack.gui.Screen;
 
-public class Main extends JPanel implements KeyListener {
+public class Main extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 	static MPGame game = new MPGame();
 	static Screen screen;
 	Color grey = new Color(127, 127, 127);
@@ -53,9 +56,11 @@ public class Main extends JPanel implements KeyListener {
 		} 
 	}
 	
-	public Main(JFrame jFrame) {
-		jFrame.addKeyListener(this);
-		jFrame.add(this);
+	public Main(JFrame frame) {
+		frame.addKeyListener(this);
+		frame.addMouseListener(this);
+		frame.addMouseMotionListener(this);
+		frame.add(this);
 	}
 	public void keyTyped(KeyEvent paramKeyEvent) {}
 	
@@ -146,5 +151,27 @@ public class Main extends JPanel implements KeyListener {
 			wait(start, Δt);
 			start += Δt;
 		} 
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		Assets.screen.mouseUpdate((int)(e.getX()/graphiccvarx), (int)(e.getY()/graphiccvarx), true);
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		Assets.screen.mouseUpdate((int)(e.getX()/graphiccvarx), (int)(e.getY()/graphiccvarx), false);
+	}
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		Assets.screen.mouseUpdate((int)(e.getX()/graphiccvarx), (int)(e.getY()/graphiccvarx), true);
+	}
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		Assets.screen.mouseUpdate((int)(e.getX()/graphiccvarx), (int)(e.getY()/graphiccvarx), false);
 	}
 }

@@ -2,7 +2,6 @@ package entertheblack.fight;
 
 import entertheblack.ai.AI;
 import entertheblack.ai.Simple;
-import entertheblack.menu.Assets;
 import entertheblack.storage.ShipData;
 
 public class SPGame extends Game {

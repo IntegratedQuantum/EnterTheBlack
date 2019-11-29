@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 public abstract class Screen {
 	public abstract void keyPressed(KeyEvent e);
 	public abstract void keyReleased(KeyEvent e);
+	public abstract void mouseUpdate(int x, int y, boolean pressed);
 	public abstract void paint(Graphics2D g);
 	
 	public void update() {}

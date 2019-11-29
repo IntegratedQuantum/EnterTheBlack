@@ -12,7 +12,7 @@ public class ShipSelection extends Screen {
 	int ship1 = 0, ship2 = 0;
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == 27) {
+		if(e.getKeyCode() == 27) {
 			Assets.screen = new MainMenu();
 			Assets.game.reset(ship1, ship2);
 		}
@@ -20,22 +20,22 @@ public class ShipSelection extends Screen {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == Assets.Controls[0] && ship1 < 5) {
+		if(e.getKeyCode() == Assets.Controls[0] && ship1 < 5) {
 			ship1++;
 		}
-		if (e.getKeyCode() == Assets.Controls[1] && ship1 > 0) {
+		if(e.getKeyCode() == Assets.Controls[1] && ship1 > 0) {
 			ship1--;
 		}
-		if (e.getKeyCode() == Assets.Controls[5] && ship2 < 5) {
+		if(e.getKeyCode() == Assets.Controls[5] && ship2 < 5) {
 			ship2++;
 		}
-		if (e.getKeyCode() == Assets.Controls[6] && ship2 > 0) {
+		if(e.getKeyCode() == Assets.Controls[6] && ship2 > 0) {
 			ship2--;
 		}
 	}
 
 	@Override
-	public void paint(Graphics2D g) {
+	public void paint(Graphics2D g) { // TODO!!!!!
 		g.setColor(light);
 		g.setFont(new Font("Sansserif", 0, 15));
 		g.drawImage(Assets.bg, 0, 0, 1920, 1080, null);
@@ -97,6 +97,11 @@ public class ShipSelection extends Screen {
 			//g.drawString("" + Assets.getShipStat(ship2, i + 1), 1200, (int)((700 + i * 25)));
 		}
 		g.drawString(Assets.shipData.get(ship2).wd1.name, 1500, 675);
+	}
+
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {
+		// TODO: Clickable arrows to select previous/next ship.
 	}
 
 }

@@ -1,45 +1,56 @@
 package entertheblack.menu;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
+import entertheblack.gui.ActionListener;
 import entertheblack.gui.Screen;
+import entertheblack.gui.components.Button;
 
-public class Options extends Screen {
-	static int[] buttons = {190, 340, 490, 640, 790, 940};
-	String[] btn = {"Controls", /*"Graphic",*/ "Back to Menu", "Exit"};
+public class Options extends Screen implements ActionListener {
+	List<Button> buttons = new ArrayList<>();
 	
 	int buttonsel = 1;
+	
+	public Options() {
+		buttons.add(new Button(690, 190, 500, 50, this, 1, "Controls"));
+		buttons.add(new Button(690, 340, 500, 50, this, 2, "Graphics(WIP)"));
+		buttons.add(new Button(690, 490, 500, 50, this, 3, "Back To Menu"));
+		buttons.add(new Button(690, 640, 500, 50, this, 4, "Exit Game"));
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == 38 && buttonsel > 0) {
+		if (e.getKeyCode() == 38 && buttonsel > 1) {
+			buttons.get(buttonsel-1).selectedB = false;
 			buttonsel--;
+			buttons.get(buttonsel-1).selectedB = true;
 		}
 		
-		if (e.getKeyCode() == 40 && buttonsel < btn.length) {
+		if (e.getKeyCode() == 40 && buttonsel < buttons.size() && buttonsel > 0) {
+			buttons.get(buttonsel-1).selectedB = false;
 			buttonsel++;
+			buttons.get(buttonsel-1).selectedB = true;
 		}
 		
 		if (e.getKeyCode() == 17 && buttonsel > 0) {
+			buttons.get(buttonsel-1).pressedB = true;
 			buttonsel *= -1;
+		}
+		
+		if (e.getKeyCode() != 17 && buttonsel < 0) {
+			buttonsel *= -1;
+			buttons.get(buttonsel-1).pressedB = false;
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == 17) {
-			if (this.buttonsel == -1) {
-				Assets.screen = new Controls();
-			}
-			if (this.buttonsel == -2) {
-				Assets.screen = new MainMenu();
-			}
-			if (this.buttonsel == -3) {
-				System.exit(1);
-			}
+		if (e.getKeyCode() == 17 && buttonsel < 0) {
+			buttons.get(-buttonsel-1).trigger();
 			this.buttonsel = 1;
 		}
 	}
@@ -48,19 +59,27 @@ public class Options extends Screen {
 	public void paint(Graphics2D g) {
 		g.drawImage(Assets.bg, 0, 0, 1920, 1080, null);
 		g.setFont(new Font("Sansserif", 0, 20));
-		for (int i = 0; i < btn.length; i++) {
-			g.setColor(Color.BLACK);
-			g.drawImage(Assets.btn, 690, buttons[i], 500, 50, null);
-			if (i + 1 == buttonsel * -1 || i + 1 == buttonsel) {
-				g.drawImage(Assets.btnsl, 690, buttons[i], 500, 50, null);
-			}
-			g.fillRect(695, (buttons[i] + 5), 490, 40);
-			if (i + 1 == buttonsel * -1) {
-				g.drawImage(Assets.btnpr, 695, (buttons[i] + 5), 490, 40, null);
-			}
-			g.setColor(Color.WHITE);
-			g.drawString(btn[i], 700, (buttons[i] + 25));
+		for(Button b : buttons) {
+			b.paint(g);
 		}
+	}
+
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {
+		for(Button b : buttons) {
+			b.mouseUpdate(x, y, pressed);
+		}
+	}
+
+	@Override
+	public void pressed(int id) {
+		if(id == 1)
+			Assets.screen = new Controls();
+		// TODO graphics settings.
+		if(id == 3)
+			Assets.screen = new MainMenu();
+		if(id == 4)
+			System.exit(1);
 	}
 
 }

@@ -2,6 +2,7 @@ package entertheblack.game;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
@@ -41,5 +42,8 @@ public class SGame extends Screen {
 	public void paint(Graphics2D g) {
 		Assets.screen = Assets.curWorld.getStar(0);
 	}
+
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {} // Not needed.
 
 }

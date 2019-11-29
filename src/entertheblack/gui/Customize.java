@@ -2,6 +2,7 @@ package entertheblack.gui;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import entertheblack.storage.ShipData;
 import entertheblack.storage.ShipSlot;
@@ -34,6 +35,11 @@ public class Customize extends Screen {
 		for(ShipSlot sl : mainShip.slots) {
 			sl.paint(g, 960-size/2, 540-size/2, mainShip.x, mainShip.y, size);
 		}
+	}
+
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {
+		// TODO Auto-generated method stub
 	}
 
 }

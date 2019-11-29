@@ -3,6 +3,7 @@ package entertheblack.game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,4 +198,7 @@ public class Star extends Screen {
 			Assets.screen = new MainMenu();
 		}
 	}
+
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {} // Not needed.
 }
