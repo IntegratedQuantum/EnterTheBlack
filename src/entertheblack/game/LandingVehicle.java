@@ -10,7 +10,7 @@ import entertheblack.storage.Inventory;
 
 public class LandingVehicle {
 	private static double MAX_HEALTH = 100;
-	private static double ω = 0.05;
+	private static double omega = 0.05;
 	private static int r = 50;
 	static Image img = Assets.getImage("LV.png");
 	private static int INV_SIZE = 100;
@@ -21,16 +21,16 @@ public class LandingVehicle {
 		}
 	}
 	public double x, y;
-	double α;
+	double alpha;
 	double vMax = 0.5;
 	double vx, vy;
 	double health = MAX_HEALTH;
 	Inventory inv;
 	// TODO: Resources.
-	public LandingVehicle(int x0, int y0, int α0) {
+	public LandingVehicle(int x0, int y0, int alpha0) {
 		x = x0;
 		y = y0;
-		α = α0;
+		alpha = alpha0;
 		inv = new Inventory(INV_SIZE);
 	}
 	
@@ -47,30 +47,30 @@ public class LandingVehicle {
 			else if(y < 0)
 				y = 0;
 		}
-		double αNew = α;
+		double alphaNew = alpha;
 		if(right && !left) {
-			if (α >= 2*Math.PI) {
-				α -= 2*Math.PI;
+			if (alpha >= 2*Math.PI) {
+				alpha -= 2*Math.PI;
 			}
-			α += ω;
+			alpha += omega;
 		}
 		else if(left && !right) {
-			if (α <= 0) {
-				α += 2*Math.PI;
+			if (alpha <= 0) {
+				alpha += 2*Math.PI;
 			}
-			α -= ω;
+			alpha -= omega;
 		}
-		if(αNew != α) {
-			vx = vMax*Math.cos(α - Math.PI/2);
-			vy = vMax*Math.sin(α - Math.PI/2);
+		if(alphaNew != alpha) {
+			vx = vMax*Math.cos(alpha - Math.PI/2);
+			vy = vMax*Math.sin(alpha - Math.PI/2);
 		}
 	}
 	
 	public void collect(List<Resource> resources) {
 		for(int i = 0; i < resources.size(); i++) {
-			double Δx = x - resources.get(i).x;
-			double Δy = y - resources.get(i).y;
-			if(Math.sqrt(Δx*Δx + Δy*Δy) < 7) {
+			double deltax = x - resources.get(i).x;
+			double deltay = y - resources.get(i).y;
+			if(Math.sqrt(deltax*deltax + deltay*deltay) < 7) {
 				inv.add(resources.get(i));
 				if(resources.get(i).amount == 0) {
 					resources.remove(i);
@@ -81,15 +81,15 @@ public class LandingVehicle {
 	
 	public void paint(Graphics2D g) {
 		g.translate(960, 340);
-		g.rotate(α);
+		g.rotate(alpha);
 		g.drawImage(img, -r, -r, r+r, r+r, null);
-		g.rotate(-α);
+		g.rotate(-alpha);
 		g.translate(-960, -340);
 		// Draw position on minimap:
 		g.translate(x, y + 680);
-		g.rotate(α);
+		g.rotate(alpha);
 		g.drawImage(img, -8, -8, 16, 16, null);
-		g.rotate(-α);
+		g.rotate(-alpha);
 		g.translate(-x, -y - 680);
 		g.setColor(Color.BLACK);
 		g.drawString(""+inv.total+"/"+INV_SIZE, 1800, 680);

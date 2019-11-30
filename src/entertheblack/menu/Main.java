@@ -106,10 +106,10 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 		}
 	}
 	
-	// Wait Δt relative to the point in time t0.
+	// Wait deltat relative to the point in time t0.
 	// A good way to do precision timing.
-	public static void wait(long t0, long Δt) {
-		long t = t0+Δt-System.nanoTime() - 200000;
+	public static void wait(long t0, long deltat) {
+		long t = t0+deltat-System.nanoTime() - 200000;
 		int tnano = (int)(t % 1000000);
 		long tmilli = t / 1000000;
 		try {Thread.sleep(tmilli, tnano);} catch(Exception e) {} // I hate how it is that long.
@@ -136,7 +136,7 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 		Rectangle rectangle2 = new Rectangle();
 		Assets.loadData();
 		long start = System.nanoTime();
-		long Δt = 1000000000/60; // Play the game at 60 fps always!
+		long deltat = 1000000000/60; // Play the game at 60 fps always!
 		while (true) {
 			rectangle1 = frame.getBounds();
 			if (rectangle1 != rectangle2) {
@@ -148,8 +148,8 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 			}
 			Assets.screen.update();
 			main.repaint();
-			wait(start, Δt);
-			start += Δt;
+			wait(start, deltat);
+			start += deltat;
 		} 
 	}
 	@Override

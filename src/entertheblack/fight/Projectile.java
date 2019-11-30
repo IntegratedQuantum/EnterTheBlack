@@ -9,7 +9,7 @@ public class Projectile {
 	WeaponData wd;
 	double x, y;
 	double vx, vy;
-	double α;
+	double alpha;
 	int r;
 	double mass;
 	double range; // Range in pixels
@@ -18,11 +18,11 @@ public class Projectile {
 		this.wd = wd;
 		x = source.x + source.r - 2;
 		y = source.y + source.r - 2;
-		x += Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.sin(source.α + Math.atan(((double)slot.x / (double)slot.y)) + slot.α);
-		y += -Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.cos(source.α + Math.atan(((double)slot.x / (double)slot.y)) + slot.α);
-		vy = -(wd.velocity / 10) * Math.cos(source.α) + source.vy;
-		vx = (wd.velocity / 10) * Math.sin(source.α) + source.vx;
-		α = source.α;
+		x += Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.sin(source.alpha + Math.atan(((double)slot.x / (double)slot.y)) + slot.alpha);
+		y += -Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.cos(source.alpha + Math.atan(((double)slot.x / (double)slot.y)) + slot.alpha);
+		vy = -(wd.velocity / 10) * Math.cos(source.alpha) + source.vy;
+		vx = (wd.velocity / 10) * Math.sin(source.alpha) + source.vx;
+		alpha = source.alpha;
 		r = 10;
 		guiding = -wd.tracking/1000.0;
 	}
@@ -39,37 +39,37 @@ public class Projectile {
 			return true;
 		}
 		if(guiding != 0) {
-			double β;
+			double beta;
 			if (y < en.y) {
-				β = Math.PI - Math.atan((x - en.x - en.r) / (y - en.y - en.r));
+				beta = Math.PI - Math.atan((x - en.x - en.r) / (y - en.y - en.r));
 			} else {
-				β = 2*Math.PI - Math.atan((x - en.x - en.r) / (y - en.y - en.r));
+				beta = 2*Math.PI - Math.atan((x - en.x - en.r) / (y - en.y - en.r));
 			}
-			if (α != β) {
-				if (α < β - guiding) {
-					if (α > β - Math.PI) {
-						α = α - guiding;
+			if (alpha != beta) {
+				if (alpha < beta - guiding) {
+					if (alpha > beta - Math.PI) {
+						alpha = alpha - guiding;
 					} else {
-						α = α + guiding;
+						alpha = alpha + guiding;
 					}
-				} else if (α > β + guiding) {
-					if (α < β + Math.PI) {
-						α = α + guiding;
+				} else if (alpha > beta + guiding) {
+					if (alpha < beta + Math.PI) {
+						alpha = alpha + guiding;
 					} else {
-						α = α - guiding;
+						alpha = alpha - guiding;
 					}
 				} else {
-					α = β;
+					alpha = beta;
 				}
-				if (α < Math.PI/2) {
-					α = α + 2*Math.PI;
+				if (alpha < Math.PI/2) {
+					alpha = alpha + 2*Math.PI;
 				}
-				else if (α > 2.5*Math.PI) {
-					α = α - 2*Math.PI;
+				else if (alpha > 2.5*Math.PI) {
+					alpha = alpha - 2*Math.PI;
 				}
 				double v = Math.sqrt(vx*vx + vy*vy);
-				vy = -v*Math.cos(α);
-				vx = v*Math.sin(α);
+				vy = -v*Math.cos(alpha);
+				vx = v*Math.sin(alpha);
 			}
 		}
 		return false;
@@ -77,11 +77,11 @@ public class Projectile {
 	
 	public void paint(Graphics2D g2d) {
 		g2d.translate((int)x, (int)y);
-		g2d.rotate(α);
+		g2d.rotate(alpha);
 		g2d.translate(-(int)x, -(int)y);
 		g2d.drawImage(wd.img, (int)x - r, (int)y - r, r*2, r*2, null);
 		g2d.translate((int)(x), (int)(y));
-		g2d.rotate(-α);
+		g2d.rotate(-alpha);
 		g2d.translate(-((int)(x)), -((int)(y)));
 	}
 }

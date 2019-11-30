@@ -161,9 +161,9 @@ public class Star extends Screen {
 		double r = 1.0e300;
 		for(int i = 1; i < planets.length; i++) {
 			Planet p = planets[i];
-			double Δx = ship.x-p.x;
-			double Δy = ship.y-p.y;
-			double r2 = Math.sqrt(Δx*Δx+Δy*Δy);
+			double deltax = ship.x-p.x;
+			double deltay = ship.y-p.y;
+			double r2 = Math.sqrt(deltax*deltax+deltay*deltay);
 			if(r2 < r) {
 				r = r2;
 				zoomLock = p;

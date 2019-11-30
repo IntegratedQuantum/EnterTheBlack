@@ -14,7 +14,7 @@ public class Ship {
 	public double r;
 	public double a;
 	double vmax;
-	double ω;
+	double omega;
 	double gen; // energy generation.
 	double m = 100; // TODO: Add to data file.
 	double health;
@@ -22,7 +22,7 @@ public class Ship {
 	int cooldownturn;
 	int shoot1cd;
 	int shoot2cd;
-	public double α;
+	public double alpha;
 	List<Projectile> projectiles;
 	public Ship(ShipData sd, int x, int y) {
 		this.sd = sd;
@@ -33,9 +33,9 @@ public class Ship {
 		energy = sd.energy;
 		a = sd.acceleration;
 		vmax = sd.vmax/100.0;
-		ω = sd.turnRate/1000.0;
+		omega = sd.turnRate/1000.0;
 		gen = sd.energyGeneration/60.0;
-		α = 0;
+		alpha = 0;
 		cooldownturn = 0;
 		size = sd.size;
 		r = size/2;
@@ -45,8 +45,8 @@ public class Ship {
 	// Flight out side of fighting areas doesn't need to account for enemy ships and energy, health, ...
 	public void fly(boolean move, boolean turnRight, boolean turnLeft) {
 		if (move) {
-			vx = ((200-a)*vx + a*Math.cos(α - Math.PI/2))/200;
-			vy = ((200-a)*vy + a*Math.sin(α - Math.PI/2))/200;
+			vx = ((200-a)*vx + a*Math.cos(alpha - Math.PI/2))/200;
+			vy = ((200-a)*vy + a*Math.sin(alpha - Math.PI/2))/200;
 		}
 		x = x + vx*vmax;
 		y = y + vy*vmax;
@@ -54,15 +54,15 @@ public class Ship {
 		vy = 0.9999*vy;
 		
 		if (turnLeft && !turnRight) {
-			if (α <= 0) {
-				α += 2*Math.PI;
+			if (alpha <= 0) {
+				alpha += 2*Math.PI;
 			}
-			α -= ω;
+			alpha -= omega;
 		} else if (turnRight && !turnLeft) {
-			if (α >= 2*Math.PI) {
-				α -= 2*Math.PI;
+			if (alpha >= 2*Math.PI) {
+				alpha -= 2*Math.PI;
 			}
-			α += ω;
+			alpha += omega;
 		}
 	}
 
@@ -72,8 +72,8 @@ public class Ship {
 	
 	public void fly(Ship en, boolean move, boolean turnRight, boolean turnLeft) {
 		if (move) {
-			vx = ((200-a)*vx + a*Math.cos(α - Math.PI/2))/200;
-			vy = ((200-a)*vy + a*Math.sin(α - Math.PI/2))/200;
+			vx = ((200-a)*vx + a*Math.cos(alpha - Math.PI/2))/200;
+			vy = ((200-a)*vy + a*Math.sin(alpha - Math.PI/2))/200;
 		}
 		x = x + vx*vmax;
 		y = y + vy*vmax;
@@ -85,9 +85,9 @@ public class Ship {
 		double Δy = en.y - y;
 		double radius = Math.sqrt(Δx*Δx + Δy*Δy);
 		if(radius < r + en.r) {
-			double α = Math.atan((Δy)/(Δx));
+			double alpha = Math.atan((Δy)/(Δx));
 			if(en.x < x)
-				α += Math.PI;
+				alpha += Math.PI;
 			double v1 = Math.sqrt(vx*vx+vy*vy);
 			double theta1 = Math.atan(vy/vx);
 			if(vx < 0)
@@ -100,10 +100,10 @@ public class Ship {
 				theta2 += Math.PI;
 			if(theta2 != theta2)
 				theta2 = 0; // prevent NaN when standing still!
-			vx = getvx(α, v1, v2, theta1, theta2, m, en.m);
-			vy = Math.sin(α)*(v1*Math.cos(theta1-α)*(m - en.m)+2*en.m*v2*Math.cos(theta2-α))/(m+en.m)+v1*Math.sin(theta1-α)*Math.sin(α+Math.PI/2);
-			en.vx = getvx(α, v2, v1, theta2, theta1, en.m, m);
-			en.vy = Math.sin(α)*(v2*Math.cos(theta2-α)*(en.m-m)+2*m*v1*Math.cos(theta1-α))/(en.m+m)+v2*Math.sin(theta2-α)*Math.sin(α+Math.PI/2);
+			vx = getvx(alpha, v1, v2, theta1, theta2, m, en.m);
+			vy = Math.sin(alpha)*(v1*Math.cos(theta1-alpha)*(m - en.m)+2*en.m*v2*Math.cos(theta2-alpha))/(m+en.m)+v1*Math.sin(theta1-alpha)*Math.sin(alpha+Math.PI/2);
+			en.vx = getvx(alpha, v2, v1, theta2, theta1, en.m, m);
+			en.vy = Math.sin(alpha)*(v2*Math.cos(theta2-alpha)*(en.m-m)+2*m*v1*Math.cos(theta1-alpha))/(en.m+m)+v2*Math.sin(theta2-alpha)*Math.sin(alpha+Math.PI/2);
 			// Move both ships to prevent post collision bugs.
 			x += Δx*(radius - r - en.r)/(r + en.r);
 			y += Δy*(radius - r - en.r)/(r + en.r);
@@ -118,15 +118,15 @@ public class Ship {
 		}
 		
 		if (turnLeft && !turnRight) {
-			if (α <= 0) {
-				α += 2*Math.PI;
+			if (alpha <= 0) {
+				alpha += 2*Math.PI;
 			}
-			α -= ω;
+			alpha -= omega;
 		} else if (turnRight) {
-			if (α >= 2*Math.PI) {
-				α -= 2*Math.PI;
+			if (alpha >= 2*Math.PI) {
+				alpha -= 2*Math.PI;
 			}
-			α += ω;
+			alpha += omega;
 		}
 		
 		for(int i = 0; i < projectiles.size(); i++) {
@@ -196,11 +196,11 @@ public class Ship {
 	
 	public void paint(Graphics2D g2d) {
 		g2d.translate((int)((x + r)), (int)((y + r)));
-		g2d.rotate(α);
+		g2d.rotate(alpha);
 		g2d.translate(-((int)((x + r))), -((int)((y + r))));
 		g2d.drawImage(sd.img, (int)(x), (int)(y), (int)size, (int)size, null);
 		g2d.translate((int)((x + r)), (int)((y + r)));
-		g2d.rotate(-α);
+		g2d.rotate(-alpha);
 		g2d.translate(-((int)((x + r))), -((int)((y + r))));
 		for(Projectile p : projectiles) {
 			p.paint(g2d);

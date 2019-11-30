@@ -24,15 +24,15 @@ public class Fleet {
 		v = sd.vmax/110; // Let it fly slightly slower than the equivalent ship would.
 	}
 	public void update(Ship player) {
-		double Δx = player.x - x;
-		double Δy = player.y - y;
-		double r = Math.sqrt(Δx*Δx + Δy*Δy);
+		double deltax = player.x - x;
+		double deltay = player.y - y;
+		double r = Math.sqrt(deltax*deltax + deltay*deltay);
 		if(r <= (radius+player.r)) {
 			// Enter fight when it hits the player 
 			Assets.screen = new SPGame(player.sd, sd);
 		}
-		x += Δx/r*v;
-		y += Δy/r*v;
+		x += deltax/r*v;
+		y += deltay/r*v;
 	}
 	
 	public void paint(Graphics2D g) {
