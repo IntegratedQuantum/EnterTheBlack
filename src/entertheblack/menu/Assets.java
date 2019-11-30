@@ -50,23 +50,39 @@ public class Assets {
 	
 	//static BufferedImage ships = new BufferedImage(100, 50, 2);
 	public static BufferedImage bg, btn, btnpr, btnsl, hb;
+	
+	// Some people seem to use windows which for unknown reasons still uses "\" as path seperator.
+	public static String takeCareOfWindows(String path) {
+		String[] sep = path.split("/");
+		StringBuilder ret = new StringBuilder();
+		for(int i = 0; i < sep.length; i++) {
+			if(i != 0) {
+				ret.append(File.separator);
+			}
+			ret.append(sep[i]);
+		}
+		return ret.toString();
+	}
 
 	public static String readFile(String fileName) {
+		fileName = takeCareOfWindows("assets/"+fileName);
 		try {
-			return new Scanner(new File("assets/"+fileName)).useDelimiter("\\Z").next();
+			return new Scanner(new File(fileName)).useDelimiter("\\Z").next();
 		} catch(Exception e) {e.printStackTrace();}
 		return "";
 	}
 
 	public static BufferedImage getImage(String fileName) {
+		fileName = takeCareOfWindows("assets/"+fileName);
 		try {
-			return ImageIO.read(new File("assets/"+fileName));
+			return ImageIO.read(new File(fileName));
 		} catch(Exception e) {}//e.printStackTrace();}
 		return null;
 	}
 	
 	private static void loadStars() {
-		 File[] f = (new File("assets/stars/")).listFiles();
+		String fileName = takeCareOfWindows("assets/stars/");
+		File[] f = (new File(fileName)).listFiles();
 		for (File file : f) {
 			if (file != null) {
 				String name = file.getName();
@@ -79,7 +95,8 @@ public class Assets {
 	}
 	
 	private static void loadPlanets() {
-		 File[] f = (new File("assets/planets/")).listFiles();
+		String fileName = takeCareOfWindows("assets/planets/");
+		File[] f = (new File(fileName)).listFiles();
 		for (File file : f) {
 			if (file != null) {
 				String name = file.getName();
