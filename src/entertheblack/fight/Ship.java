@@ -81,11 +81,11 @@ public class Ship {
 		vy = 0.9999*vy;
 		
 		// Collision
-		double Δx = en.x - x;
-		double Δy = en.y - y;
-		double radius = Math.sqrt(Δx*Δx + Δy*Δy);
+		double deltax = en.x - x;
+		double deltay = en.y - y;
+		double radius = Math.sqrt(deltax*deltax + deltay*deltay);
 		if(radius < r + en.r) {
-			double alpha = Math.atan((Δy)/(Δx));
+			double alpha = Math.atan((deltay)/(deltax));
 			if(en.x < x)
 				alpha += Math.PI;
 			double v1 = Math.sqrt(vx*vx+vy*vy);
@@ -105,10 +105,10 @@ public class Ship {
 			en.vx = getvx(alpha, v2, v1, theta2, theta1, en.m, m);
 			en.vy = Math.sin(alpha)*(v2*Math.cos(theta2-alpha)*(en.m-m)+2*m*v1*Math.cos(theta1-alpha))/(en.m+m)+v2*Math.sin(theta2-alpha)*Math.sin(alpha+Math.PI/2);
 			// Move both ships to prevent post collision bugs.
-			x += Δx*(radius - r - en.r)/(r + en.r);
-			y += Δy*(radius - r - en.r)/(r + en.r);
-			en.x -= Δx*(radius - r - en.r)/(r + en.r);
-			en.y -= Δy*(radius - r - en.r)/(r + en.r);
+			x += deltax*(radius - r - en.r)/(r + en.r);
+			y += deltay*(radius - r - en.r)/(r + en.r);
+			en.x -= deltax*(radius - r - en.r)/(r + en.r);
+			en.y -= deltay*(radius - r - en.r)/(r + en.r);
 			// Slightly reduce speed after hit, to simulate energy loss by structural damage. TODO: Conserve momentum!
 			vx *= 0.9;
 			vy *= 0.9;
