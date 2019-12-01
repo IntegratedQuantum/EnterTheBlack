@@ -66,7 +66,6 @@ public class Simple implements AI {
 				else
 					g.turnright2 = true;
 			}
-			// TODO: Take into account enemy movement.
 			if(Math.abs(deltaalpha) < 0.5)
 				g.shootingactive2 = true;
 			if(Math.abs(deltaalpha) < 1)

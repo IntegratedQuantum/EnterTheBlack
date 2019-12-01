@@ -21,7 +21,7 @@ public class Button extends Component {
 		this.height = height;
 		this.id = id;
 		listener = l;
-		selectedM = selectedB = pressedM = pressedB;
+		selectedM = selectedB = pressedM = pressedB = false;
 		text = t;
 	}
 	@Override
