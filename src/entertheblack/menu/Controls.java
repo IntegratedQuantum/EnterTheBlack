@@ -25,6 +25,7 @@ public class Controls extends Screen implements ActionListener {
 		buttons.add(new Button(940, 490, 200, 50, this, 9, "Player 2: Shoot Primary"));
 		buttons.add(new Button(940, 640, 200, 50, this, 10, "Player 2: Shoot Secondary"));
 		buttons.add(new Button(940, 790, 200, 50, this, 11, "Player 2: Forward"));
+		buttons.get(0).selectedB = true;
 	}
 	
 	int buttonsel = 1;

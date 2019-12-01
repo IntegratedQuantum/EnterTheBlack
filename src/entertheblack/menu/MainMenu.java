@@ -23,6 +23,7 @@ public class MainMenu extends Screen implements ActionListener {
 		buttons.add(new Button(690, 640, 500, 50, this, 4, "Options"));
 		buttons.add(new Button(690, 790, 500, 50, this, 5, "Test")); // Used to test new features.
 		buttons.add(new Button(690, 940, 500, 50, this, 6, "Quit"));
+		buttons.get(0).selectedB = true;
 	}
 	
 	@Override

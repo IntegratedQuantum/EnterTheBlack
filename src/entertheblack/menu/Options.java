@@ -20,6 +20,7 @@ public class Options extends Screen implements ActionListener {
 		buttons.add(new Button(690, 340, 500, 50, this, 2, "Graphics(WIP)"));
 		buttons.add(new Button(690, 490, 500, 50, this, 3, "Back To Menu"));
 		buttons.add(new Button(690, 640, 500, 50, this, 4, "Exit Game"));
+		buttons.get(0).selectedB = true;
 	}
 
 	@Override
