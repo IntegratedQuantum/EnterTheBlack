@@ -9,11 +9,11 @@ import entertheblack.storage.ShipData;
 public class Ship {
 	public ShipData sd;
 	public double x, y;
-	double vx, vy;
+	public double vx, vy;
 	double size;
 	public double r;
 	public double a;
-	double vmax;
+	public double vmax;
 	double omega;
 	double gen; // energy generation.
 	double m = 100; // TODO: Add to data file.

@@ -3,6 +3,8 @@ package entertheblack.ai;
 import entertheblack.fight.Game;
 import entertheblack.fight.Ship;
 
+// A simple AI. Nothing good, but it is enough for alpha.
+
 public class Simple implements AI {
 	@Override
 	public void updateBehaviour(Game g) {
@@ -10,15 +12,29 @@ public class Simple implements AI {
 		g.move2 = g.rocketshoot2 = g.shootingactive2 = g.turnleft2 = g.turnright2 = false;
 		Ship sh = g.sh2;
 		Ship en = g.sh1;
-		double deltax = sh.x - en.x;
-		double deltay = sh.y - en.y;
-		double dist = Math.sqrt(deltax*deltax + deltay*deltay);
-		double alpha = Math.atan(deltay/deltax);
-		if(deltax < 0)
+		double deltaX = sh.x - en.x;
+		double deltaY = sh.y - en.y;
+		double dist = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+		// Simulate own and enemy movement for the time the laser would need to go the current distance between this and enemy. Taking into account "doppler effect" on projectile "wavelength".
+		double alphaNow = Math.atan(deltaY/deltaX);
+		if(deltaX < 0)
+			alphaNow += Math.PI;
+		// There is only "doppler effect" at both ships:
+		// Calculate projection of enemy movement vector on (normalized) distance vector with scalar product:
+		double vRel = en.vmax*(en.vx*deltaX/dist + en.vy*deltaY/dist);
+		double t = dist/(sh.sd.wd1.velocity/10 - vRel);
+		System.out.println(t+" "+vRel);
+		// Simulate ship movement during given time:
+		deltaX += sh.vmax*sh.vx*t - en.vmax*en.vx*t;
+		deltaY += sh.vmax*sh.vy*t - en.vmax*en.vy*t;
+		
+		double alpha = Math.atan(deltaY/deltaX);
+		if(deltaX < 0)
 			alpha += Math.PI;
 		if(alpha < 0)
 			alpha += 2*Math.PI;
-		if(dist < 500) {
+		double flightTime1 = sh.sd.wd1.range/sh.sd.wd1.velocity*10; // Maximum Flight time of primary weapon.
+		if(t < flightTime1/3 && dist < sh.sd.wd1.range/3) { // Only flee when enemy is actually close
 			// Flee
 			double targetalpha = alpha - Math.PI;
 			if(targetalpha < 0)
@@ -37,7 +53,7 @@ public class Simple implements AI {
 			if(Math.abs(deltaalpha) < 0.5)
 				g.move2 = true;
 		}
-		else if(dist < 1000) {
+		else if(t < 3*flightTime1/4) { // Only attack if the target stays within effective weapon range
 			// Attack
 			double deltaalpha = alpha - sh.alpha - Math.PI/2;
 			if(deltaalpha < -Math.PI)

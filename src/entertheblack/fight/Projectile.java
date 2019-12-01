@@ -20,8 +20,8 @@ public class Projectile {
 		y = source.y + source.r - 2;
 		x += Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.sin(source.alpha + Math.atan(((double)slot.x / (double)slot.y)) + slot.alpha);
 		y += -Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.cos(source.alpha + Math.atan(((double)slot.x / (double)slot.y)) + slot.alpha);
-		vy = -(wd.velocity / 10) * Math.cos(source.alpha) + source.vy;
-		vx = (wd.velocity / 10) * Math.sin(source.alpha) + source.vx;
+		vy = -(wd.velocity / 10) * Math.cos(source.alpha);// + source.vy;
+		vx = (wd.velocity / 10) * Math.sin(source.alpha);// + source.vx;
 		alpha = source.alpha;
 		r = 10;
 		guiding = -wd.tracking/1000.0;
