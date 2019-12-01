@@ -7,6 +7,8 @@ import java.awt.Color;
 import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
 
+// Offline Multiplayer fighting area.
+
 public class MPGame extends Game {
 	
 	public void keyPressed(KeyEvent e) {

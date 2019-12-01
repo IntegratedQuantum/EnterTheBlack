@@ -3,12 +3,12 @@ package entertheblack.fight;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 
 // Contains all redundant methods from SPGame and MPGame.
+// TODO: Add Asteroids and zoom in on center between ships.
 
 public abstract class Game extends Screen {
 	public Ship sh1, sh2;
@@ -129,6 +129,7 @@ public abstract class Game extends Screen {
 			sh1.y = 1;
 		}
 	}
+	
 	public void paint(Graphics2D g2d) {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, 1920, 1080); // Removing this line strangely results in lags. USE THIS IN EVERY DYNAMIC PAINT!

@@ -2,6 +2,10 @@ package entertheblack.game;
 
 import java.awt.Graphics2D;
 
+// Collectible on the surface. Has a certain value and might be needed for certain modules.
+// TODO: Add proper graphics.
+// TODO: Show amount and name when collected.
+
 public class Resource {
 	double x, y;
 	public ResourceType type;

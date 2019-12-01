@@ -8,6 +8,9 @@ import java.util.List;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Inventory;
 
+// Vehicle to explore surface.
+// TODO: Add proper graphics.
+
 public class LandingVehicle {
 	private static double MAX_HEALTH = 100;
 	private static double omega = 0.05;

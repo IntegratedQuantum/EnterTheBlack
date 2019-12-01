@@ -3,6 +3,8 @@ package entertheblack.gui;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+// General screen to access multiple different screens with the same interface.
+
 public abstract class Screen {
 	public abstract void keyPressed(KeyEvent e);
 	public abstract void keyReleased(KeyEvent e);

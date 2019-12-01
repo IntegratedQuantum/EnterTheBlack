@@ -16,10 +16,7 @@ public class Simple implements AI {
 		double deltaY = sh.y - en.y;
 		double dist = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
 		// Simulate own and enemy movement for the time the laser would need to go the current distance between this and enemy. Taking into account "doppler effect" on projectile "wavelength".
-		double alphaNow = Math.atan(deltaY/deltaX);
-		if(deltaX < 0)
-			alphaNow += Math.PI;
-		// There is only "doppler effect" at both ships:
+		
 		// Calculate projection of enemy movement vector on (normalized) distance vector with scalar product:
 		double vRel = en.vmax*(en.vx*deltaX/dist + en.vy*deltaY/dist);
 		double t = dist/(sh.sd.wd1.velocity/10 - vRel);
@@ -87,5 +84,4 @@ public class Simple implements AI {
 				g.move2 = true;
 		}
 	}
-	
 }

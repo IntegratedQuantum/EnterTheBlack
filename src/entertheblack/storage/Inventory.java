@@ -6,6 +6,8 @@ import java.util.List;
 import entertheblack.game.Resource;
 import entertheblack.game.ResourceType;
 
+// Contains resources.
+
 public class Inventory {
 	int limit = -1;
 	public int total = 0;

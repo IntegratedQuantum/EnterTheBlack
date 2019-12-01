@@ -2,10 +2,12 @@ package entertheblack.game;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
+
+// Currently only used as redirect.
+// TODO: Structure it better.
 
 public class SGame extends Screen {
 	public SGame(int save) {

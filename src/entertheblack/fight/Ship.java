@@ -6,6 +6,9 @@ import java.util.List;
 
 import entertheblack.storage.ShipData;
 
+// Object implemention of a ship.
+// TODO: Add drones.
+
 public class Ship {
 	public ShipData sd;
 	public double x, y;

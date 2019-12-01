@@ -10,6 +10,8 @@ import entertheblack.gui.ActionListener;
 import entertheblack.gui.Screen;
 import entertheblack.gui.components.Button;
 
+// SettingsScreen to change Controls.
+
 public class Controls extends Screen implements ActionListener {
 	List<Button> buttons = new ArrayList<>();
 	

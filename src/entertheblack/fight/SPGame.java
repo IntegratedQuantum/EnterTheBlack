@@ -4,6 +4,9 @@ import entertheblack.ai.AI;
 import entertheblack.ai.Simple;
 import entertheblack.storage.ShipData;
 
+// Single player fighting area.
+// TODO: Add fighting against multiple ships at ocne.
+
 public class SPGame extends Game {
 	AI STANDARD = new Simple();
 	AI enemyBehaviour = STANDARD;

@@ -2,6 +2,9 @@ package entertheblack.game;
 
 import entertheblack.storage.Inventory;
 
+// Some main info about a player.
+// TODO: Add main ship here.
+
 public class Player {
 	public int techLevel = 0;
 	public Inventory inv;

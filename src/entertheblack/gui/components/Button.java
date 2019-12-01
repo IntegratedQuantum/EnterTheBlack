@@ -6,6 +6,9 @@ import java.awt.Graphics2D;
 import entertheblack.gui.ActionListener;
 import entertheblack.menu.Assets;
 
+// Just a simple button. Can be ppressed with mouse.
+// Selection by keyboard is only possible through corresponding screen.
+
 public class Button extends Component {
 	int id; // Used for actionlistening;
 	boolean selectedM; // Mouse is floating above

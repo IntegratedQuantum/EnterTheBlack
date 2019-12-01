@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 import entertheblack.gui.components.PartSlot;
 import entertheblack.storage.ShipData;
@@ -27,16 +26,10 @@ public class Customize extends Screen {
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyPressed(KeyEvent e) {} // Not needed.
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent e) {} // Not needed.
 
 	@Override
 	public void paint(Graphics2D g) {

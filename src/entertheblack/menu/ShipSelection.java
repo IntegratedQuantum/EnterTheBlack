@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 
 import entertheblack.gui.Screen;
 
+// Select a ship for multiplayer fight.
+
 public class ShipSelection extends Screen {
 	static Color light = new Color(200, 200, 200);
 	int ship1 = 0, ship2 = 0;

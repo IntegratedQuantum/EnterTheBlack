@@ -2,6 +2,8 @@ package entertheblack.storage;
 
 import java.util.Arrays;
 
+// Weapon slot(point where a weapon is released).
+
 public class Slot {
 	public double x;
 	public double y;

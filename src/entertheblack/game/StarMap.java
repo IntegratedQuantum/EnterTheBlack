@@ -3,6 +3,9 @@ package entertheblack.game;
 import java.util.ArrayList;
 import java.util.List;
 
+// A map of systems.
+// TODO: Use for hyperspace navigation.
+
 public class StarMap {
 	public List<Star> systems = new ArrayList<>();
 	

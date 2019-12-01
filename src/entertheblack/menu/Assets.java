@@ -14,12 +14,13 @@ import javax.imageio.ImageIO;
 
 import entertheblack.fight.Game;
 import entertheblack.fight.MPGame;
-import entertheblack.fight.SPGame;
 import entertheblack.game.ResourceType;
 import entertheblack.game.World;
 import entertheblack.gui.Screen;
 import entertheblack.storage.ShipData;
 import entertheblack.storage.WeaponData;
+
+// Several static things used everywhere.
 
 public class Assets {
 	public static Screen screen = new MainMenu();

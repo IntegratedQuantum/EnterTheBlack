@@ -5,6 +5,10 @@ import entertheblack.storage.WeaponData;
 
 import java.awt.Graphics2D;
 
+// Object representing a projectile/missile or similar.
+// TODO: Allow missiles to destroy others.
+// TODO: Make missiles follow the same doughnut-logic like the ships.
+
 public class Projectile {
 	WeaponData wd;
 	double x, y;
@@ -78,9 +82,7 @@ public class Projectile {
 	public void paint(Graphics2D g2d) {
 		g2d.translate((int)x, (int)y);
 		g2d.rotate(alpha);
-		g2d.translate(-(int)x, -(int)y);
-		g2d.drawImage(wd.img, (int)x - r, (int)y - r, r*2, r*2, null);
-		g2d.translate((int)(x), (int)(y));
+		g2d.drawImage(wd.img, (int)-r, (int)-r, r*2, r*2, null);
 		g2d.rotate(-alpha);
 		g2d.translate(-((int)(x)), -((int)(y)));
 	}

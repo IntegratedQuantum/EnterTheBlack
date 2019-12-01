@@ -4,6 +4,8 @@ import java.awt.Image;
 
 import entertheblack.menu.Assets;
 
+// Contains data(damage velocity, ...) for a weaapon.
+
 public class WeaponData {
 	public double dmg;
 	public double range;

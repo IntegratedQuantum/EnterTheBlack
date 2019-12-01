@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 
+// Screen that is shown when getting in orbit of a planet. You can land here using 'L'
 // TODO: Scanning animation on opening!
 
 public class LandingScreen extends Screen {

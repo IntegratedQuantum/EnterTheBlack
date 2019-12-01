@@ -3,6 +3,8 @@ package entertheblack.game;
 import entertheblack.menu.Assets;
 
 // A world contains all star systems and their planets.
+// TODO: Make this better.
+
 public class World {
 	
 	Star [] systems;

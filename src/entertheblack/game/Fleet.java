@@ -9,6 +9,11 @@ import entertheblack.fight.Ship;
 import entertheblack.menu.Assets;
 import entertheblack.storage.ShipData;
 
+// Represents a group of ships in a system or hyperspace.
+// TODO: Proper graphics.
+// TODO: Multiple different ships inside one fleet.
+// TODO: Open diplomacy screen on contact.
+
 public class Fleet {
 	static int radius = 50;
 	double x, y;

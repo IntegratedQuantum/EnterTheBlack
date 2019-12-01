@@ -3,12 +3,12 @@ package entertheblack.game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
-import entertheblack.Util.Noise;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
-import entertheblack.menu.MainMenu;
+
+// Travelling around on the planet surface.
+// TODO: Add hostile environment.
 
 public class Surface extends Screen {
 	boolean move = false;

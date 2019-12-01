@@ -6,6 +6,8 @@ import java.util.List;
 
 import entertheblack.menu.Assets;
 
+// Data(hull, energy, ...) for each ship type.
+
 public class ShipData {
 	public String primary, secondary; // Names of the two weapons or systems.
 	public WeaponData wd1, wd2;

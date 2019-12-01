@@ -3,7 +3,6 @@ package entertheblack.game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,9 @@ import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
 import entertheblack.storage.ShipData;
+
+// Interface of a solar system.
+// The star is also stored as Planet object.
 
 public class Star extends Screen {
 	boolean move = false;
@@ -92,7 +94,7 @@ public class Star extends Screen {
 			}
 		}
 		
-		java.lang.System.out.println("Loading star system "+name+" at ("+x+", "+y+").");
+		System.out.println("Loading star system "+name+" at ("+x+", "+y+").");
 		char [] data = file.toCharArray();
 		int depth = 0;
 		List<Planet> lPlanets = new ArrayList<>();

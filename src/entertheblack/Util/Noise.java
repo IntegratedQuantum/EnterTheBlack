@@ -2,6 +2,9 @@ package entertheblack.Util;
 
 import java.util.Random;
 
+// Noise generation.
+// TODO: Make more efficient.
+
 public class Noise {
 	private static Random r = new Random();
 	private static final int FACTORX = 3743927, FACTORY = 524903093;

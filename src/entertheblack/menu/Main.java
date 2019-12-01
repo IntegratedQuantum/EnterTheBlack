@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,6 +14,8 @@ import javax.swing.JPanel;
 
 import entertheblack.fight.MPGame;
 import entertheblack.gui.Screen;
+
+// Contains main method and JFrame stuff.
 
 public class Main extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 	static MPGame game = new MPGame();

@@ -5,14 +5,16 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
 
-// Planets are in general all kinds of solar bodys that fly around somewhere.
+// Planets are in general all kinds of solar bodys that fly around somewhere around a star.
+// TODO: Add proper graphics.
+
+
 public class Planet {
 	private static final String MASS = "Mass", RADIUS = "Radius", DIST = "Distance", IMAGE = "Image", TEMP = "T", LIFE = "Life", GOV = "Government", TECH = "TechLevel";
 	

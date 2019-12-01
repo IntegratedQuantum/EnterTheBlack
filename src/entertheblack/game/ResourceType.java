@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import entertheblack.menu.Assets;
 
+// Cost type of resource. Contains multiple sub-groups of names,
+
 public class ResourceType {
 	public String name;
 	public String[] subTypes;
