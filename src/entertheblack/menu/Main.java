@@ -58,8 +58,8 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 	
 	public Main(JFrame frame) {
 		frame.addKeyListener(this);
-		frame.addMouseListener(this);
-		frame.addMouseMotionListener(this);
+		addMouseListener(this);
+		addMouseMotionListener(this);
 		frame.add(this);
 	}
 	public void keyTyped(KeyEvent paramKeyEvent) {}

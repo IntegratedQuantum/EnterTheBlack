@@ -25,7 +25,7 @@ public class Button extends Component {
 		text = t;
 	}
 	@Override
-	public void mouseUpdate(int x, int y, boolean pressed) { // Coordinates are buggy the top frame thingy seems to be used in mouse position calculation(TODO).
+	public void mouseUpdate(int x, int y, boolean pressed) {
 		selectedM = liesIn(x, y);
 		if(pressedM && !pressed) {
 			if(selectedM)
