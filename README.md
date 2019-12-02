@@ -1,7 +1,7 @@
 # EnterTheBlack
-A 2d space game where you can explore the galaxy and where you can make friends or enemies with other species. This game is currently WIP, but that's the goal.
+A 2d space game where you can explore the galaxy and where you can make friends or enemies with alien species. This game is currently WIP, but that's the goal.
 
-## Features of the game:
+## Current Features of the game:
 ### A working offline multiplayer:
 - 2 people can fight each other in different space ships.
 - 6 Different ships
@@ -23,7 +23,9 @@ You can compile it however you want. I personally use eclipse to do that, but th
 
 To run it you can either use your IDE or execute the main class(Main.java).
 ## Contributing:
-This project will take a long time to complete if I work on it all by myself. I appreciate any help I can get. If you want to help you can always make a PR. If you are unsure you can first make an Issue describing the feature you would like to add.
+This project will take a long time to complete if I work on it all by myself. I appreciate any help I can get.
+
+If you want to help make sure to read the [contributing guideline](https://github.com/IntegratedQuantum/EnterTheBlack/blob/master/CONTRIBUTING.md) first.
 
 I would really appreciate some storylines or similar.
 ## Credits:
