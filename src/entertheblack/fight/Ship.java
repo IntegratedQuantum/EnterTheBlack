@@ -35,8 +35,8 @@ public class Ship {
 		health = sd.health;
 		energy = sd.energy;
 		a = sd.acceleration;
-		vmax = sd.vmax/100.0;
-		omega = sd.turnRate/1000.0;
+		vmax = sd.vmax;
+		omega = sd.turnRate;
 		gen = sd.energyGeneration/60.0;
 		alpha = 0;
 		cooldownturn = 0;

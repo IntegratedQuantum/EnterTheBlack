@@ -46,9 +46,9 @@ public class ShipData {
 			} else if(parts[0].equals("Acceleration")) {
 				acceleration = Double.parseDouble(parts[1]);
 			} else if(parts[0].equals("Vmax")) {
-				vmax = Double.parseDouble(parts[1]);
+				vmax = Double.parseDouble(parts[1])/100.0;
 			} else if(parts[0].equals("Turn")) {
-				turnRate = Double.parseDouble(parts[1]);
+				turnRate = Double.parseDouble(parts[1])/1000.0;
 			} else if(parts[0].equals("Generation")) {
 				energyGeneration = Double.parseDouble(parts[1]);
 			} else if(parts[0].equals("Name")) {

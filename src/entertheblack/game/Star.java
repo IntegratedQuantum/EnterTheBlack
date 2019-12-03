@@ -197,7 +197,7 @@ public class Star extends Screen {
 		if(lockStrength > 1)
 			lockStrength = 1;
 		if(ship.y-ship.r < -size || ship.x-ship.r < -size || ship.x+ship.r > size || ship.y+ship.r > size) {
-			Assets.screen = new MainMenu();
+			Assets.screen = new HyperSpace(Assets.curWorld.map, ship.sd, this);
 		}
 	}
 

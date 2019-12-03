@@ -20,7 +20,6 @@ public class Simple implements AI {
 		// Calculate projection of enemy movement vector on (normalized) distance vector with scalar product:
 		double vRel = en.vmax*(en.vx*deltaX/dist + en.vy*deltaY/dist);
 		double t = dist/(sh.sd.wd1.velocity/10 - vRel);
-		System.out.println(t+" "+vRel);
 		// Simulate ship movement during given time:
 		deltaX += sh.vmax*sh.vx*t - en.vmax*en.vx*t;
 		deltaY += sh.vmax*sh.vy*t - en.vmax*en.vy*t;

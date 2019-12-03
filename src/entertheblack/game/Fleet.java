@@ -26,7 +26,7 @@ public class Fleet {
 		this.x = x;
 		this.y = y;
 		this.sd = sd;
-		v = sd.vmax/110; // Let it fly slightly slower than the equivalent ship would.
+		v = sd.vmax/1.1; // Let it fly slightly slower than the equivalent ship would.
 	}
 	public void update(Ship player) {
 		double deltax = player.x - x;
