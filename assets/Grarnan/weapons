@@ -11,11 +11,11 @@
 }
 {
 	Name = More Blue Laser
-	Damage = 44
+	Damage = 2
 	Range = 7500
-	Cost = 5000
+	Cost = 200
 	Reload = 1000
-	Velocity = 50
+	Velocity = 40
 	Tracking = 0
 	Size = 10
 	Image = laser_blue
@@ -44,9 +44,9 @@
 }
 {
 	Name = More Red Laser
-	Damage = 20
-	Range = 1000
-	Cost = 750
+	Damage = 1
+	Range = 1200
+	Cost = 50
 	Reload = 200
 	Velocity = 40
 	Tracking = 0

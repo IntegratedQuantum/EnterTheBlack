@@ -3,7 +3,7 @@
 	Primary = Blue Laser
 	Secondary = More Blue Laser
 	Health = 150
-	Energy = 5000
+	Energy = 6000
 	Mass = 20
 	Size = 100
 	Acceleration = 2
@@ -12,7 +12,23 @@
 	Generation = 240
 	SlotPrim = -25, -5
 	SlotPrim = 25, -5
-	SlotSecn = 0, 50
+	SlotSecn = 0, 50, -16
+	SlotSecn = 0, 50, -14
+	SlotSecn = 0, 50, -12
+	SlotSecn = 0, 50, -10
+	SlotSecn = 0, 50, -8
+	SlotSecn = 0, 50, -6
+	SlotSecn = 0, 50, -4
+	SlotSecn = 0, 50, -2
+	SlotSecn = 0, 50, 0
+	SlotSecn = 0, 50, 2
+	SlotSecn = 0, 50, 4
+	SlotSecn = 0, 50, 6
+	SlotSecn = 0, 50, 8
+	SlotSecn = 0, 50, 10
+	SlotSecn = 0, 50, 12
+	SlotSecn = 0, 50, 14
+	SlotSecn = 0, 50, 16
 	Image = starlight_blue
 }
 {
@@ -43,9 +59,20 @@
 	Acceleration = 2
 	Vmax = 400
 	Turn = 40
-	Generation = 600
-	SlotPrim = -25, -5
-	SlotPrim = 25, -5
-	SlotSecn = 0, 50
+	Generation = 300
+	SlotPrim = -25, -5, -4
+	SlotPrim = -25, -5, -2
+	SlotPrim = -25, -5, 0
+	SlotPrim = -25, -5, 2
+	SlotPrim = -25, -5, 4
+	SlotPrim = 25, -5, -4
+	SlotPrim = 25, -5, -2
+	SlotPrim = 25, -5, 0
+	SlotPrim = 25, -5, 2
+	SlotPrim = 25, -5, 4
+	SlotSecn = -22, -28, 180
+	SlotSecn = -18, -28, 180
+	SlotSecn = 18, -28, 180
+	SlotSecn = 22, -28, 180
 	Image = starlight_yellow
 }

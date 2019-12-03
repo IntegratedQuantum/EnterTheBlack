@@ -22,11 +22,14 @@ public class Projectile {
 		this.wd = wd;
 		x = source.x + source.r - 2;
 		y = source.y + source.r - 2;
-		x += Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.sin(source.alpha + Math.atan(((double)slot.x / (double)slot.y)) + slot.alpha);
-		y += -Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.cos(source.alpha + Math.atan(((double)slot.x / (double)slot.y)) + slot.alpha);
-		vy = -(wd.velocity / 10) * Math.cos(source.alpha);// + source.vy;
-		vx = (wd.velocity / 10) * Math.sin(source.alpha);// + source.vx;
-		alpha = source.alpha;
+		double angle = Math.atan((double)slot.x / (double)slot.y);
+		if(slot.y < 0)
+			angle += Math.PI;
+		x += Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.sin(source.alpha + angle);
+		y += -Math.sqrt((slot.x*slot.x + slot.y*slot.y)) * Math.cos(source.alpha + angle);
+		alpha = source.alpha+slot.alpha;
+		vy = -(wd.velocity / 10) * Math.cos(alpha);// + source.vy;
+		vx = (wd.velocity / 10) * Math.sin(alpha);// + source.vx;
 		r = 10;
 		guiding = -wd.tracking/1000.0;
 	}
