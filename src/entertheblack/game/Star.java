@@ -44,6 +44,10 @@ public class Star extends Screen {
 		if (e.getKeyCode() == Assets.Controls[4]) {
 			move = true;
 		}
+		if(e.getKeyChar() == 'm') {
+			Assets.screen = Assets.curWorld.map;
+			Assets.curWorld.map.activate(this);
+		}
 		if(e.getKeyCode() == 27) {
 			Assets.screen = new MainMenu();
 		}
@@ -68,7 +72,8 @@ public class Star extends Screen {
 		zoomLock = planets[0];
 		
 		// TODO: Properly initialize fleets!
-		fleets.add(new Fleet("Human", getPlanet("Earth").x, getPlanet("Earth").y, Assets.shipData.get(0)));
+		if(getPlanet("Earth") != null)
+			fleets.add(new Fleet("Human", getPlanet("Earth").x, getPlanet("Earth").y, Assets.shipData.get(0)));
 	}
 	
 	public Planet getPlanet(String name) {
@@ -87,9 +92,9 @@ public class Star extends Screen {
 			String[] val = lines[i].split("=");
 			if(val.length < 2)
 				continue;
-			if(val[0].equals("X")) {
+			if(val[0].equals("X")) { // In milli parsec.
 				x = Integer.parseInt(val[1]);
-			} else if(val[0].equals("Y")) {
+			} else if(val[0].equals("Y")) {  // In milli parsec.
 				y = Integer.parseInt(val[1]);
 			}
 		}
@@ -161,7 +166,7 @@ public class Star extends Screen {
 		d++;
 		// Determine the zoomLock which is the closest planet to the ship.
 		double r = 1.0e300;
-		for(int i = 1; i < planets.length; i++) {
+		for(int i = 0; i < planets.length; i++) {
 			Planet p = planets[i];
 			double deltax = ship.x-p.x;
 			double deltay = ship.y-p.y;

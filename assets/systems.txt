@@ -84,3 +84,26 @@ Sol {
 		Tech Level = 8
 	}
 }
+
+Sirius {
+	X = 0
+	Y = 2640 
+	Sirius A {
+		Mass = 500000
+		Radius = 350
+		Distance = 10
+		Image = star_A0.png
+		T = 50
+		Life = 0
+		Tech Level = 10
+	}
+	Sirius B {
+		Mass = 5
+		Radius = 20
+		Distance = 400
+		Image = star_A2.png
+		T = 50
+		Life = 0
+		Tech Level = 9
+	}
+}

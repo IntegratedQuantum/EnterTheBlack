@@ -45,6 +45,10 @@ public class HyperSpace extends Screen {
 		if (e.getKeyCode() == Assets.Controls[4]) {
 			move = true;
 		}
+		if(e.getKeyChar() == 'm') {
+			Assets.screen = Assets.curWorld.map;
+			Assets.curWorld.map.activate(this);
+		}
 		if(e.getKeyCode() == 27) {
 			Assets.screen = new MainMenu();
 		}

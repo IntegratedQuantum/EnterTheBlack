@@ -27,6 +27,10 @@ public class Surface extends Screen {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if(e.getKeyChar() == 'm') {
+			Assets.screen = Assets.curWorld.map;
+			Assets.curWorld.map.activate(this);
+		}
 		if (e.getKeyCode() == Assets.Controls[1]) {
 			right = true;
 		}
