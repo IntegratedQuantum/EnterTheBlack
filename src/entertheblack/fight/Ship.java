@@ -34,7 +34,7 @@ public class Ship {
 		vx = vy = 0;
 		health = sd.health;
 		energy = sd.energy;
-		a = sd.acceleration;
+		a = sd.acceleration/100.0;
 		vmax = sd.vmax;
 		omega = sd.turnRate;
 		gen = sd.energyGeneration/60.0;
@@ -45,16 +45,38 @@ public class Ship {
 		projectiles = new ArrayList<>();
 	}
 	
+	// Update velocity.
+	// Uses a simple Newtonian model, but also uses a defined maximum velocity to prevent the player from going super fast.
+	public void calculateV() {
+		double v = Math.sqrt(vx*vx+vy*vy);
+		double ax = a*Math.sin(alpha);
+		double ay = -a*Math.cos(alpha);
+		
+		if(v > vmax) {
+			double alpha = Math.atan(vy/vx);
+			if(vx < 0)
+				alpha += Math.PI;
+			vx = vmax*Math.cos(alpha);
+			vy = vmax*Math.sin(alpha);
+		}
+		if(v > 0.1) // Prevent division by 0.
+			vx += ax/v; // The acceleration at constant power scales with 1/(vt), where t is normed to 1.
+		else
+			vx += 10*ax;
+		if(v > 0.1) // Prevent division by 0.
+			vy += ay/v; // The acceleration at constant power scales with 1/(vt), where t is normed to 1.
+		else
+			vy += 10*ay;
+		System.out.println(v);
+	}
+	
 	// Flight out side of fighting areas doesn't need to account for enemy ships and energy, health, ...
 	public void fly(boolean move, boolean turnRight, boolean turnLeft) {
 		if (move) {
-			vx = ((200-a)*vx + a*Math.cos(alpha - Math.PI/2))/200;
-			vy = ((200-a)*vy + a*Math.sin(alpha - Math.PI/2))/200;
+			calculateV();
 		}
 		x = x + vx*vmax;
 		y = y + vy*vmax;
-		vx = 0.9999*vx;
-		vy = 0.9999*vy;
 		
 		if (turnLeft && !turnRight) {
 			if (alpha <= 0) {
@@ -74,14 +96,11 @@ public class Ship {
 	}
 	
 	public void fly(Ship en, boolean move, boolean turnRight, boolean turnLeft) {
-		if (move) {
-			vx = ((200-a)*vx + a*Math.cos(alpha - Math.PI/2))/200;
-			vy = ((200-a)*vy + a*Math.sin(alpha - Math.PI/2))/200;
+		if(move) {
+			calculateV();
 		}
-		x = x + vx*vmax;
-		y = y + vy*vmax;
-		vx = 0.9999*vx;
-		vy = 0.9999*vy;
+		x = x + vx;
+		y = y + vy;
 		
 		// Collision
 		double deltax = en.x - x;

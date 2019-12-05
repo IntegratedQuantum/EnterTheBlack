@@ -6,7 +6,7 @@
 	Energy = 1000
 	Mass = 10
 	Size = 100
-	Acceleration = 2
+	Acceleration = 10
 	Vmax = 400
 	Turn = 50
 	Generation = 120
