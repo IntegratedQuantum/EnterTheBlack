@@ -3,6 +3,7 @@ package entertheblack.menu;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,9 @@ import javax.imageio.ImageIO;
 
 import entertheblack.fight.Game;
 import entertheblack.fight.MPGame;
+import entertheblack.game.Player;
 import entertheblack.game.ResourceType;
+import entertheblack.game.Star;
 import entertheblack.game.World;
 import entertheblack.gui.Screen;
 import entertheblack.storage.ShipData;
@@ -71,6 +74,16 @@ public class Assets {
 			return new Scanner(new File(fileName)).useDelimiter("\\Z").next();
 		} catch(Exception e) {e.printStackTrace();}
 		return "";
+	}
+	
+	public static void writeFile(String data, String fileName) {
+		try {
+			FileWriter f = new FileWriter(takeCareOfWindows(fileName));
+			f.write(data);
+			f.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static BufferedImage getImage(String fileName) {
@@ -223,5 +236,18 @@ public class Assets {
 			sd.assignWeaponData(weaponData);
 		}
 		game.reset(0,  0);
+	}
+	
+	public static void saveGame(World curWorld, Star curSystem) {
+		StringBuilder file = new StringBuilder();
+		Player p = curWorld.player;
+		file.append(curSystem.x+","+curSystem.y);
+		file.append("{");
+		p.save(file);
+		file.append("}");
+		file.append("{");
+		curWorld.save(file);
+		file.append("}");
+		writeFile(file.toString(), "save.txt");
 	}
 }

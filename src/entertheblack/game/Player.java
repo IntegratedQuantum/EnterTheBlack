@@ -12,4 +12,13 @@ public class Player {
 	public Player() { // TODO: Read from file.
 		inv = new Inventory(); // TODO: Make finite!
 	}
+	
+	public void save(StringBuilder sb) {
+		sb.append(techLevel);
+		sb.append(",");
+		sb.append(credits);
+		sb.append("{");
+		inv.save(sb);
+		sb.append("}");
+	}
 }

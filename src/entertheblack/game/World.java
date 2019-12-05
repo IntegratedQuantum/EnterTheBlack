@@ -6,8 +6,6 @@ import entertheblack.menu.Assets;
 // TODO: Make this better.
 
 public class World {
-	
-	Star [] systems;
 	StarMap map;
 	public Player player;
 	public World(int size) {
@@ -21,5 +19,13 @@ public class World {
 	
 	public Star getStar(int i) {
 		return map.systems.get(i);
+	}
+	
+	public void save(StringBuilder sb) {
+		for(Star s : map.systems) {
+			sb.append("{");
+			s.save(sb);
+			sb.append("}");
+		}
 	}
 }

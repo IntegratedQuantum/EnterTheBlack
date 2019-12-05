@@ -29,7 +29,7 @@ public class Star extends Screen {
 	public Planet[] planets;
 	Planet zoomLock; // The planet that is in the center of zoom. Used to smoothly close into planets.
 	double lockStrength = 0; // Factor of how planet-centered and how star-centered the current camera position is.
-	int x, y; // Position on the map.
+	public int x, y; // Position on the map.
 	Ship ship;
 	String name;
 	
@@ -47,6 +47,9 @@ public class Star extends Screen {
 		if(e.getKeyChar() == 'm') {
 			Assets.screen = Assets.curWorld.map;
 			Assets.curWorld.map.activate(this);
+		}
+		if(e.getKeyChar() == 'p') {
+			Assets.saveGame(Assets.curWorld, this);
 		}
 		if(e.getKeyCode() == 27) {
 			Assets.screen = new MainMenu();
@@ -208,4 +211,8 @@ public class Star extends Screen {
 
 	@Override
 	public void mouseUpdate(int x, int y, boolean pressed) {} // Not needed.
+	
+	public void save(StringBuilder sb) {
+		// TODO: Save what resources have been collected.
+	}
 }

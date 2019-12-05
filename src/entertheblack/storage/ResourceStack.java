@@ -17,4 +17,13 @@ public class ResourceStack {
 		amount += add;
 		return true;
 	}
+	
+	public void save(StringBuilder sb) {
+		if(type == null)
+			sb.append("null");
+		else
+			sb.append(type.name);
+		sb.append(",");
+		sb.append(amount);
+	}
 }

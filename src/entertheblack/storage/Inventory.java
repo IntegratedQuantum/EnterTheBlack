@@ -67,4 +67,13 @@ public class Inventory {
 		
 		return ret.toString();
 	}
+	
+	public void save(StringBuilder sb) {
+		sb.append(limit);
+		for(ResourceStack rs : resources) {
+			sb.append("{");
+			rs.save(sb);
+			sb.append("}");
+		}
+	}
 }
