@@ -25,7 +25,7 @@ public class Noise {
 	private static double interpolate(double a, double b, double w) {
 		return w*a + (1-w)*b;
 	}
-	private static double sCurve(double x) {
+	public static double sCurve(double x) {
 		return 3*x*x-2*x*x*x;
 	}
 	private static double noise(double x, double y, long seed) {

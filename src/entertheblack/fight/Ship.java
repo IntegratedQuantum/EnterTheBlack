@@ -67,7 +67,6 @@ public class Ship {
 			vy += ay/v; // The acceleration at constant power scales with 1/(vt), where t is normed to 1.
 		else
 			vy += 10*ay;
-		System.out.println(v);
 	}
 	
 	// Flight out side of fighting areas doesn't need to account for enemy ships and energy, health, ...
@@ -75,8 +74,8 @@ public class Ship {
 		if (move) {
 			calculateV();
 		}
-		x = x + vx*vmax;
-		y = y + vy*vmax;
+		x = x + vx;
+		y = y + vy;
 		
 		if (turnLeft && !turnRight) {
 			if (alpha <= 0) {

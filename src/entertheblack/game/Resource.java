@@ -18,9 +18,9 @@ public class Resource {
 	}
 	
 	public void paint(Graphics2D g, double lvx, double lvy) {
-		if(type == null) { // Test case. Remove later!
-			g.fillOval((int)(x-2), (int)(y-2) + 680, 4, 4);
-			g.fillOval((int)(-lvx*8000/800 + 960 + x*8000/800), (int)(-lvy*4000/400 + 340 + y*4000/400), 40, 40);
-		}
+		g.drawImage(type.img, (int)(-lvx*8000/800 + 960 + x*8000/800), (int)(-lvy*4000/400 + 340 + y*4000/400), 80, 80, null);
+	}
+	public void paintOnMap(Graphics2D g) {
+		g.drawImage(type.img, (int)(x-4), (int)(y-4) + 680, 8, 8, null);
 	}
 }

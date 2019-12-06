@@ -37,6 +37,7 @@ public class StarMap extends Screen {
 					depth--;
 					if(depth == 0) {
 						systems.add(new Star(name, stb.toString()));
+						stb = new StringBuilder();
 					}
 					else
 						stb.append(data[i]);

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
@@ -16,7 +17,7 @@ import entertheblack.menu.Assets;
 
 
 public class Planet {
-	private static final String MASS = "Mass", RADIUS = "Radius", DIST = "Distance", IMAGE = "Image", TEMP = "T", LIFE = "Life", GOV = "Government", TECH = "TechLevel";
+	private static final String MASS = "Mass", RADIUS = "Radius", DIST = "Distance", IMAGE = "Image", TEMP = "T", LIFE = "Life", GOV = "Government", TECH = "TechLevel", COLOR = "Color";
 	
 	private static final double MIN = 1000, MAX = 10000, rho = 1, G = 1;
 	double m, r, d, omega, alpha, omegaSelf, alphaSelf;
@@ -25,6 +26,7 @@ public class Planet {
 	int techLevel; // Tech level needed to land here.
 	int life = 0; // How many specimen can live here.
 	int lastDate;
+	int[] color = new int[6]; // Color specifications for planets surface map.
 	public String species = null; // Species governing this planet.
 	String name;
 	Planet orbiting;
@@ -83,6 +85,10 @@ public class Planet {
 				techLevel = Integer.parseInt(val[1]);
 			else if(val[0].equals(LIFE)) {
 				life = Integer.parseInt(val[1]);
+			} else if(val[0].equals(COLOR)) {
+				for(int j = 0; j < 6; j++) {
+					color[j] = new Scanner(""+val[1].charAt(2*j)+val[1].charAt(2*j+1)).nextInt(16);
+				}
 			}
 		}
 		omega = alpha = 0;
@@ -134,18 +140,14 @@ public class Planet {
 				Random rand = new Random();
 				rand.setSeed(Double.doubleToRawLongBits(value));
 				if(rand.nextDouble() <= 0.00005) {
-					resources.add(new Resource(i, j, null, (int)(20*rand.nextDouble())));
+					resources.add(new Resource(i, j, Assets.resources[(int)(Math.random()*Assets.resources.length)], (int)(20*rand.nextDouble())));
 				}
+				// Use noise value to linear interpolate between the two color values specified in data file.
+				int r = (int)((value+1)*(color[3]-color[0]))/2 + color[0];
+				int gr = (int)((value+1)*(color[4]-color[1]))/2 + color[1];
+				int b = (int)((value+1)*(color[5]-color[2]))/2 + color[2];
 				int d = (int)(value*128)+128;
-				if(d > 255) {
-					System.out.println(d);
-					d = 255;
-				}
-				if(d < 0) {
-					System.out.println(d);
-					d = 255;
-				}
-				g.setColor(new Color(d, d, d));
+				g.setColor(new Color(r, gr, b));
 				g.fillRect(i, j, 1, 1);
 				noiseMap[i][j] = new Color(d, d, d);
 			}

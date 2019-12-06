@@ -2,6 +2,7 @@ Sol {
 	X = 0
 	Y = 0
 	Sun {
+		Color = cb5100 ffea74
 		Mass = 332900
 		Radius = 200
 		Distance = 0
@@ -11,6 +12,7 @@ Sol {
 		Tech Level = 10
 	}
 	Mercury {
+		Color = 93816d e7dfd6
 		Mass = 0.055
 		Radius = 20
 		Distance = 400
@@ -20,6 +22,7 @@ Sol {
 		Tech Level = 3
 	}
 	Venus {
+		Color = 7b4000 7b5400
 		Mass = 0.815
 		Radius = 40
 		Distance = 700
@@ -29,6 +32,7 @@ Sol {
 		Tech Level = 4
 	}
 	Earth {
+		Color = 213bff 6a8a00
 		Mass = 1
 		Radius = 50
 		Distance = 1000
@@ -39,6 +43,7 @@ Sol {
 		Tech Level = 0
 	}
 	Mars {
+		Color = 67431f 93552e
 		Mass = 0.107
 		Radius = 30
 		Distance = 1500
@@ -48,6 +53,7 @@ Sol {
 		Tech Level = 1
 	}
 	Jupiter {
+		Color = d0c73a 9f401b
 		Mass = 318
 		Radius = 90
 		Distance = 2200
@@ -57,6 +63,7 @@ Sol {
 		Tech Level = 9
 	}
 	Saturn {
+		Color = d0a73a a78f50
 		Mass = 95
 		Radius = 80
 		Distance = 3000
@@ -66,6 +73,7 @@ Sol {
 		Tech Level = 8
 	}
 	Uranus {
+		Color = 9ee8e0 90d4cd
 		Mass = 14
 		Radius = 50
 		Distance = 3500
@@ -75,6 +83,7 @@ Sol {
 		Tech Level = 8
 	}
 	Neptune {
+		Color = 3144a4 4772a2
 		Mass = 30.1
 		Radius = 60
 		Distance = 4000

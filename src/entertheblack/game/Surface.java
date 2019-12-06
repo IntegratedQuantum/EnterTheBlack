@@ -74,9 +74,12 @@ public class Surface extends Screen {
 			g.drawImage(planet.groundMap, (int)(8000 - lv.x*8000/800 + 960), (int)(-lv.y*4000/400 + 340), 8000, 4000, null);
 		if(lv.x < 200)
 			g.drawImage(planet.groundMap, (int)(-lv.x*8000/800 + 960 - 8000), (int)(-lv.y*4000/400 + 340), 8000, 4000, null);
-		planet.drawNoiseMap(g);
 		for(int i = 0; i < planet.resources.size(); i++) {
 			planet.resources.get(i).paint(g, lv.x, lv.y);
+		}
+		planet.drawNoiseMap(g);
+		for(int i = 0; i < planet.resources.size(); i++) {
+			planet.resources.get(i).paintOnMap(g);
 		}
 		lv.paint(g);
 		g.setColor(Color.DARK_GRAY);

@@ -75,8 +75,8 @@ public class Star extends Screen {
 		zoomLock = planets[0];
 		
 		// TODO: Properly initialize fleets!
-		if(getPlanet("Earth") != null)
-			fleets.add(new Fleet("Human", getPlanet("Earth").x, getPlanet("Earth").y, Assets.shipData.get(0)));
+		//if(getPlanet("Earth") != null)
+			//fleets.add(new Fleet("Human", getPlanet("Earth").x, getPlanet("Earth").y, Assets.shipData.get(0)));
 	}
 	
 	public Planet getPlanet(String name) {
