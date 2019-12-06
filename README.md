@@ -7,7 +7,7 @@ A 2d space game where you can explore the galaxy and where you can make friends 
 - 6 Different ships
 - 1-2 different weapons per ship
 - Weapons with automatic guiding system
-![Screenshot from 2019-11-10 10-43-31](https://user-images.githubusercontent.com/43880493/68542013-770d3f00-03a7-11ea-8c6a-016c9335f938.png)
+![Screenshot from 2019-12-06 22-10-42](https://user-images.githubusercontent.com/43880493/70357540-6e5d3b00-1877-11ea-8303-dbeb99ee47e7.png)
 ### A not yet complete singleplayer:
 - You can explore 1 system
 - Dynamic zooming in on the nearest planet
@@ -16,6 +16,8 @@ A 2d space game where you can explore the galaxy and where you can make friends 
 - You can leave and enter systems by travelling through hyperspace
 - You can open a star map with 'm'
 - You might meet alien fleets which(at the moment) automatically engage in combat.
+![Screenshot from 2019-12-06 22-09-22](https://user-images.githubusercontent.com/43880493/70357557-7a48fd00-1877-11ea-80ea-e15a2ea445a4.png)
+![Screenshot from 2019-12-06 21-43-51](https://user-images.githubusercontent.com/43880493/70357562-7e751a80-1877-11ea-8859-6f841da78f0d.png)
 ### A Menu:
 - You can change which keys you need to press to fire/turn/thrust in Settings.
 - You can select which ship the players will get in the multiplayer mode.
@@ -34,6 +36,6 @@ I would really appreciate some storylines or similar.
 ## Credits:
 All ship graphics were made by Joshua Wenzel.
 
-The other graphics were made by me.
+The other graphics were made by me or are from the public domain.
 
 I also wrote all the code, but that may change.
