@@ -1,5 +1,6 @@
 package entertheblack.menu;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -48,12 +49,13 @@ public class Assets {
 	
 	public static String[] weaponname = { "Red Laser", "Missile", "Blue Laser", "More Blue Laser", "Big Red Laser", "Fireball", "More red Laser", "Red Laser", "Green Laser", "Advanced Green Laser" };
 	
-	public static int[] Controls = { 37, 39, 17, 16, 38, 65, 68, 70, 71, 87 };
+	public static int[] Controls;
 	
 	public static int gamemode = 0;
 	
 	//static BufferedImage ships = new BufferedImage(100, 50, 2);
-	public static BufferedImage bg, btn, btnpr, btnsl, hb;
+	public static Color btn, btnpr, btnbg, btnsl;
+	public static BufferedImage bg, hb;
 	
 	// Some people seem to use windows which for unknown reasons still uses "\" as path seperator.
 	public static String takeCareOfWindows(String path) {
@@ -78,7 +80,7 @@ public class Assets {
 	
 	public static void writeFile(String data, String fileName) {
 		try {
-			FileWriter f = new FileWriter(takeCareOfWindows(fileName));
+			FileWriter f = new FileWriter(takeCareOfWindows("assets/"+fileName));
 			f.write(data);
 			f.close();
 		} catch (Exception e) {
@@ -216,13 +218,98 @@ public class Assets {
 			resources[i] = new ResourceType(data[i]);
 		}
 	}
+	
+	static void loadSettings() {
+		// Initialize standard settings in case the settings file is corrupted/incomplete:
+		btn = new Color(111, 111, 111);
+		btnsl = new Color(204, 198, 24);
+		btnpr = new Color(169, 159, 0);
+		btnbg = new Color(0, 0, 0);
+		Controls = new int[]{ 37, 39, 17, 16, 38, 65, 68, 70, 71, 87 };
+		// Read the data file and overwrite the standard settings.
+		try {
+			String file = readFile("settings.txt");
+			String [] lines = file.split("\n");
+			for(String line : lines) {
+				String [] val = line.split("=");
+				if(val.length <= 1)
+					continue;
+				if(val[0].equals("btn")) {
+					String[] rgb = val[1].split(",");
+					btn = new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+				}
+				else if(val[0].equals("btnpr")) {
+					String[] rgb = val[1].split(",");
+					btnpr = new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+				}
+				else if(val[0].equals("btnsl")) {
+					String[] rgb = val[1].split(",");
+					btnsl = new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+				}
+				else if(val[0].equals("btnbg")) {
+					String[] rgb = val[1].split(",");
+					btnbg = new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+				}
+				else if(val[0].equals("keys")) {
+					String[] keys = val[1].split(",");
+					if(keys.length == Controls.length) {
+						for(int j = 0; j < Controls.length; j++) {
+							Controls[j] = Integer.parseInt(keys[j]);
+						}
+					} else {
+						System.err.println("Wrong number of arguments in settings.txt for keys: "+keys.length+" instead of "+Controls.length+".");
+					}
+				}
+			}
+		} catch(Exception e) { // Catch any error if occuring when reading the settings and revert to standard settings:
+			System.err.println("File \"settings.txt\" corrupted:");
+			e.printStackTrace();
+			System.err.println("Reverting to standard settings.");
+		}
+	}
+	
+	private static void addColors(StringBuilder sb, Color c) {
+		sb.append(c.getRed());
+		sb.append(",");
+		sb.append(c.getGreen());
+		sb.append(",");
+		sb.append(c.getBlue());
+	}
+	
+	static void saveSettings() {
+		// Generate the file:
+		StringBuilder sb = new StringBuilder();
+		// Add button colors:
+		sb.append("btn=");
+		addColors(sb, btn);
+		sb.append("\n");
+		sb.append("btnsl=");
+		addColors(sb, btnsl);
+		sb.append("\n");
+		sb.append("btnpr=");
+		addColors(sb, btnpr);
+		sb.append("\n");
+		sb.append("btnbg=");
+		addColors(sb, btnbg);
+		sb.append("\n");
+		// Add key preferences:
+		sb.append("keys=");
+		for(int i = 0; i < Controls.length; i++) {
+			if(i != 0)
+				sb.append(",");
+			sb.append(Controls[i]);
+		}
+		sb.append("\n");
+		
+		writeFile(sb.toString(), "settings.txt");
+	}
 
 	static void loadData() {
+		System.out.println((int)'\t');
 		bg = getImage("bg.png");
-		btn = getImage("btn.png");
-		btnsl = getImage("btnsl.png");
-		btnpr = getImage("btnpr.png");
+		// TODO: Load color from settings.txt
 		hb = getImage("hb.png");
+		loadSettings();
 		loadStars();
 		loadPlanets();
 		loadResources();

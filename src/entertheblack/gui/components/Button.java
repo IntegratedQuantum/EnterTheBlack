@@ -40,15 +40,10 @@ public class Button extends Component {
 	}
 	@Override
 	public void paint(Graphics2D g) {
-		g.drawImage(Assets.btn, x, y, width, height, null);
-		if (selectedM || selectedB) {
-			g.drawImage(Assets.btnsl, x, y, width, height, null);
-		}
-		g.setColor(Color.BLACK);
+		g.setColor((selectedM || selectedB) ? Assets.btnsl : Assets.btn);
+		g.fillRect(x, y, width, height);
+		g.setColor((pressedM || pressedB) ? Assets.btnpr : Assets.btnbg);
 		g.fillRect(x + 5, y + 5, width - 10, height - 10);
-		if (pressedM || pressedB) {
-			g.drawImage(Assets.btnpr, x + 5, y + 5, width - 10, height - 10, null);
-		}
 		g.setColor(Color.WHITE);
 		g.drawString(text, x + 10, y + 25);
 	}

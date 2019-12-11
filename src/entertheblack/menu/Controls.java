@@ -9,6 +9,7 @@ import java.util.List;
 import entertheblack.gui.ActionListener;
 import entertheblack.gui.Screen;
 import entertheblack.gui.components.Button;
+import entertheblack.gui.components.KeyButton;
 
 // SettingsScreen to change Controls.
 
@@ -16,17 +17,17 @@ public class Controls extends Screen implements ActionListener {
 	List<Button> buttons = new ArrayList<>();
 	
 	public Controls() {
-		buttons.add(new Button(690, 190, 200, 50, this, 1, "Player 1: Turn left"));
-		buttons.add(new Button(690, 340, 200, 50, this, 2, "Player 1: Turn right"));
-		buttons.add(new Button(690, 490, 200, 50, this, 3, "Player 1: Shoot Primary"));
-		buttons.add(new Button(690, 640, 200, 50, this, 4, "Player 1: Shoot Secondary"));
-		buttons.add(new Button(690, 790, 200, 50, this, 5, "Player 1: Forward"));
+		buttons.add(new KeyButton(690, 190, 200, 65, this, 1, "Player 1: Turn left", 0));
+		buttons.add(new KeyButton(690, 340, 200, 65, this, 2, "Player 1: Turn right", 1));
+		buttons.add(new KeyButton(690, 490, 200, 65, this, 3, "Player 1: Shoot Primary", 2));
+		buttons.add(new KeyButton(690, 640, 200, 65, this, 4, "Player 1: Shoot Secondary", 3));
+		buttons.add(new KeyButton(690, 790, 200, 65, this, 5, "Player 1: Forward", 4));
 		buttons.add(new Button(690, 940, 200, 50, this, 6, "Back to Menu"));
-		buttons.add(new Button(940, 190, 200, 50, this, 7, "Player 2: Turn left"));
-		buttons.add(new Button(940, 340, 200, 50, this, 8, "Player 2: Turn right"));
-		buttons.add(new Button(940, 490, 200, 50, this, 9, "Player 2: Shoot Primary"));
-		buttons.add(new Button(940, 640, 200, 50, this, 10, "Player 2: Shoot Secondary"));
-		buttons.add(new Button(940, 790, 200, 50, this, 11, "Player 2: Forward"));
+		buttons.add(new KeyButton(940, 190, 200, 65, this, 7, "Player 2: Turn left", 5));
+		buttons.add(new KeyButton(940, 340, 200, 65, this, 8, "Player 2: Turn right", 6));
+		buttons.add(new KeyButton(940, 490, 200, 65, this, 9, "Player 2: Shoot Primary", 7));
+		buttons.add(new KeyButton(940, 640, 200, 65, this, 10, "Player 2: Shoot Secondary", 8));
+		buttons.add(new KeyButton(940, 790, 200, 65, this, 11, "Player 2: Forward", 9));
 		buttons.get(0).selectedB = true;
 	}
 	
@@ -34,7 +35,7 @@ public class Controls extends Screen implements ActionListener {
 	int controlchange = 0;
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {		
 		if (this.controlchange > 0) {
 			Assets.Controls[this.controlchange - 1] = e.getKeyCode();
 			this.buttonsel *= -1;
@@ -73,7 +74,7 @@ public class Controls extends Screen implements ActionListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == 17) {
+		if (e.getKeyCode() == 17 && buttonsel < 0) {
 			buttons.get(-buttonsel-1).trigger();
 		}
 	}
@@ -112,5 +113,4 @@ public class Controls extends Screen implements ActionListener {
 				controlchange--;
 		}
 	}
-
 }
