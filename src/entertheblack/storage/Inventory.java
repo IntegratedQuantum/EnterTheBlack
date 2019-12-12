@@ -76,4 +76,35 @@ public class Inventory {
 			sb.append("}");
 		}
 	}
+	
+	public int getAmount(ResourceType res) {
+		for(ResourceStack stack : resources) {
+			if(stack.type == res)
+				return stack.amount;
+		}
+		return 0;
+	}
+	// WARNING: Do all necessary checks before calling!
+	public void remove(ResourceType res, int amount) {
+		for(ResourceStack stack : resources) {
+			if(stack.type == res) {
+				stack.amount -= amount;
+				total -= amount;
+			}
+		}
+	}
+	// WARNING: Do all necessary checks before calling!
+	public void add(ResourceType res, int amount) {
+		for(ResourceStack stack : resources) {
+			if(stack.type == res) {
+				stack.amount += amount;
+				total += amount;
+				return;
+			}
+		}
+		ResourceStack stack = new ResourceStack(res);
+		stack.amount += amount;
+		total += amount;
+		resources.add(stack);
+	}
 }

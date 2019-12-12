@@ -67,8 +67,6 @@ public class Surface extends Screen {
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, 1920, 1080);
 		g.drawImage(planet.groundMap, (int)(-lv.x*8000/800 + 960), (int)(-lv.y*4000/400 + 340), 8000, 4000, null); // TODO make it smoother.
 		if(lv.x > 600)
 			g.drawImage(planet.groundMap, (int)(8000 - lv.x*8000/800 + 960), (int)(-lv.y*4000/400 + 340), 8000, 4000, null);
@@ -88,8 +86,5 @@ public class Surface extends Screen {
 		g.drawImage(LandingVehicle.img, 920, 700, 320, 320, null);
 		//TODO: Second rect on the right side.
 	}
-
-	@Override
-	public void mouseUpdate(int x, int y, boolean pressed) {} // Not needed.
 
 }

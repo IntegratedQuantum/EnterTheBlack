@@ -40,7 +40,6 @@ public class ShipSelection extends Screen {
 	public void paint(Graphics2D g) { // TODO!!!!!
 		g.setColor(light);
 		g.setFont(new Font("Sansserif", 0, 15));
-		g.drawImage(Assets.bg, 0, 0, 1920, 1080, null);
 		g.drawImage(Assets.shipData.get(ship1).img, 760, 150, 200, 200, null);
 		g.drawString(Assets.shipstatsstring[ship1 + 1][0], 820, 125);
 		for (int i = 0; i < 8; i++) {

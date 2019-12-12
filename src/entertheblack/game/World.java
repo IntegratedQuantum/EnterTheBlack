@@ -10,7 +10,7 @@ public class World {
 	public Player player;
 	public World(int size) {
 		map = new StarMap(Assets.readFile("systems.txt"));
-		player = new Player();
+		player = new Player(Assets.shipData.get(0));
 	}
 	
 	public World(String save) {

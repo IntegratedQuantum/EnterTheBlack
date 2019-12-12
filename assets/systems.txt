@@ -32,6 +32,7 @@ Sol {
 		Tech Level = 4
 	}
 	Earth {
+		Starbase
 		Color = 213bff 6a8a00
 		Mass = 1
 		Radius = 50

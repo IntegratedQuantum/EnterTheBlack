@@ -64,8 +64,6 @@ public class StarMap extends Screen {
 	}
 	
 	public void paint(Graphics2D g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, 1920, 1080);
 		g.translate(960, 540);
 		for(Star system : systems) {
 			int r = getRadius(system.planets[0]);

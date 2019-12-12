@@ -18,7 +18,10 @@ public class KeyButton extends Button {
 	@Override
 	public void paint(Graphics2D g) {
 		super.paint(g);
-		g.drawString(codeToText[Assets.Controls[key]], x + 10, y + 50);
+		if(Assets.Controls[key] < codeToText.length)
+			g.drawString(codeToText[Assets.Controls[key]], x + 10, y + 50);
+		else
+			g.drawString("?", x + 10, y + 50);
 	}
 	
 	// What keys are represented by a keyCode:

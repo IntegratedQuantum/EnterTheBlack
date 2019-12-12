@@ -17,7 +17,7 @@ import entertheblack.menu.Assets;
 
 
 public class Planet {
-	private static final String MASS = "Mass", RADIUS = "Radius", DIST = "Distance", IMAGE = "Image", TEMP = "T", LIFE = "Life", GOV = "Government", TECH = "TechLevel", COLOR = "Color";
+	private static final String MASS = "Mass", RADIUS = "Radius", DIST = "Distance", IMAGE = "Image", TEMP = "T", LIFE = "Life", GOV = "Government", TECH = "TechLevel", COLOR = "Color", STARBASE = "Starbase";
 	
 	private static final double MIN = 1000, MAX = 10000, rho = 1, G = 1;
 	double m, r, d, omega, alpha, omegaSelf, alphaSelf;
@@ -27,6 +27,7 @@ public class Planet {
 	int life = 0; // How many specimen can live here.
 	int lastDate;
 	int[] color = new int[6]; // Color specifications for planets surface map.
+	boolean hasStarBase = false; // All starbases can equip the ship, sell all unlocked parts and buy materials. 
 	public String species = null; // Species governing this planet.
 	String name;
 	Planet orbiting;
@@ -66,8 +67,11 @@ public class Planet {
 		String[] entries = file.split("\n");
 		for(int i = 0; i < entries.length; i++) {
 			String[] val = entries[i].split("=");
-			if(val.length < 2)
+			if(val.length < 2) {
+				if(val[0].equals(STARBASE))
+					hasStarBase = true;
 				continue;
+			}
 			if(val[0].equals(MASS))
 				m = Double.parseDouble(val[1]);
 			else if(val[0].equals(RADIUS))

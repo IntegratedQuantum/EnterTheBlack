@@ -45,7 +45,4 @@ public class SGame extends Screen {
 		Assets.screen = Assets.curWorld.getStar(0);
 	}
 
-	@Override
-	public void mouseUpdate(int x, int y, boolean pressed) {} // Not needed.
-
 }

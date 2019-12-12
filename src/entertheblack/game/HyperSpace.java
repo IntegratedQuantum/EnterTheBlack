@@ -103,8 +103,6 @@ public class HyperSpace extends Screen {
 	@Override
 	public void paint(Graphics2D g) {
 		// TODO: Draw some better background:
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, 1920, 1080);
 		g.scale(0.5, 0.5);
 		g.translate(xShip+960, yShip+540);
 		for(Star star : map.systems) {

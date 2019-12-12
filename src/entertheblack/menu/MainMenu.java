@@ -1,19 +1,16 @@
 package entertheblack.menu;
 
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import entertheblack.game.SGame;
+import entertheblack.game.StarbaseScreen;
 import entertheblack.gui.ActionListener;
 import entertheblack.gui.Customize;
 import entertheblack.gui.Screen;
 import entertheblack.gui.components.Button;
 
 public class MainMenu extends Screen implements ActionListener {
-	List<Button> buttons = new ArrayList<>();
 	int buttonsel = 1;
 	
 	public MainMenu() {
@@ -59,20 +56,7 @@ public class MainMenu extends Screen implements ActionListener {
 	}
 
 	@Override
-	public void paint(Graphics2D g) {
-		g.drawImage(Assets.bg, 0, 0, 1920, 1080, null);
-		g.setFont(new Font("Sansserif", 0, 20));
-		for(Button b : buttons) {
-			b.paint(g);
-		}
-	}
-
-	@Override
-	public void mouseUpdate(int x, int y, boolean pressed) {
-		for(Button b : buttons) {
-			b.mouseUpdate(x, y, pressed);
-		}
-	}
+	public void paint(Graphics2D g) {} // Graphics are already handled by Screen.
 
 	@Override
 	public void pressed(int id) {
@@ -91,7 +75,7 @@ public class MainMenu extends Screen implements ActionListener {
 			Assets.screen = new Options();
 			break;
 		case 5:
-			Assets.screen = new Customize(Assets.shipData.get(0));
+			Assets.screen = new StarbaseScreen(this);
 			break;
 		case 6:
 			System.exit(1);

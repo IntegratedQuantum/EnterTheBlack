@@ -1,10 +1,7 @@
 package entertheblack.menu;
 
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import entertheblack.gui.ActionListener;
 import entertheblack.gui.Screen;
@@ -14,8 +11,6 @@ import entertheblack.gui.components.KeyButton;
 // SettingsScreen to change Controls.
 
 public class Controls extends Screen implements ActionListener {
-	List<Button> buttons = new ArrayList<>();
-	
 	public Controls() {
 		buttons.add(new KeyButton(690, 190, 200, 65, this, 1, "Player 1: Turn left", 0));
 		buttons.add(new KeyButton(690, 340, 200, 65, this, 2, "Player 1: Turn right", 1));
@@ -80,20 +75,7 @@ public class Controls extends Screen implements ActionListener {
 	}
 
 	@Override
-	public void paint(Graphics2D g) {
-		g.drawImage(Assets.bg, 0, 0, 1920, 1080, null);
-		g.setFont(new Font("Sansserif", 0, 20));
-		for(Button b : buttons) {
-			b.paint(g);
-		}
-	}
-
-	@Override
-	public void mouseUpdate(int x, int y, boolean pressed) {
-		for(Button b : buttons) {
-			b.mouseUpdate(x, y, pressed);
-		}
-	}
+	public void paint(Graphics2D g) {}
 
 	@Override
 	public void pressed(int id) {

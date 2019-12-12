@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import entertheblack.gui.components.PartSlot;
+import entertheblack.menu.Assets;
 import entertheblack.storage.ShipData;
 import entertheblack.storage.ShipSlot;
 
@@ -14,11 +15,13 @@ import entertheblack.storage.ShipSlot;
 public class Customize extends Screen {
 	ShipData mainShip;
 	PartSlot[] slots;
+	Screen previous;
 	private static final int size = 800;
 	
-	public Customize(ShipData sd) {
+	public Customize(ShipData sd, Screen prev) {
 		mainShip = sd;
 		slots = new PartSlot[mainShip.slots.size()];
+		previous = prev;
 		for(int i = 0; i < slots.length; i++) {
 			ShipSlot sl = mainShip.slots.get(i);
 			slots[i] = new PartSlot(960-size/2+size*sl.x/mainShip.x+1, 540-size/2+size*sl.y/mainShip.y+1, size/mainShip.x-2, size/mainShip.y-2, sl);
@@ -26,7 +29,11 @@ public class Customize extends Screen {
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {} // Not needed.
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == 27) {
+			Assets.screen = previous;
+		}
+	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {} // Not needed.

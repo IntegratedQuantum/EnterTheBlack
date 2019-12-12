@@ -10,7 +10,8 @@ import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 
 // Screen that is shown when getting in orbit of a planet. You can land here using 'L'
-// TODO: Scanning animation on opening!
+// TODO: Scanning animation on opening(also useful to disguise noise generation time)!
+// TODO: Better GUI(Draw a starbase if existent, buttons, better info screen, more info on minimap).
 
 public class LandingScreen extends Screen {
 	Planet planet;
@@ -35,6 +36,9 @@ public class LandingScreen extends Screen {
 		}
 		if(e.getKeyChar() == 'l') {
 			Assets.screen = new Surface(this, planet);
+		}
+		if(e.getKeyChar() == 's') {
+			Assets.screen = new StarbaseScreen(this);
 		}
 	}
 
@@ -72,15 +76,14 @@ public class LandingScreen extends Screen {
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0,  0,  1920,  1080);
-		g.drawImage(Assets.bg, 0, 0, 1920, 1080, null);
 		planet.drawNoiseMap(g);
 		g.drawImage(planet.img, 860, 440, 200, 200, null);
 		g.setColor(Color.WHITE);
 		drawStringCentered(g, planet.name, 80, 960, 360);
 		drawStringLeft(g, "Temperature = "+planet.T+" K", 20, 1100, 500);
 		drawStringRight(g, planet.species == null ? "No Government" : "Government: "+planet.species, 20, 800, 500);
+		if(planet.hasStarBase)
+			drawStringRight(g, "Press 'S' to enter starbase.", 20, 800, 540);
 		drawStringLeft(g, planet.techLevel > Assets.curWorld.player.techLevel ? "Insufficient technology to Land" : "Ready to land!", 20, 1100, 550);
 	}
 

@@ -123,7 +123,7 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 		Graphics2D g2d = (Graphics2D) g;
 		//g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); TOO laggy and doesn't really help!
 		g2d.scale(graphiccvarx, graphiccvary);
-		Assets.screen.paint(g2d);
+		Assets.screen.paintScreen(g2d);
 	}
 	public static void main(String[] paramArrayOfString) throws InterruptedException {
 		JFrame frame = new JFrame("Enter The Black");

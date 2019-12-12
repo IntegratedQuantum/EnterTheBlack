@@ -143,9 +143,6 @@ public class Star extends Screen {
 	
 	public void paint(Graphics2D g) {
 		g.translate(960, 540);
-		
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, 1920, 1080); // Removing this line strangely results in lags. USE THIS IN EVERY DYNAMIC PAINT!
 		g.scale(zoom, zoom);
 		g.translate(-(int)(lockStrength*zoomLock.x), -(int)(lockStrength*zoomLock.y));
 		g.drawImage(Assets.bg, -size, -size, size*2, size*2, null);
@@ -208,9 +205,6 @@ public class Star extends Screen {
 			Assets.screen = new HyperSpace(Assets.curWorld.map, ship.sd, this);
 		}
 	}
-
-	@Override
-	public void mouseUpdate(int x, int y, boolean pressed) {} // Not needed.
 	
 	public void save(StringBuilder sb) {
 		// TODO: Save what resources have been collected.
