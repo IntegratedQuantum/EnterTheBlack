@@ -34,15 +34,6 @@ public class Assets {
 	private static HashMap<String, Image> stars = new HashMap<>(), planets = new HashMap<>();
 	
 	public static World curWorld;
-		
-	static String[][] shipstatsstring = { 
-		{"Stats:", "    Hull:", "    Energy Storage:", "    Energy Regeneration:", "    Size:", "    First weapon:", "    Second Weapon:", "        Damage:", "        range:", "        Energy Cost:", "        Reload:", "        Speed:" },
-		{"star", "This is the first intergalactic spaceship build from", "humans. It has the best technology known at this", "time. It's not the best ship, but it points with its", "strong hull and its strong missiles.", "", "", "", "" },
-		{"Blue Starlight", "This is the first figther from the Starlight", "collection. It has a fast shooting weapon with", "medium damage, but high energy cost. It has big", "Energy storages under the strong hull. Because", "of its low range its often used in the front of big fleets.", "", "", "" },
-		{"Red Starlight", "This is the second figther from the Starlight", "collection. It has a slow shooting weapon with high", "damage and medium energy cost. It has strong energy", "reactors, but just a small tank and a weak hull.", "Because of its high range it is used in big fleets in the", "back protected from Blue Starlights.", "", "" },
-		{"Yellow Starlight", "This is the last ship in the Starlight collection.", "It has a weapon with low damage on a high area, ", "which is useful against enemies with a big ship.", "It has the best reactors and big energy tanks, but", "a weak hull. It has a medium range and is not useful", "against ships with a higher range.", "", ""},
-		{"Starfigther", "This is a small ship from the Starfighter collection.", "It has a medium shooting weapon with medium damage", "and low Energy cost ,which makes it useful for the", "small Starfighter, that has small energy tanks and", "a slow energy production. Without this weapon the", "Starfighter would be the worst ship. It is useful against", "ships with area weapons.", "" },
-		{"White Starfighter", "This is a ship like the starfighter, but this ship has", "a weaker hull and better energy tanks and reactors.", "Its weapon is also improved. The laser has a lower", "cooldown, but a little higher energy cost.", "The weapon also has a higher range. This ship is weak", "against ships with high damage weapons or slow fiering", "weapons.", ""}};
 	
 	public static List<ShipData> shipData = new ArrayList<>();
 	public static List<WeaponData> weaponData = new ArrayList<>();
@@ -51,14 +42,13 @@ public class Assets {
 	
 	public static ResourceType[] resources;
 	
-	public static String[] weaponname = { "Red Laser", "Missile", "Blue Laser", "More Blue Laser", "Big Red Laser", "Fireball", "More red Laser", "Red Laser", "Green Laser", "Advanced Green Laser" };
-	
 	public static int[] Controls;
 	
 	public static int gamemode = 0;
 	
 	//static BufferedImage ships = new BufferedImage(100, 50, 2);
-	public static Color btn, btnpr, btnbg, btnsl;
+	public static Color btn, btnpr, btnbg, btnsl; // Button colors
+	public static Color light = new Color(200, 200, 200); // text color.
 	public static BufferedImage bg, hb;
 	
 	public static Animation getAnimation(String name) {
@@ -69,7 +59,7 @@ public class Assets {
 		return null;
 	}
 	
-	// Some people seem to use windows which for unknown reasons still uses "\" as path seperator.
+	// Some people seem to use windows which for unknown reasons still uses "\" as path separator.
 	public static String takeCareOfWindows(String path) {
 		String[] sep = path.split("/");
 		StringBuilder ret = new StringBuilder();

@@ -22,6 +22,7 @@ public class ShipData {
 	public String name;
 	public Image img;
 	public int x, y;
+	public List<String> description = new ArrayList<>(); // description for the ShipSelection Screen.
 	public List<Slot> prim = new ArrayList<>();
 	public List<Slot> secn = new ArrayList<>();
 	public List<ShipSlot> slots = new ArrayList<>(); // Slots that can be put things into. 
@@ -63,13 +64,15 @@ public class ShipData {
 				x = Integer.parseInt(parts[1]); // Maximum number of slots in x dimension
 			} else if(parts[0].equals("Y")) {
 				y = Integer.parseInt(parts[1]); // Maximum number of slots in y dimension
+			} else if(parts[0].equals("Text")) {
+				description.add(parts[1]); // Maximum number of slots in y dimension
 			} else if(parts[0].equals("Image")) {
 				img = Assets.getImage("ships/"+parts[1]+".png");
 				if(img == null) {
 					System.err.println("Could not find ship image "+parts[1]+".png in assets/ships!");
 				}
 			} else {
-				System.err.println("Unknown argument for type ship \"" + parts[0] + "\" with value" + parts[1] + ". Skipping line!");
+				System.err.println("Unknown argument for type ship \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!");
 				return;
 			}
 		}

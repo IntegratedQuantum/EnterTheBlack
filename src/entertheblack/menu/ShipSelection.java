@@ -1,16 +1,16 @@
 package entertheblack.menu;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import entertheblack.gui.Screen;
+import entertheblack.storage.ShipData;
+import entertheblack.storage.WeaponData;
 
 // Select a ship for multiplayer fight.
 
 public class ShipSelection extends Screen {
-	static Color light = new Color(200, 200, 200);
 	int ship1 = 0, ship2 = 0;
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -35,69 +35,55 @@ public class ShipSelection extends Screen {
 			ship2--;
 		}
 	}
+	
+	private void drawWeaponStats(Graphics2D g, WeaponData wd, int x, int y) {
+		if(wd == null)
+			return;
+		g.drawString(wd.name+":", x, y-25);
+		g.drawString("Damage:", x, y+50);
+		g.drawString(""+wd.dmg, x+200, y+50);
+		g.drawString("Range:", x, y+75);
+		g.drawString(""+wd.range, x+200, y+75);
+		g.drawString("Energy Cost:", x, y+100);
+		g.drawString(""+wd.cost, x+200, y+100);
+		g.drawString("Reload:", x, y+125);
+		g.drawString(""+wd.reload, x+200, y+125);
+		g.drawString("Velocity:", x, y+150);
+		g.drawString(""+wd.velocity, x+200, y+150);
+	}
+	
+	// x coordinate is hard coded.
+	private void drawShip(Graphics2D g, ShipData sd, int y) {
+		g.drawImage(sd.img, 760, y, 200, 200, null);
+		g.drawString(sd.name, 820, y-25);
+		for (int i = 0; i < sd.description.size(); i++) {
+			g.drawString(sd.description.get(i), 400, (int)((y + 50 + i*25)));
+		}
+		int x = 1000;
+		g.drawString("Hull:", x, y+50);
+		g.drawString(""+sd.health, x+200, y+50);
+		g.drawString("Energy Storage:", x, y+75);
+		g.drawString(""+sd.energy, x+200, y+75);
+		g.drawString("Energy Generation:", x, y+100);
+		g.drawString(""+sd.energyGeneration, x+200, y+100);
+		g.drawString("Mass:", x, y+125);
+		g.drawString(""+sd.mass, x+200, y+125);
+		g.drawString("Maximum Velocity:", x, y+150);
+		g.drawString(""+sd.vmax, x+200, y+150);
+		g.drawString("Turn Rate:", x, y+175);
+		g.drawString(""+sd.turnRate, x+200, y+175);
+		g.drawString("Acceleration:", x, y+200);
+		g.drawString(""+sd.acceleration, x+200, y+200);
+		drawWeaponStats(g, sd.wd1, x+300, y+50);
+		drawWeaponStats(g, sd.wd2, x+600, y+50);
+	}
 
 	@Override
-	public void paint(Graphics2D g) { // TODO!!!!!
-		g.setColor(light);
+	public void paint(Graphics2D g) {
+		g.setColor(Assets.light);
 		g.setFont(new Font("Sansserif", 0, 15));
-		g.drawImage(Assets.shipData.get(ship1).img, 760, 150, 200, 200, null);
-		g.drawString(Assets.shipstatsstring[ship1 + 1][0], 820, 125);
-		for (int i = 0; i < 8; i++) {
-			g.drawString(Assets.shipstatsstring[ship1 + 1][i + 1], 400, (int)((200 + i * 25)));
-		}
-		for (int i = 0; i < 5; i++) {
-			g.drawString(Assets.shipstatsstring[0][i], 1000, (int)((200 + i * 25)));
-		}
-		g.drawString(Assets.shipstatsstring[0][5], 1300, 175);
-		for (int i = 7; i < 12; i++) {
-			g.drawString(Assets.shipstatsstring[0][i], 1300, (int)((200 + (i - 5) * 25)));
-		}
-		if (ship1 != 4 && ship1 != 5) {
-			g.drawString(Assets.shipstatsstring[0][6], 1600, 175);
-			for (int i = 7; i < 12; i++) {
-				g.drawString(Assets.shipstatsstring[0][i], 1600, (int)((200 + (i - 5) * 25)));
-			}
-			for (int i = 0; i < 5; i++) {
-				//TODO: g.drawString("" + Assets.getWeaponStat(Assets.getShipStat(ship1, Assets.SECONDARY), i), 1800, (int)((200 + i * 25)));
-			}
-			g.drawString(Assets.shipData.get(ship1).wd2.name, 1800, 175);
-		} 
-		for (int i = 1; i < 5; i++) {
-			//g.drawString("" + Assets.getShipStat(ship1, i + 1), 1200, (int)((200 + i * 25)));
-		}
-		for (int i = 0; i < 5; i++) {
-			//g.drawString("" + Assets.getWeaponStat(Assets.getShipStat(ship1, Assets.PRIMARY), i), 1500, (int)((200 + i * 25)));
-		}
-		g.drawString(Assets.shipData.get(ship1).wd1.name, 1500, 175);
-		g.drawImage(Assets.shipData.get(ship2).img, 760, 650, 200, 200, null);
-		g.drawString(Assets.shipstatsstring[ship2 + 1][0], 820, 625);
-		for (int i = 0; i < 8; i++) {
-			g.drawString(Assets.shipstatsstring[ship2 + 1][i + 1], 400, (int)((700 + i * 25)));
-		}
-		for (int i = 0; i < 5; i++) {
-			g.drawString(Assets.shipstatsstring[0][i], 1000, (int)((700 + i * 25)));
-		}
-		g.drawString(Assets.shipstatsstring[0][5], 1300, 675);
-		for (int i = 7; i < 12; i++) {
-			g.drawString(Assets.shipstatsstring[0][i], 1300, (int)((700 + (i - 5) * 25)));
-		}
-		if (ship2 != 4 && ship2 != 5) {
-			g.drawString(Assets.shipstatsstring[0][6], 1600, 675);
-			for (int i = 7; i < 12; i++) {
-				g.drawString(Assets.shipstatsstring[0][i], 1600, (int)((700 + (i - 5) * 25)));
-			}
-			for (int i = 0; i < 5; i++) {
-				//TODO: g.drawString("" + Assets.getWeaponStat(Assets.getShipStat(ship2, Assets.SECONDARY), i), 1800, (int)((700 + i * 25)));
-			}
-			g.drawString(Assets.shipData.get(ship2).wd2.name, 1800, 675);
-		} 
-		for (int i = 0; i < 5; i++) {
-			//g.drawString("" + Assets.getWeaponStat(Assets.getShipStat(ship2, Assets.PRIMARY), i), 1500, (int)((700 + i * 25)));
-		}
-		for (int i = 1; i < 5; i++) {
-			//g.drawString("" + Assets.getShipStat(ship2, i + 1), 1200, (int)((700 + i * 25)));
-		}
-		g.drawString(Assets.shipData.get(ship2).wd1.name, 1500, 675);
+		drawShip(g, Assets.shipData.get(ship1), 150);
+		drawShip(g, Assets.shipData.get(ship2), 650);
 	}
 
 	@Override

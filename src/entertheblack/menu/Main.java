@@ -1,6 +1,5 @@
 package entertheblack.menu;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -20,8 +19,6 @@ import entertheblack.gui.Screen;
 public class Main extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 	static MPGame game = new MPGame();
 	static Screen screen;
-	Color grey = new Color(127, 127, 127);
-	Color light = new Color(200, 200, 200);
 	public static int gamestart = 0;
 		
 	int ship1 = 0;

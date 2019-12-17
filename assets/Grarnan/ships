@@ -30,6 +30,12 @@
 	SlotSecn = 0, 50, 14
 	SlotSecn = 0, 50, 16
 	Image = starlight_blue
+	Text = "This is the first figther from the Grarnan."
+	Text = "It has a fast shooting weapon with"
+	Text = "medium damage, but high energy cost. It has"
+	Text = "big Energy storages under the strong hull."
+	Text = "Because of its low range its often used at the"
+	Text = "front of fleets."
 }
 {
 	Name = Red Starlight
@@ -47,6 +53,13 @@
 	SlotPrim = 25, -5
 	SlotSecn = 0, 50
 	Image = starlight_red
+	Text = "This is the second figther from the Grarnan."
+	Text = "It has a slow shooting weapon with high"
+	Text = "damage and medium energy cost. It has strong"
+	Text = "reactors, but just a small energy storage and"
+	Text = "a weak hull. Because of its high range it is"
+	Text = "used in fleets in the back protected from other"
+	Text = "ships like the Blue Starlight."
 }
 {
 	Name = Yellow Starlight
@@ -75,4 +88,10 @@
 	SlotSecn = 18, -28, 180
 	SlotSecn = 22, -28, 180
 	Image = starlight_yellow
+	Text = "This is the third ship in the Grarnan."
+	Text = "It has a weapon with low damage on a wide"
+	Text = "spread area which is useful against big ships."
+	Text = "It has the best reactors and big energy tanks,"
+	Text = "but a weak hull. It has a medium range and is"
+	Text = "not useful against ships with a higher range."
 }

@@ -13,6 +13,14 @@
 	SlotPrim = -10, -3
 	SlotPrim = 10, -3
 	Image = starfighter
+	Text = "This is a small ship from the Scraituk."
+	Text = "It has a medium shooting weapon with medium"
+	Text = "damage and low Energy cost which makes it"
+	Text = "useful for the small Starfighter that has small"
+	Text = "energy tanks and a slow energy production."
+	Text = "Without this weapon theStarfighter would be"
+	Text = "the worst ship in this galaxy. It is useful"
+	Text = "against ships with area weapons."
 }
 {
 	Name = White Starfighter
@@ -29,4 +37,11 @@
 	SlotPrim = -10, -3
 	SlotPrim = 10, -3
 	Image = starfighter_white
+	Text = "This is a ship like the regular Starfighter, but this"
+	Text = "ship has a weaker hull and better energy tanks"
+	Text = "and reactors. Its weapon is also improved."
+	Text = "The laser has a lower cooldown, but a little"
+	Text = "higher energy cost. The weapon also has a"
+	Text = "higher range. This ship is weak against"
+	Text = "ships with high damage weapons."
 }
