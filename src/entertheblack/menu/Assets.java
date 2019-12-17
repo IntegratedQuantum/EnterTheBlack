@@ -23,6 +23,7 @@ import entertheblack.game.Star;
 import entertheblack.game.World;
 import entertheblack.gui.Screen;
 import entertheblack.storage.ShipData;
+import entertheblack.storage.Species;
 import entertheblack.storage.WeaponData;
 
 // Several static things used everywhere.
@@ -46,6 +47,7 @@ public class Assets {
 	public static List<ShipData> shipData = new ArrayList<>();
 	public static List<WeaponData> weaponData = new ArrayList<>();
 	public static List<Animation> animations = new ArrayList<>();
+	public static List<Species> species = new ArrayList<>();
 	
 	public static ResourceType[] resources;
 	
@@ -201,11 +203,13 @@ public class Assets {
 		return ret.toArray(new String[0]);
 	}
 	
-	static void createShipData(String data) {
+	public static List<ShipData> createShipData(String data) {
+		List<ShipData> list = new ArrayList<>();
 		String[] ships = divideAndTrim(data);
 		for(int i = 0; i < ships.length; i++) {
-			shipData.add(new ShipData(ships[i]));
+			list.add(new ShipData(ships[i]));
 		}
+		return list;
 	}
 	
 	static void createWeaponData(String data) {
@@ -327,11 +331,12 @@ public class Assets {
 		loadPlanets();
 		loadResources();
 		loadAnimations();
-		String [] species = readFile("species.txt").split("\n");
-		for(int i = 0; i < species.length; i++) {
-			createShipData(readFile(species[i]+"/ships"));
-			createWeaponData(readFile(species[i]+"/weapons"));
-			System.out.println("Registered species: "+species[i]+".");
+		String [] spec = readFile("species.txt").split("\n");
+		for(int i = 0; i < spec.length; i++) {
+			Species local = new Species(spec[i]);
+			species.add(local);
+			createWeaponData(readFile(spec[i]+"/weapons"));
+			System.out.println("Registered species: "+spec[i]+".");
 		}
 		for(ShipData sd : shipData) {
 			sd.assignWeaponData(weaponData);
