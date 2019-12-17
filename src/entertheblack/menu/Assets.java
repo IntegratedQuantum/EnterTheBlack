@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 
 import entertheblack.fight.Game;
 import entertheblack.fight.MPGame;
+import entertheblack.game.Animation;
 import entertheblack.game.Player;
 import entertheblack.game.ResourceType;
 import entertheblack.game.Star;
@@ -44,6 +45,7 @@ public class Assets {
 	
 	public static List<ShipData> shipData = new ArrayList<>();
 	public static List<WeaponData> weaponData = new ArrayList<>();
+	public static List<Animation> animations = new ArrayList<>();
 	
 	public static ResourceType[] resources;
 	
@@ -56,6 +58,14 @@ public class Assets {
 	//static BufferedImage ships = new BufferedImage(100, 50, 2);
 	public static Color btn, btnpr, btnbg, btnsl;
 	public static BufferedImage bg, hb;
+	
+	public static Animation getAnimation(String name) {
+		for(Animation a : animations) {
+			if(a.name.equals(name))
+				return a;
+		}
+		return null;
+	}
 	
 	// Some people seem to use windows which for unknown reasons still uses "\" as path seperator.
 	public static String takeCareOfWindows(String path) {
@@ -151,6 +161,7 @@ public class Assets {
 		return Integer.parseInt(str.trim());
 	}
 	
+	// TODO: don't remove " " written inside "".
 	static String[] divideAndTrim(String file) {
 		List<String> ret = new ArrayList<>();
 		char [] data = file.toCharArray();
@@ -303,6 +314,14 @@ public class Assets {
 		
 		writeFile(sb.toString(), "settings.txt");
 	}
+	
+	private static void loadAnimations() {
+		String res = readFile("animations.txt");
+		String[] data = divideAndTrim(res);
+		for(int i = 0; i < data.length; i++) {
+			animations.add(new Animation(data[i]));
+		}
+	}
 
 	static void loadData() {
 		System.out.println((int)'\t');
@@ -313,6 +332,7 @@ public class Assets {
 		loadStars();
 		loadPlanets();
 		loadResources();
+		loadAnimations();
 		String [] species = readFile("species.txt").split("\n");
 		for(int i = 0; i < species.length; i++) {
 			createShipData(readFile(species[i]+"/ships"));

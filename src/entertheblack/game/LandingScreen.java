@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import entertheblack.Util.Graphics;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 
@@ -47,44 +48,18 @@ public class LandingScreen extends Screen {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public void drawStringCentered(Graphics2D g, String str, int size, int x, int y) {
-		Font font = new Font("serif", 0, size);
-		FontMetrics metrics = g.getFontMetrics(font);
-		x = x - metrics.stringWidth(str)/2;
-		y = y - metrics.getHeight()/2 + metrics.getAscent();
-		g.setFont(font);
-		g.drawString(str, x, y);
-	}
-	
-	public void drawStringRight(Graphics2D g, String str, int size, int x, int y) {
-		Font font = new Font("serif", 0, size);
-		FontMetrics metrics = g.getFontMetrics(font);
-		x = x - metrics.stringWidth(str);
-		y = y - metrics.getHeight()/2 + metrics.getAscent();
-		g.setFont(font);
-		g.drawString(str, x, y);
-	}
-	
-	public void drawStringLeft(Graphics2D g, String str, int size, int x, int y) {
-		Font font = new Font("serif", 0, size);
-		FontMetrics metrics = g.getFontMetrics(font);
-		y = y - metrics.getHeight()/2 + metrics.getAscent();
-		g.setFont(font);
-		g.drawString(str, x, y);
-	}
 
 	@Override
 	public void paint(Graphics2D g) {
 		planet.drawNoiseMap(g);
 		g.drawImage(planet.img, 860, 440, 200, 200, null);
 		g.setColor(Color.WHITE);
-		drawStringCentered(g, planet.name, 80, 960, 360);
-		drawStringLeft(g, "Temperature = "+planet.T+" K", 20, 1100, 500);
-		drawStringRight(g, planet.species == null ? "No Government" : "Government: "+planet.species, 20, 800, 500);
+		Graphics.drawStringCentered(g, planet.name, 80, 960, 360);
+		Graphics.drawStringLeft(g, "Temperature = "+planet.T+" K", 20, 1100, 500);
+		Graphics.drawStringRight(g, planet.species == null ? "No Government" : "Government: "+planet.species, 20, 800, 500);
 		if(planet.hasStarBase)
-			drawStringRight(g, "Press 'S' to enter starbase.", 20, 800, 540);
-		drawStringLeft(g, planet.techLevel > Assets.curWorld.player.techLevel ? "Insufficient technology to Land" : "Ready to land!", 20, 1100, 550);
+			Graphics.drawStringRight(g, "Press 'S' to enter starbase.", 20, 800, 540);
+		Graphics.drawStringLeft(g, planet.techLevel > Assets.curWorld.player.techLevel ? "Insufficient technology to Land" : "Ready to land!", 20, 1100, 550);
 	}
 
 	@Override

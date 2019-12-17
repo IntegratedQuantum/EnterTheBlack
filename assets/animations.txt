@@ -1,0 +1,13 @@
+{
+	Name = Intro
+	{
+		Time = 1732
+		Image = bg.png
+		Text = "Some test text", 960, 540, 50
+	}
+	{
+		Time = 7593
+		Image = hb.png
+		Text = "Black text", 960, 750, 100, 000000
+	}
+}

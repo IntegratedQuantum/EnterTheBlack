@@ -42,7 +42,7 @@ public class SGame extends Screen {
 
 	@Override
 	public void paint(Graphics2D g) {
-		Assets.screen = Assets.curWorld.getStar(0);
+		Assets.getAnimation("Intro").activate(Assets.curWorld.getStar(0));
 	}
 
 }
