@@ -75,8 +75,8 @@ public class Animation extends Screen {
 			if(val[0].equals("Name"))
 				name = val[1];
 		}
+		System.out.println("Loading Animation \""+name+"\".");
 
-		System.out.println(file);
 		char [] data = file.toCharArray();
 		int depth = 0;
 		StringBuilder stb = new StringBuilder();
@@ -104,7 +104,6 @@ public class Animation extends Screen {
 						depth++;
 				}
 			}
-			System.out.println(stb);
 		}
 	}
 	long t;

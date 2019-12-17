@@ -1,36 +1,36 @@
 {
 	Color = 484848
-	Name = Common Metals
+	Name = "Common Metals"
 	Value = 5
 	Names: Iron, Aluminum
 }
 {
 	Color = 4d7643
-	Name = Common Radioactive
+	Name = "Common Radioactive"
 	Value = 10
 	Names: Uranium, Thorium
 }
 {
 	Color = c9ba37
-	Name = Precious Metals
+	Name = "Precious Metals"
 	Value = 8
 	Names: Gold, Silver, Platinum
 }
 {
 	Color = a2c6ff
-	Name = Common Materials
+	Name = "Common Materials"
 	Value = 1
 	Names: Hydrogen, Helium, Carbon, Nitrogen, Oxygen
 }
 {
 	Color = 3b13a2
-	Name = Noble Gases
+	Name = "Noble Gases"
 	Value = 4
 	Names: Neon, Argon, Krypton
 }
 {
 	Color = 8c8f35
-	Name = Rare Nonmetals
+	Name = "Rare Nonmetals"
 	Value = 5
 	Names: Phosphorus, Sulfur
 }

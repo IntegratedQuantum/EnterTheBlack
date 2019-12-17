@@ -64,8 +64,6 @@ public class ResourceType {
 			}
 		}
 		subTypes = subNames.toArray(new String[0]);
-		// Add spaces to name again to revert to the status most likely seen before trimming.
-		name = Assets.readdSpaces(name);
 		// If no image specified take the image that corresponds to the name.
 		if(img == null) {
 			img = Assets.getImage("resources/"+name+".png");

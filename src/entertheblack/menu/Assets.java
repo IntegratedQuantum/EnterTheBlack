@@ -166,16 +166,20 @@ public class Assets {
 		List<String> ret = new ArrayList<>();
 		char [] data = file.toCharArray();
 		int depth = 0;
+		boolean inPar = false;
 		StringBuilder stb = new StringBuilder();
 		for(int i = 0; i < data.length; i++) {
-			switch(depth) {
-			case 0:
+			if(data[i] == '\"') { // Ignore parenthesis and change mode.
+				inPar = !inPar;
+			}
+			else if(inPar) { // Don't do any changes in the data inside parenthesis. Also ignore brackets.
+				stb.append(data[i]);
+			} else if(depth == 0) {
 				if(data[i] == '{') {
 					stb = new StringBuilder();
 					depth = 1;
 				}
-				break;
-			default:
+			} else {
 				if(data[i] == '}') {
 					depth--;
 					if(depth == 0) {
@@ -188,23 +192,13 @@ public class Assets {
 					if(data[i] == '{')
 						depth++;
 				}
-				break;
 			}
+		}
+		if(inPar) {
+			System.err.println("Found opening, but no closing parenthesis in file.");
 		}
 		
 		return ret.toArray(new String[0]);
-	}
-	
-	public static String readdSpaces(String str) {
-		char[] chars = str.toCharArray();
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < chars.length; i++) {
-			if(i != 0 && chars[i] <= 'Z' && chars[i] >= 'A') {
-				sb.append(' ');
-			}
-			sb.append(chars[i]);
-		}
-		return sb.toString();
 	}
 	
 	static void createShipData(String data) {
