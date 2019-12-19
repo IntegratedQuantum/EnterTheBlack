@@ -22,16 +22,30 @@ public class ShipData {
 	public String name;
 	public Image img;
 	public int x, y;
-	public List<String> description = new ArrayList<>(); // description for the ShipSelection Screen.
+	public String description; // description for the ShipSelection Screen.
 	public List<Slot> prim = new ArrayList<>();
 	public List<Slot> secn = new ArrayList<>();
 	public List<ShipSlot> slots = new ArrayList<>(); // Slots that can be put things into. 
 	public ShipData(String data) { // Only accepts trimmed data!
 		String[] lines = data.split("\n");
+		boolean textMode = false;
+		StringBuilder text = new StringBuilder();
 		for(int i = 0; i < lines.length; i++) {
-			String [] parts = lines[i].split("=");
-			if(parts.length < 2)
+			if(textMode) {
+				text.append(" ");
+				text.append(lines[i]);
+				if(lines[i].contains("}"))
+					textMode = false;
 				continue;
+			}
+			String [] parts = lines[i].split("=");
+			if(parts.length < 2) {
+				if(parts.length == 1 && parts[0].startsWith("Text")) {
+					textMode = true;
+					text.append(lines[i]);
+				}
+				continue;
+			}
 			if(parts[0].equals("Primary")) {
 				primary = parts[1];
 			} else if(parts[0].equals("Secondary")) {
@@ -64,8 +78,6 @@ public class ShipData {
 				x = Integer.parseInt(parts[1]); // Maximum number of slots in x dimension
 			} else if(parts[0].equals("Y")) {
 				y = Integer.parseInt(parts[1]); // Maximum number of slots in y dimension
-			} else if(parts[0].equals("Text")) {
-				description.add(parts[1]); // Maximum number of slots in y dimension
 			} else if(parts[0].equals("Image")) {
 				img = Assets.getImage("ships/"+parts[1]+".png");
 				if(img == null) {
@@ -76,6 +88,43 @@ public class ShipData {
 				return;
 			}
 		}
+		if(textMode) {
+			System.err.println("Could not find \"}\"!");
+		}
+		refineText(text.toString());
+	}
+	
+	// Used to remove characters like tab from the text and make sure there are not 2 spaces in a row:
+	private void refineText(String text) {
+		char[] chars = text.toCharArray();
+		StringBuilder desc = new StringBuilder();
+		boolean lastWasSpace = false;
+		int depth = 0; // Depth of brackets.
+		for(int i = 0; i < chars.length; i++) {
+			if(depth >= 1) {
+				// Spaces and tabs are handled equally:
+				if(chars[i] == ' ' || chars[i] == '	') {
+					if(!lastWasSpace)
+						desc.append(' ');
+					lastWasSpace = true;
+				}
+				else {
+					if(chars[i] == '}')
+						depth--;
+					else if(chars[i] == '{')
+						depth++;
+					lastWasSpace = false;
+					if(depth >= 1)
+						desc.append(chars[i]);
+				}
+			}
+			else if(chars[i] == '{') {
+				depth++;
+				lastWasSpace = true; // Remove spaces at the beginning of the text;
+			}
+			// Ignore all characters outside the brackets.
+		}
+		description = desc.toString();
 	}
 	
 	public void assignWeaponData(List<WeaponData> list) {

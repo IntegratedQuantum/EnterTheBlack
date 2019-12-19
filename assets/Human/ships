@@ -45,8 +45,8 @@
 	Slot = X:6, Y:6
 	Slot = X:1, Y:6
 	Slot = X:7, Y:6
-	Text = "This is the first intergalactic spaceship build from"
-	Text = "humans. It has the best technology known at this"
-	Text = "time. It's not the best ship, but it points with its"
-	Text = "strong hull and its strong missiles."
+	Text {
+		"This is the first intergalactic spaceship build from humans. It has the best technology known at this time.
+		It's not the best ship, but it points with its strong hull and its strong missiles."
+	}
 }

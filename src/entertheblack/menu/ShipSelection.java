@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import entertheblack.Util.Graphics;
 import entertheblack.gui.Screen;
 import entertheblack.storage.ShipData;
 import entertheblack.storage.WeaponData;
@@ -22,13 +23,13 @@ public class ShipSelection extends Screen {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == Assets.Controls[0] && ship1 < 5) {
+		if(e.getKeyCode() == Assets.Controls[0] && ship1 < Assets.shipData.size()) {
 			ship1++;
 		}
 		if(e.getKeyCode() == Assets.Controls[1] && ship1 > 0) {
 			ship1--;
 		}
-		if(e.getKeyCode() == Assets.Controls[5] && ship2 < 5) {
+		if(e.getKeyCode() == Assets.Controls[5] && ship2 < Assets.shipData.size()) {
 			ship2++;
 		}
 		if(e.getKeyCode() == Assets.Controls[6] && ship2 > 0) {
@@ -56,9 +57,7 @@ public class ShipSelection extends Screen {
 	private void drawShip(Graphics2D g, ShipData sd, int y) {
 		g.drawImage(sd.img, 760, y, 200, 200, null);
 		g.drawString(sd.name, 820, y-25);
-		for (int i = 0; i < sd.description.size(); i++) {
-			g.drawString(sd.description.get(i), 400, (int)((y + 50 + i*25)));
-		}
+		Graphics.drawDynamicTextBox(g, sd.description, 20, 400, (int)(y + 50), 360);
 		int x = 1000;
 		g.drawString("Hull:", x, y+50);
 		g.drawString(""+sd.health, x+200, y+50);
