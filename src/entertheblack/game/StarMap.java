@@ -16,8 +16,8 @@ import entertheblack.menu.MainMenu;
 public class StarMap extends Screen {
 	public List<Star> systems = new ArrayList<>();
 	
-	public StarMap(String file) {
-		char [] data = file.toCharArray();
+	public StarMap(String str, String file) {
+		char [] data = str.toCharArray();
 		int depth = 0;
 		StringBuilder stb = new StringBuilder();
 		String name = "";
@@ -36,7 +36,7 @@ public class StarMap extends Screen {
 				if(data[i] == '}') {
 					depth--;
 					if(depth == 0) {
-						systems.add(new Star(name, stb.toString()));
+						systems.add(new Star(name, stb.toString(), file));
 						stb = new StringBuilder();
 					}
 					else
@@ -48,6 +48,10 @@ public class StarMap extends Screen {
 				}
 				break;
 			}
+		}
+		if(depth != 0) {
+			System.err.println("Error in "+file+":");
+			System.err.println("Could not find \"}\"!");
 		}
 	}
 	

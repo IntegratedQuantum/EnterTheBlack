@@ -26,7 +26,7 @@ public class ShipData {
 	public List<Slot> prim = new ArrayList<>();
 	public List<Slot> secn = new ArrayList<>();
 	public List<ShipSlot> slots = new ArrayList<>(); // Slots that can be put things into. 
-	public ShipData(String data) { // Only accepts trimmed data!
+	public ShipData(String data, String file) { // Only accepts trimmed data!
 		String[] lines = data.split("\n");
 		boolean textMode = false;
 		StringBuilder text = new StringBuilder();
@@ -69,9 +69,9 @@ public class ShipData {
 			} else if(parts[0].equals("Name")) {
 				name = parts[1];
 			} else if(parts[0].equals("SlotPrim")) {
-				prim.add(new Slot(parts[1].split(",")));
+				prim.add(new Slot(parts[1].split(","), file, i));
 			} else if(parts[0].equals("SlotSecn")) {
-				secn.add(new Slot(parts[1].split(",")));
+				secn.add(new Slot(parts[1].split(","), file, i));
 			} else if(parts[0].equals("Slot")) {
 				slots.add(new ShipSlot(parts[1].split(",")));
 			} else if(parts[0].equals("X")) {
@@ -81,14 +81,16 @@ public class ShipData {
 			} else if(parts[0].equals("Image")) {
 				img = Assets.getImage("ships/"+parts[1]+".png");
 				if(img == null) {
+					System.err.println("Error in "+file+" in line "+(i+1)+":");
 					System.err.println("Could not find ship image "+parts[1]+".png in assets/ships!");
 				}
 			} else {
-				System.err.println("Unknown argument for type ship \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!");
-				return;
+				System.err.println("Error in "+file+" in line "+(i+1)+":");
+				System.err.println("Unknown argument for type Ship \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!");
 			}
 		}
 		if(textMode) {
+			System.err.println("Error in "+file+":");
 			System.err.println("Could not find \"}\"!");
 		}
 		refineText(text.toString());

@@ -61,10 +61,10 @@ public class Planet {
 		alphaSelf = 2*Math.PI*Math.random();
 	}
 	
-	public Planet(String name, String file, Planet orbiting) {
+	public Planet(String name, String str, Planet orbiting, String file) {
 		this.orbiting = orbiting;
 		this.name = name;
-		String[] entries = file.split("\n");
+		String[] entries = str.split("\n");
 		for(int i = 0; i < entries.length; i++) {
 			String[] val = entries[i].split("=");
 			if(val.length < 2) {
@@ -93,6 +93,9 @@ public class Planet {
 				for(int j = 0; j < 6; j++) {
 					color[j] = new Scanner(""+val[1].charAt(2*j)+val[1].charAt(2*j+1)).nextInt(16);
 				}
+			} else {
+				System.err.println("Error in "+file+" in planet definition of "+name+ " in line "+(i+1)+":");
+				System.err.println("Unknown argument for type Planet \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
 			}
 		}
 		omega = alpha = 0;

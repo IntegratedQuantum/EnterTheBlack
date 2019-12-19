@@ -23,11 +23,12 @@ public class ResourceType {
 		img = Assets.getImage("resources/"+name);
 		if(img == null) {
 			img = Assets.getPlanetImg("");
+			System.err.println("Error in resource loading:");
 			System.err.println("Couldn't find Resource image "+name+"!");
 		}
 	}
 	
-	public ResourceType(String data) {
+	public ResourceType(String data, String file) {
 		String[] entries = data.split("\n");
 		ArrayList<String> subNames = new ArrayList<>();
 		for(int i = 0; i < entries.length; i++) {
@@ -61,6 +62,10 @@ public class ResourceType {
 					g2d.fillOval(j, j, 32-2*j, 32-2*j);
 				}
 				g2d.dispose();
+			}
+			else {
+				System.err.println("Error in "+file+" in line "+i+":");
+				System.err.println("Unknown argument for type ResourceType \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
 			}
 		}
 		subTypes = subNames.toArray(new String[0]);

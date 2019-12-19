@@ -16,7 +16,7 @@ public class WeaponData {
 	public Image img;
 	public int size;
 	public String name;
-	public WeaponData(String data) { // Only accepts trimmed data.
+	public WeaponData(String data, String file) { // Only accepts trimmed data.
 		String[] lines = data.split("\n");
 		for(int i = 0; i < lines.length; i++) {
 			String [] parts = lines[i].split("=");
@@ -41,10 +41,12 @@ public class WeaponData {
 			} else if(parts[0].equals("Image")) {
 				img = Assets.getImage("weapons/"+parts[1]+".png");
 				if(img == null) {
+					System.err.println("Error in "+file+" in line "+(i+1)+":");
 					System.err.println("Could not find weapon image "+parts[1]+".png in assets/weapons!");
 				}
 			} else {
-				System.err.println("Unknown argument for type weapon \"" + parts[0] + "\" with value" + parts[1] + ". Skipping line!");
+				System.err.println("Error in "+file+" in line "+(i+1)+":");
+				System.err.println("Unknown argument for type Weapon \"" + parts[0] + "\" with value" + parts[1] + ". Skipping line!");
 				return;
 			}
 		}

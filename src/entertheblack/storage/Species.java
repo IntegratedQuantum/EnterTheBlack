@@ -15,7 +15,7 @@ public class Species {
 	public Species(String name) {
 		this.name = name;
 		// Load parts(still TODO) and ships:
-		List<ShipData> list = Assets.createShipData(Assets.readFile(name+"/ships"));
+		List<ShipData> list = Assets.createShipData(Assets.readFile(name+"/ships"), "Assets/"+name+"/ships");
 		ships = list.toArray(new ShipData[0]);
 		Assets.shipData.addAll(list); // Also add the ships to the array in assets.
 	}

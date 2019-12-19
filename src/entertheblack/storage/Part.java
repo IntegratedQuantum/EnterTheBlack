@@ -28,7 +28,7 @@ public class Part {
 	double turnSpeed; // How fast the ship turns. Scales with 1/m_Ship
 	// TODO weapon type.
 	
-	public Part(String data) { // TODO: File Loading
+	public Part(String data, String file) { // TODO: File Loading
 		String[] lines = data.split("\n");
 		for(int i = 0; i < lines.length; i++) {
 			String [] parts = lines[i].split("=");
@@ -65,10 +65,12 @@ public class Part {
 			} else if(parts[0].equals("Image")) {
 				img = Assets.getImage("parts/"+parts[1]+".png");
 				if(img == null) {
+					System.err.println("Error in "+file+" in line "+(i+1)+":");
 					System.err.println("Could not find part image "+parts[1]+".png in assets/parts!");
 				}
 			} else {
-				System.err.println("Unknown argument for type part \"" + parts[0] + "\" with value" + parts[1] + ". Skipping line!");
+				System.err.println("Error in "+file+" in line "+(i+1)+":");
+				System.err.println("Unknown argument for type Part \"" + parts[0] + "\" with value" + parts[1] + ". Skipping line!");
 				return;
 			}
 		}

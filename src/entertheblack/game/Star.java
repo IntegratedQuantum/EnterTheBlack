@@ -87,10 +87,10 @@ public class Star extends Screen {
 		return null;
 	}
 	
-	public Star(String name, String file) { // Data must not contain ' '!
+	public Star(String name, String str, String file) { // Data must not contain ' '!
 		this.name = name;
 		// Get the coordinates in the map:
-		String[] lines = file.split("\n");
+		String[] lines = str.split("\n");
 		for(int i = 0; i < lines.length; i++) {
 			String[] val = lines[i].split("=");
 			if(val.length < 2)
@@ -99,11 +99,14 @@ public class Star extends Screen {
 				x = Integer.parseInt(val[1]);
 			} else if(val[0].equals("Y")) {  // In milli parsec.
 				y = Integer.parseInt(val[1]);
+			} else {
+				System.err.println("Error in "+file+" in planet definition of "+name+ " in line "+(i+1)+":");
+				System.err.println("Unknown argument for type Star \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
 			}
 		}
 		
 		System.out.println("Loading star system "+name+" at ("+x+", "+y+").");
-		char [] data = file.toCharArray();
+		char [] data = str.toCharArray();
 		int depth = 0;
 		List<Planet> lPlanets = new ArrayList<>();
 		StringBuilder stb = new StringBuilder();
@@ -124,7 +127,7 @@ public class Star extends Screen {
 				if(data[i] == '}') {
 					depth--;
 					if(depth == 0)
-						lPlanets.add(new Planet(name, stb.toString(), lPlanets.size() == 0 ? null : lPlanets.get(0)));
+						lPlanets.add(new Planet(name, stb.toString(), lPlanets.size() == 0 ? null : lPlanets.get(0), file));
 					else
 						stb.append(data[i]);
 				} else {
@@ -134,6 +137,10 @@ public class Star extends Screen {
 				}
 				break;
 			}
+		}
+		if(depth != 0) {
+			System.err.println("Error in "+file+":");
+			System.err.println("Could not find \"}\"!");
 		}
 		
 		planets = lPlanets.toArray(new Planet[0]);

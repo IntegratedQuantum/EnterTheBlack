@@ -154,9 +154,9 @@ public class Assets {
 	}
 	
 	// TODO: don't remove " " written inside "".
-	static String[] divideAndTrim(String file) {
+	static String[] divideAndTrim(String text, String file) {
 		List<String> ret = new ArrayList<>();
-		char [] data = file.toCharArray();
+		char [] data = text.toCharArray();
 		int depth = 0;
 		boolean inPar = false;
 		StringBuilder stb = new StringBuilder();
@@ -187,34 +187,39 @@ public class Assets {
 			}
 		}
 		if(inPar) {
+			System.err.println("Error in "+file+":");
 			System.err.println("Found opening, but no closing parenthesis in file.");
+		}
+		if(depth != 0) {
+			System.err.println("Error in "+file+":");
+			System.err.println("Could not find \"}\"!");
 		}
 		
 		return ret.toArray(new String[0]);
 	}
 	
-	public static List<ShipData> createShipData(String data) {
+	public static List<ShipData> createShipData(String data, String file) {
 		List<ShipData> list = new ArrayList<>();
-		String[] ships = divideAndTrim(data);
+		String[] ships = divideAndTrim(data, file);
 		for(int i = 0; i < ships.length; i++) {
-			list.add(new ShipData(ships[i]));
+			list.add(new ShipData(ships[i], file));
 		}
 		return list;
 	}
 	
-	static void createWeaponData(String data) {
-		String[] weapons = divideAndTrim(data);
+	static void createWeaponData(String data, String file) {
+		String[] weapons = divideAndTrim(data, file);
 		for(int i = 0; i < weapons.length; i++) {
-			weaponData.add(new WeaponData(weapons[i]));
+			weaponData.add(new WeaponData(weapons[i], file));
 		}
 	}
 	
 	static void loadResources() {
 		String res = readFile("resources.txt");
-		String[] data = divideAndTrim(res);
+		String[] data = divideAndTrim(res, "assets/resources.txt");
 		resources = new ResourceType[data.length];
 		for(int i = 0; i < data.length; i++) {
-			resources[i] = new ResourceType(data[i]);
+			resources[i] = new ResourceType(data[i], "assets/resources.txt");
 		}
 	}
 	
@@ -305,9 +310,9 @@ public class Assets {
 	
 	private static void loadAnimations() {
 		String res = readFile("animations.txt");
-		String[] data = divideAndTrim(res);
+		String[] data = divideAndTrim(res, "animations.txt");
 		for(int i = 0; i < data.length; i++) {
-			animations.add(new Animation(data[i]));
+			animations.add(new Animation(data[i], "assets/animations.txt"));
 		}
 	}
 
@@ -325,7 +330,7 @@ public class Assets {
 		for(int i = 0; i < spec.length; i++) {
 			Species local = new Species(spec[i]);
 			species.add(local);
-			createWeaponData(readFile(spec[i]+"/weapons"));
+			createWeaponData(readFile(spec[i]+"/weapons"), "assets/"+spec[i]+"/weapons");
 			System.out.println("Registered species: "+spec[i]+".");
 		}
 		for(ShipData sd : shipData) {

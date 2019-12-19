@@ -19,6 +19,7 @@ public class LandingVehicle {
 	private static int INV_SIZE = 100;
 	static {
 		if(img == null) {
+			System.err.println("Error in LV_loading:");
 			System.err.println("Couldn't find assets/LV.png");
 			img = Assets.getPlanetImg(""); // Take a random planet as landing vehicle :D
 		}

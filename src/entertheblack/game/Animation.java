@@ -22,7 +22,7 @@ public class Animation extends Screen {
 		List<String> texts = new ArrayList<>();
 		List<int[]> textsPos = new ArrayList<>();
 		List<Color> textsColor = new ArrayList<>();
-		public Scene(String data) {
+		public Scene(String data, String file) {
 			String[] entries = data.split("\n");
 			for(int i = 0; i < entries.length; i++) {
 				String[] val = entries[i].split("=");
@@ -31,7 +31,7 @@ public class Animation extends Screen {
 				}
 				if(val[0].equals("Time"))
 					time = Integer.parseInt(val[1]);
-				if(val[0].equals("Image"))
+				else if(val[0].equals("Image"))
 					image = Assets.getImage(val[1]);
 				else if(val[0].equals("Text")) {
 					// Expects "entry,x,y,size,color(hex)".
@@ -48,6 +48,9 @@ public class Animation extends Screen {
 					int g = new Scanner(""+values[4].charAt(2)+values[4].charAt(3)).nextInt(16);
 					int b = new Scanner(""+values[4].charAt(4)+values[4].charAt(5)).nextInt(16);
 					textsColor.add(new Color(r, g, b));
+				} else {
+					System.err.println("Error in "+file+" in planet definition of "+name+ " in line "+(i+1)+":");
+					System.err.println("Unknown argument for type Animation \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
 				}
 			}
 		}
@@ -65,8 +68,8 @@ public class Animation extends Screen {
 	public String name;
 	List<Scene> scenes = new ArrayList<>();
 	// Load animation from file:
-	public Animation(String file) {
-		String[] entries = file.split("\n");
+	public Animation(String str, String file) {
+		String[] entries = str.split("\n");
 		for(int i = 0; i < entries.length; i++) {
 			String[] val = entries[i].split("=");
 			if(val.length < 2) {
@@ -77,7 +80,7 @@ public class Animation extends Screen {
 		}
 		System.out.println("Loading Animation \""+name+"\".");
 
-		char [] data = file.toCharArray();
+		char [] data = str.toCharArray();
 		int depth = 0;
 		StringBuilder stb = new StringBuilder();
 		// Each segment contains one image together with the display time and optionally an amount of strings to be displayed.
@@ -93,7 +96,7 @@ public class Animation extends Screen {
 				if(data[i] == '}') {
 					depth--;
 					if(depth == 0) {
-						scenes.add(new Scene(stb.toString()));
+						scenes.add(new Scene(stb.toString(), file));
 						stb = new StringBuilder();
 					}
 					else
@@ -104,6 +107,10 @@ public class Animation extends Screen {
 						depth++;
 				}
 			}
+		}
+		if(depth != 0) {
+			System.err.println("Error in "+file+":");
+			System.err.println("Could not find \"}\"!");
 		}
 	}
 	long t;
