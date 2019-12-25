@@ -32,12 +32,12 @@ public class Options extends Screen implements ActionListener {
 			buttons.get(buttonsel-1).selectedB = true;
 		}
 		
-		if (e.getKeyCode() == 17 && buttonsel > 0) {
+		if ((e.getKeyCode() == 17 || e.getKeyCode() == 10) && buttonsel > 0) {
 			buttons.get(buttonsel-1).pressedB = true;
 			buttonsel *= -1;
 		}
 		
-		if (e.getKeyCode() != 17 && buttonsel < 0) {
+		if (e.getKeyCode() != 17 && e.getKeyCode() != 10 && buttonsel < 0) {
 			buttonsel *= -1;
 			buttons.get(buttonsel-1).pressedB = false;
 		}
@@ -45,7 +45,7 @@ public class Options extends Screen implements ActionListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == 17 && buttonsel < 0) {
+		if ((e.getKeyCode() == 17 || e.getKeyCode() == 10) && buttonsel < 0) {
 			buttons.get(-buttonsel-1).trigger();
 			this.buttonsel = 1;
 		}

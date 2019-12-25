@@ -51,7 +51,7 @@ public class Controls extends Screen implements ActionListener {
 			buttonsel++;
 			buttons.get(buttonsel-1).selectedB = true;
 		}
-		else if(e.getKeyCode() == 17 && buttonsel > 0) {
+		else if((e.getKeyCode() == 17 || e.getKeyCode() == 10) && buttonsel > 0) {
 			buttons.get(buttonsel-1).pressedB = true;
 			buttonsel *= -1;
 		}
@@ -69,7 +69,7 @@ public class Controls extends Screen implements ActionListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == 17 && buttonsel < 0) {
+		if ((e.getKeyCode() == 17 || e.getKeyCode() == 10) && buttonsel < 0) {
 			buttons.get(-buttonsel-1).trigger();
 		}
 	}
