@@ -1,7 +1,9 @@
 package entertheblack.menu;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,6 +18,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import entertheblack.Util.Noise;
 import entertheblack.fight.Game;
 import entertheblack.fight.MPGame;
 import entertheblack.game.Animation;
@@ -51,7 +54,7 @@ public class Assets {
 	//static BufferedImage ships = new BufferedImage(100, 50, 2);
 	public static Color btn, btnpr, btnbg, btnsl; // Button colors
 	public static Color light = new Color(200, 200, 200); // text color.
-	public static BufferedImage bg, hb;
+	public static Image bg, bgMenu, hb;
 	
 	public static Animation getAnimation(String name) {
 		for(Animation a : animations) {
@@ -327,10 +330,62 @@ public class Assets {
 			animations.add(new Animation(data[i], "assets/animations.txt"));
 		}
 	}
+	
+	static Color tempToColor(int temp) {
+		int r, g, b;
+		if(temp < 1000)
+			r = temp*256/1000;
+		if(temp < 6600)
+			r = 255;
+		else
+			r = (int)(329.698727446*Math.pow(temp/100-60, -0.1332047592));
+		if(temp < 6600)
+			g = (int)(temp/100*99.4708025861*Math.log(temp/100)-161.1195681661);
+		else
+			g = (int)(288.1221695283*Math.pow(temp/100-60, -0.0755148492));
+		if(temp > 6600)
+			b = 255;
+		else if(temp < 1900)
+			b = 0;
+		else
+			b = (int)(138.5177312231*Math.log(temp/100-10)-305.0447927307);
+		if(r < 0) r = 0;
+		if(r > 255) r = 255;
+		if(g < 0) g = 0;
+		if(g > 255) g = 255;
+		if(b < 0) b = 0;
+		if(b > 255) b = 255;
+		System.out.println(r+" "+g+" "+b+" "+temp);
+		return new Color(r, g, b);
+	}
+	
+	static Image generateRandomStarField(int stars, int width, int height) {
+		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g = (Graphics2D)img.getGraphics();
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		for(int i = 0; i < stars; i++) {
+			int x = (int)(Math.random()*img.getWidth())+img.getWidth()/2;
+			int y = (int)(Math.random()*img.getHeight())+img.getHeight()/2;
+			int temp = (int)(Math.random()*10000);
+			int size = (int)(Math.random()*5*Math.random()*Math.random())+1;
+			Color c = tempToColor(temp);
+			g.setColor(tempToColor(temp));
+			for(int j = 0; j < size; j++) {
+				double alpha = Noise.sCurve(j/(double)(size-1));
+				g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), (int)(64)));
+				g.fillOval(x-size+j, y-size+j, 2*size-2*j, 2*size-2*j);
+				g.fillOval(x-size+j-img.getWidth(), y-size+j, 2*size-2*j, 2*size-2*j);
+				g.fillOval(x-size+j, y-size+j-img.getHeight(), 2*size-2*j, 2*size-2*j);
+				g.fillOval(x-size+j-img.getWidth(), y-size+j-img.getHeight(), 2*size-2*j, 2*size-2*j);
+			}
+		}
+		return img;
+	}
 
 	static void loadData() {
 		System.out.println((int)'\t');
-		bg = getImage("bg.png");
+		bgMenu = generateRandomStarField(1000, 1920, 1080);
+		bg = generateRandomStarField(1000, 1000, 1000);
 		// TODO: Load color from settings.txt
 		hb = getImage("hb.png");
 		loadSettings();

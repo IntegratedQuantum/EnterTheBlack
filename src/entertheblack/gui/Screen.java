@@ -22,7 +22,7 @@ public abstract class Screen {
 	public void paintScreen(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1920, 1080); // Removing this line strangely results in lags. USE THIS IN EVERY DYNAMIC PAINT!
-		g.drawImage(Assets.bg, 0, 0, 1920, 1080, null);
+		g.drawImage(Assets.bgMenu, 0, 0, 1920, 1080, null);
 		g.setFont(new Font("Sansserif", 0, 20));
 		paint(g);
 	}
