@@ -81,6 +81,7 @@ public class Variant {
 		img = sd.img;
 		x = sd.x;
 		y = sd.y;
+		description = sd.description;
 		prim = sd.prim;
 		secn = sd.secn;
 		for(ShipSlot s : slots) {

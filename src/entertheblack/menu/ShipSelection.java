@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import entertheblack.Util.Graphics;
 import entertheblack.gui.Screen;
 import entertheblack.storage.ShipData;
+import entertheblack.storage.Variant;
 import entertheblack.storage.WeaponData;
 
 // Select a ship for multiplayer fight.
@@ -54,35 +55,35 @@ public class ShipSelection extends Screen {
 	}
 	
 	// x coordinate is hard coded.
-	private void drawShip(Graphics2D g, ShipData sd, int y) {
-		g.drawImage(sd.img, 760, y, 200, 200, null);
-		g.drawString(sd.name, 820, y-25);
-		Graphics.drawDynamicTextBox(g, sd.description, 20, 400, (int)(y + 50), 360);
+	private void drawShip(Graphics2D g, Variant v, int y) {
+		g.drawImage(v.img, 760, y, 200, 200, null);
+		g.drawString(v.name, 820, y-25);
+		Graphics.drawDynamicTextBox(g, v.description, 20, 400, (int)(y + 50), 360);
 		int x = 1000;
 		g.drawString("Hull:", x, y+50);
-		g.drawString(""+sd.health, x+200, y+50);
+		g.drawString(""+v.health, x+200, y+50);
 		g.drawString("Energy Storage:", x, y+75);
-		g.drawString(""+sd.energy, x+200, y+75);
+		g.drawString(""+v.energy, x+200, y+75);
 		g.drawString("Energy Generation:", x, y+100);
-		g.drawString(""+sd.energyGeneration, x+200, y+100);
+		g.drawString(""+v.energyGeneration, x+200, y+100);
 		g.drawString("Mass:", x, y+125);
-		g.drawString(""+sd.mass, x+200, y+125);
+		g.drawString(""+v.mass, x+200, y+125);
 		g.drawString("Maximum Velocity:", x, y+150);
-		g.drawString(""+sd.vmax, x+200, y+150);
+		g.drawString(""+v.vmax, x+200, y+150);
 		g.drawString("Turn Rate:", x, y+175);
-		g.drawString(""+sd.turnRate, x+200, y+175);
+		g.drawString(""+v.turnRate, x+200, y+175);
 		g.drawString("Acceleration:", x, y+200);
-		g.drawString(""+sd.acceleration, x+200, y+200);
-		drawWeaponStats(g, sd.wd1, x+300, y+50);
-		drawWeaponStats(g, sd.wd2, x+600, y+50);
+		g.drawString(""+v.acceleration, x+200, y+200);
+		drawWeaponStats(g, v.wd1, x+300, y+50);
+		drawWeaponStats(g, v.wd2, x+600, y+50);
 	}
 
 	@Override
 	public void paint(Graphics2D g) {
 		g.setColor(Assets.light);
 		g.setFont(new Font("Sansserif", 0, 15));
-		drawShip(g, Assets.shipData.get(ship1), 150);
-		drawShip(g, Assets.shipData.get(ship2), 650);
+		drawShip(g, Assets.variants.get(ship1), 150);
+		drawShip(g, Assets.variants.get(ship2), 650);
 	}
 
 	@Override
