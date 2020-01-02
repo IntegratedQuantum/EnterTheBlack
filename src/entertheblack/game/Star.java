@@ -175,8 +175,8 @@ public class Star extends Screen {
 		double r = 1.0e300;
 		for(int i = 0; i < planets.length; i++) {
 			Planet p = planets[i];
-			double deltax = ship.x-p.x;
-			double deltay = ship.y-p.y;
+			double deltax = ship.x+ship.r-p.x;
+			double deltay = ship.y+ship.r-p.y;
 			double r2 = Math.sqrt(deltax*deltax+deltay*deltay);
 			if(r2 < r) {
 				r = r2;
