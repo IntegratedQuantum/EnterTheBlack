@@ -11,6 +11,7 @@ import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
 import entertheblack.storage.ShipData;
+import entertheblack.storage.Variant;
 
 // Interface of a solar system.
 // The star is also stored as Planet object.
@@ -69,7 +70,7 @@ public class Star extends Screen {
 		}
 	}
 	
-	public void activate(ShipData mainShip) {
+	public void activate(Variant mainShip) {
 		ship = new Ship(mainShip, 0, size - (size >> 2));
 		fleets = new ArrayList<>();
 		zoomLock = planets[0];
@@ -147,7 +148,7 @@ public class Star extends Screen {
 		
 		planets = lPlanets.toArray(new Planet[0]);
 		
-		activate(Assets.shipData.get(0));
+		activate(Assets.variants.get(0));
 	}
 	
 	public void paint(Graphics2D g) {
@@ -211,7 +212,7 @@ public class Star extends Screen {
 		if(lockStrength > 1)
 			lockStrength = 1;
 		if(ship.y-ship.r < -size || ship.x-ship.r < -size || ship.x+ship.r > size || ship.y+ship.r > size) {
-			Assets.screen = new HyperSpace(Assets.curWorld.map, ship.sd, this);
+			Assets.screen = new HyperSpace(Assets.curWorld.map, ship.v, this);
 		}
 	}
 	

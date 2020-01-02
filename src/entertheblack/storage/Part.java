@@ -10,9 +10,9 @@ import entertheblack.menu.Assets;
 public class Part {
 	int cost; // Cost in credits
 	// TODO: Add resource costs.
-	String name;
+	public String name;
 	String info; // A small info text that will be displayed in the customize screen.
-	Image img;
+	public Image img;
 	
 	boolean weapon;
 	boolean engine;
@@ -28,7 +28,7 @@ public class Part {
 	double turnSpeed; // How fast the ship turns. Scales with 1/m_Ship
 	// TODO weapon type.
 	
-	public Part(String data, String file) { // TODO: File Loading
+	public Part(String data, String file) {
 		String[] lines = data.split("\n");
 		for(int i = 0; i < lines.length; i++) {
 			String [] parts = lines[i].split("=");
@@ -52,6 +52,8 @@ public class Part {
 				force = Integer.parseInt(parts[1]);
 			} else if(parts[0].equals("Mass")) {
 				mass = Integer.parseInt(parts[1]);
+			} else if(parts[0].equals("Hull")) {
+				hull = Integer.parseInt(parts[1]);
 			} else if(parts[0].equals("PowerProduction")) {
 				powerProd = Double.parseDouble(parts[1]);
 			} else if(parts[0].equals("PowerConsumtion")) {

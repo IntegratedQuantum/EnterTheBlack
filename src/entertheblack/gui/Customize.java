@@ -9,17 +9,18 @@ import entertheblack.gui.components.PartSlot;
 import entertheblack.menu.Assets;
 import entertheblack.storage.ShipData;
 import entertheblack.storage.ShipSlot;
+import entertheblack.storage.Variant;
 
 // Menu to customize ship with modules.
 
 public class Customize extends Screen {
-	ShipData mainShip;
+	Variant mainShip;
 	PartSlot[] slots;
 	Screen previous;
 	private static final int size = 800;
 	
-	public Customize(ShipData sd, Screen prev) {
-		mainShip = sd;
+	public Customize(Variant v, Screen prev) {
+		mainShip = v;
 		slots = new PartSlot[mainShip.slots.size()];
 		previous = prev;
 		for(int i = 0; i < slots.length; i++) {

@@ -27,8 +27,10 @@ import entertheblack.game.ResourceType;
 import entertheblack.game.Star;
 import entertheblack.game.World;
 import entertheblack.gui.Screen;
+import entertheblack.storage.Part;
 import entertheblack.storage.ShipData;
 import entertheblack.storage.Species;
+import entertheblack.storage.Variant;
 import entertheblack.storage.WeaponData;
 
 // Several static things used everywhere.
@@ -40,10 +42,12 @@ public class Assets {
 	
 	public static World curWorld;
 	
+	public static List<Part> parts = new ArrayList<>();
 	public static List<ShipData> shipData = new ArrayList<>();
 	public static List<WeaponData> weaponData = new ArrayList<>();
 	public static List<Animation> animations = new ArrayList<>();
 	public static List<Species> species = new ArrayList<>();
+	public static List<Variant> variants = new ArrayList<>();
 	
 	public static ResourceType[] resources;
 	
@@ -56,6 +60,28 @@ public class Assets {
 	public static Color light = new Color(200, 200, 200); // text color.
 	public static Image bg, bgMenu, hb;
 	
+	public static Variant getVariant(String name) {
+		for(Variant v : variants) {
+			if(v.name.equals(name))
+				return v;
+		}
+		return null;
+	}
+	
+	public static ShipData getShipData(String name) {
+		for(ShipData sd : shipData) {
+			if(sd.name.equals(name))
+				return sd;
+		}
+		return null;
+	}
+	public static Part getPart(String name) {
+		for(Part p : parts) {
+			if(p.name.equals(name))
+				return p;
+		}
+		return null;
+	}
 	public static Animation getAnimation(String name) {
 		for(Animation a : animations) {
 			if(a.name.equals(name))
@@ -240,6 +266,13 @@ public class Assets {
 		}
 	}
 	
+	static void createVariant(String data, String file) {
+		String[] vars = divideAndTrim(data, file);
+		for(int i = 0; i < vars.length; i++) {
+			variants.add(new Variant(vars[i], file));
+		}
+	}
+	
 	static void loadResources() {
 		String res = readFile("resources.txt");
 		String[] data = divideAndTrim(res, "assets/resources.txt");
@@ -336,9 +369,17 @@ public class Assets {
 	
 	private static void loadAnimations() {
 		String res = readFile("animations.txt");
-		String[] data = divideAndTrim(res, "animations.txt");
+		String[] data = divideAndTrim(res, "assets/animations.txt");
 		for(int i = 0; i < data.length; i++) {
 			animations.add(new Animation(data[i], "assets/animations.txt"));
+		}
+	}
+	
+	private static void loadParts() {
+		String res = readFile("parts.txt");
+		String[] data = divideAndTrim(res, "assets/parts.txt");
+		for(int i = 0; i < data.length; i++) {
+			parts.add(new Part(data[i], "assets/parts.txt"));
 		}
 	}
 	
@@ -403,6 +444,7 @@ public class Assets {
 		loadPlanets();
 		loadResources();
 		loadAnimations();
+		loadParts();
 		String [] spec = readFile("species.txt").split("\n");
 		for(int i = 0; i < spec.length; i++) {
 			Species local = new Species(spec[i]);
@@ -412,6 +454,10 @@ public class Assets {
 		}
 		for(ShipData sd : shipData) {
 			sd.assignWeaponData(weaponData);
+		}
+		for(int i = 0; i < spec.length; i++) {
+			createVariant(readFile(spec[i]+"/variants.txt"), "assets/"+spec[i]+"/variants");
+			System.out.println("Registered species: "+spec[i]+".");
 		}
 		game.reset(0,  0);
 	}

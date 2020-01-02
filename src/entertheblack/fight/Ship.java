@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entertheblack.storage.ShipData;
+import entertheblack.storage.Variant;
 
-// Object implemention of a ship.
+// Object implementation of a ship.
 // TODO: Add drones.
 
 public class Ship {
-	public ShipData sd;
+	public Variant v;
 	public double x, y;
 	public double vx, vy;
 	double size;
@@ -27,20 +28,20 @@ public class Ship {
 	int shoot2cd;
 	public double alpha;
 	List<Projectile> projectiles;
-	public Ship(ShipData sd, int x, int y) {
-		this.sd = sd;
+	public Ship(Variant v, int x, int y) {
+		this.v = v;
 		this.x = x;
 		this.y = y;
 		vx = vy = 0;
-		health = sd.health;
-		energy = sd.energy;
-		a = sd.acceleration/100.0;
-		vmax = sd.vmax;
-		omega = sd.turnRate;
-		gen = sd.energyGeneration/60.0;
+		health = v.health;
+		energy = v.energy;
+		a = v.acceleration/100.0;
+		vmax = v.vmax;
+		omega = v.turnRate;
+		gen = v.energyGeneration/60.0;
 		alpha = 0;
 		cooldownturn = 0;
-		size = sd.size;
+		size = v.size;
 		r = size/2;
 		projectiles = new ArrayList<>();
 	}
@@ -159,8 +160,8 @@ public class Ship {
 		
 		energy += gen;
 		
-		if(energy > sd.energy)
-			energy = sd.energy;
+		if(energy > v.energy)
+			energy = v.energy;
 	}
 
 	public void shoot(boolean type1, boolean type2) {
@@ -196,21 +197,21 @@ public class Ship {
 	}
 
 	private void shoot1() {
-		if (sd.wd1!= null/*has primary weapon/system*/ && energy >= sd.wd1.cost * sd.prim.size() && shoot1cd <= 0) {
-			for (int i = 0; i < sd.prim.size(); i++) {
-				projectiles.add(new Projectile(this, sd.wd1, sd.prim.get(i)));
-				shoot1cd = sd.wd1.reload;
-				energy -= sd.wd1.cost;
+		if (v.wd1!= null/*has primary weapon/system*/ && energy >= v.wd1.cost * v.prim.size() && shoot1cd <= 0) {
+			for (int i = 0; i < v.prim.size(); i++) {
+				projectiles.add(new Projectile(this, v.wd1, v.prim.get(i)));
+				shoot1cd = v.wd1.reload;
+				energy -= v.wd1.cost;
 			}
 		}
 	}
 
 	private void shoot2() {
-		if (sd.wd2 != null/*has secondary weapon/system*/ && energy >= sd.wd2.cost * sd.secn.size() && shoot2cd <= 0) {
-			for (int i = 0; i < sd.secn.size(); i++) {
-				projectiles.add(new Projectile(this, sd.wd2, sd.secn.get(i)));
-				shoot2cd = sd.wd2.reload;
-				energy -= sd.wd2.cost;
+		if (v.wd2 != null/*has secondary weapon/system*/ && energy >= v.wd2.cost * v.secn.size() && shoot2cd <= 0) {
+			for (int i = 0; i < v.secn.size(); i++) {
+				projectiles.add(new Projectile(this, v.wd2, v.secn.get(i)));
+				shoot2cd = v.wd2.reload;
+				energy -= v.wd2.cost;
 			}
 		}
 	}
@@ -219,7 +220,7 @@ public class Ship {
 		g2d.translate((int)((x + r)), (int)((y + r)));
 		g2d.rotate(alpha);
 		g2d.translate(-((int)((x + r))), -((int)((y + r))));
-		g2d.drawImage(sd.img, (int)(x), (int)(y), (int)size, (int)size, null);
+		g2d.drawImage(v.img, (int)(x), (int)(y), (int)size, (int)size, null);
 		g2d.translate((int)((x + r)), (int)((y + r)));
 		g2d.rotate(-alpha);
 		g2d.translate(-((int)((x + r))), -((int)((y + r))));

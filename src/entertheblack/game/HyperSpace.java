@@ -10,6 +10,7 @@ import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
 import entertheblack.storage.ShipData;
+import entertheblack.storage.Variant;
 
 public class HyperSpace extends Screen {
 	StarMap map;
@@ -18,12 +19,12 @@ public class HyperSpace extends Screen {
 	boolean right = false;
 	double xShip, yShip, alphaShip, vmax, turn;
 	Image shipImg;
-	ShipData sd;
+	Variant v;
 	Star cameFrom;
 	
 	ArrayList<Fleet> fleets;
 	
-	public HyperSpace(StarMap map, ShipData mainShip, Star current) {
+	public HyperSpace(StarMap map, Variant mainShip, Star current) {
 		this.map = map;
 		shipImg = mainShip.img;
 		vmax = mainShip.vmax;
@@ -31,7 +32,7 @@ public class HyperSpace extends Screen {
 		xShip = current.x;
 		yShip = current.y;
 		cameFrom = current;
-		sd = mainShip;
+		v = mainShip;
 	}
 
 	@Override
@@ -91,7 +92,7 @@ public class HyperSpace extends Screen {
 				if(system == cameFrom) // Don't enter system instantly again after leaving.
 					continue;
 				Assets.screen = system;
-				system.activate(sd);
+				system.activate(v);
 			}
 			else if(system == cameFrom) {
 				// When the player left proximity of the star allow him to land there again:

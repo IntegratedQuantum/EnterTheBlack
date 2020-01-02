@@ -33,6 +33,8 @@ public class PartSlot extends Component {
 	}
 	@Override
 	public void paint(Graphics2D g) {
+		if(underlying.part != null)
+			g.drawImage(underlying.part.img, x, y, width, height, null);
 		g.setColor(new Color(underlying.weapon ? 255 : (selectedM ? 128 : 64), underlying.engine ? 255 : (selectedM ? 128 : 64), underlying.reactor ? 255 : (selectedM ? 128 : 64), selectedM ? 200 : 100));
 		g.fillRect(x, y, width, height);
 	}

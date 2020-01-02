@@ -8,6 +8,7 @@ import entertheblack.fight.SPGame;
 import entertheblack.fight.Ship;
 import entertheblack.menu.Assets;
 import entertheblack.storage.ShipData;
+import entertheblack.storage.Variant;
 
 // Represents a group of ships in a system or hyperspace.
 // TODO: Proper graphics.
@@ -17,16 +18,16 @@ import entertheblack.storage.ShipData;
 public class Fleet {
 	static int radius = 50;
 	double x, y;
-	double v;
+	double vel;
 	String gov;
-	ShipData sd;
+	Variant v;
 	Image img;
-	public Fleet(String government, int x, int y, ShipData sd) {
+	public Fleet(String government, int x, int y, Variant v) {
 		gov = government;
 		this.x = x;
 		this.y = y;
-		this.sd = sd;
-		v = sd.vmax/1.1; // Let it fly slightly slower than the equivalent ship would.
+		this.v = v;
+		vel = v.vmax/1.1; // Let it fly slightly slower than the equivalent ship would.
 	}
 	public void update(Ship player) {
 		double deltax = player.x - x;
@@ -34,10 +35,10 @@ public class Fleet {
 		double r = Math.sqrt(deltax*deltax + deltay*deltay);
 		if(r <= (radius+player.r)) {
 			// Enter fight when it hits the player 
-			Assets.screen = new SPGame(player.sd, sd);
+			Assets.screen = new SPGame(player.v, v);
 		}
-		x += deltax/r*v;
-		y += deltay/r*v;
+		x += deltax/r*vel;
+		y += deltay/r*vel;
 	}
 	
 	public void paint(Graphics2D g) {

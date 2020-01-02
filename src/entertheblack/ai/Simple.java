@@ -19,7 +19,7 @@ public class Simple implements AI {
 		
 		// Calculate projection of enemy movement vector on (normalized) distance vector with scalar product:
 		double vRel = en.vmax*(en.vx*deltaX/dist + en.vy*deltaY/dist);
-		double t = dist/(sh.sd.wd1.velocity/10 - vRel);
+		double t = dist/(sh.v.wd1.velocity/10 - vRel);
 		// Simulate ship movement during given time:
 		deltaX += sh.vmax*sh.vx*t - en.vmax*en.vx*t;
 		deltaY += sh.vmax*sh.vy*t - en.vmax*en.vy*t;
@@ -29,8 +29,8 @@ public class Simple implements AI {
 			alpha += Math.PI;
 		if(alpha < 0)
 			alpha += 2*Math.PI;
-		double flightTime1 = sh.sd.wd1.range/sh.sd.wd1.velocity*10; // Maximum Flight time of primary weapon.
-		if(t < flightTime1/3 && dist < sh.sd.wd1.range/3) { // Only flee when enemy is actually close
+		double flightTime1 = sh.v.wd1.range/sh.v.wd1.velocity*10; // Maximum Flight time of primary weapon.
+		if(t < flightTime1/3 && dist < sh.v.wd1.range/3) { // Only flee when enemy is actually close
 			// Flee
 			double targetalpha = alpha - Math.PI;
 			if(targetalpha < 0)

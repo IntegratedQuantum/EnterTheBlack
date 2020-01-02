@@ -3,6 +3,7 @@ package entertheblack.fight;
 import entertheblack.ai.AI;
 import entertheblack.ai.Simple;
 import entertheblack.storage.ShipData;
+import entertheblack.storage.Variant;
 
 // Single player fighting area.
 // TODO: Add fighting against multiple ships at ocne.
@@ -10,9 +11,9 @@ import entertheblack.storage.ShipData;
 public class SPGame extends Game {
 	AI STANDARD = new Simple();
 	AI enemyBehaviour = STANDARD;
-	public SPGame(ShipData sd1, ShipData sd2) {
-		sh1 = new Ship(sd1, 1600, 490);
-		sh2 = new Ship(sd2, 400, 490);
+	public SPGame(Variant v1, Variant v2) {
+		sh1 = new Ship(v1, 1600, 490);
+		sh2 = new Ship(v2, 400, 490);
 	}
 	public void update() {
 		super.update();

@@ -140,20 +140,20 @@ public abstract class Game extends Screen {
 		g2d.drawImage(Assets.hb, 50, 50, 100, 390, null);
 		g2d.drawImage(Assets.hb, 50, 550, 100, 390, null);
 		g2d.setColor(Color.GRAY);
-		g2d.fillRect(58, 58, 54, (int)((374 - sh1.health*370.0/sh1.sd.health)));
-		g2d.fillRect(58, 558, 54, (int)((374 - sh2.health*370.0/sh2.sd.health)));
-		g2d.fillRect(118, 58, 24, (int)((374 - sh1.energy*370.0/sh1.sd.energy)));
-		g2d.fillRect(118, 558, 24, (int)((374 - sh2.energy*370.0/sh2.sd.energy)));
+		g2d.fillRect(58, 58, 54, (int)((374 - sh1.health*370.0/sh1.v.health)));
+		g2d.fillRect(58, 558, 54, (int)((374 - sh2.health*370.0/sh2.v.health)));
+		g2d.fillRect(118, 58, 24, (int)((374 - sh1.energy*370.0/sh1.v.energy)));
+		g2d.fillRect(118, 558, 24, (int)((374 - sh2.energy*370.0/sh2.v.energy)));
 	}
 	
 	public void reset(int type1, int type2) {
 		bgx = bgy = 0;
-		sh1 = new Ship(Assets.shipData.get(type1), 1600, 490);
-		sh2 = new Ship(Assets.shipData.get(type2), 400, 490);
+		sh1 = new Ship(Assets.variants.get(type1), 1600, 490);
+		sh2 = new Ship(Assets.variants.get(type2), 400, 490);
 	}
 	
 	public void reset() {
-		sh1 = new Ship(sh1.sd, 1600, 490);
-		sh2 = new Ship(sh2.sd, 400, 490);
+		sh1 = new Ship(sh1.v, 1600, 490);
+		sh2 = new Ship(sh2.v, 400, 490);
 	}
 }

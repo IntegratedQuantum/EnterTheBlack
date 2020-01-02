@@ -1,0 +1,13 @@
+{
+	Name = starter
+	Ship = ???
+	4, 1 = "Basic Armor"
+	3, 2 = "Basic Armor"
+	5, 2 = "Basic Armor"
+	3, 3 = "Basic Armor"
+	5, 3 = "Basic Armor"
+	2, 5 = "Basic Armor"
+	6, 5 = "Basic Armor"
+	1, 6 = "Basic Armor"
+	7, 6 = "Basic Armor"
+}

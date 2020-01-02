@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import entertheblack.game.SGame;
 import entertheblack.game.StarbaseScreen;
 import entertheblack.gui.ActionListener;
+import entertheblack.gui.Customize;
 import entertheblack.gui.Screen;
 import entertheblack.gui.components.Button;
 import entertheblack.gui.components.ButtonHandler;
@@ -58,7 +59,7 @@ public class MainMenu extends Screen implements ActionListener {
 			Assets.screen = new Options();
 			break;
 		case 5:
-			Assets.screen = new StarbaseScreen(this);
+			Assets.screen = new Customize(Assets.variants.get(0), this);
 			break;
 		case 6:
 			System.exit(1);

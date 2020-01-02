@@ -1,0 +1,6 @@
+{
+	Name = "Basic Armor"
+	Mass = 50
+	Hull = 1
+	Image = basic_armor
+}
