@@ -6,57 +6,40 @@ import java.awt.event.KeyEvent;
 import entertheblack.game.SGame;
 import entertheblack.game.StarbaseScreen;
 import entertheblack.gui.ActionListener;
-import entertheblack.gui.Customize;
 import entertheblack.gui.Screen;
 import entertheblack.gui.components.Button;
+import entertheblack.gui.components.ButtonHandler;
 
 public class MainMenu extends Screen implements ActionListener {
-	int buttonsel = 1;
-	
+	ButtonHandler buttons = new ButtonHandler();
 	public MainMenu() {
-		buttons.add(new Button(690, 190, 500, 50, this, 1, "Singleplayer"));
-		buttons.add(new Button(690, 340, 500, 50, this, 2, "Change Ship"));
-		buttons.add(new Button(690, 490, 500, 50, this, 3, "Multiplayer"));
-		buttons.add(new Button(690, 640, 500, 50, this, 4, "Options"));
-		buttons.add(new Button(690, 790, 500, 50, this, 5, "Test")); // Used to test new features.
-		buttons.add(new Button(690, 940, 500, 50, this, 6, "Quit"));
-		buttons.get(0).selectedB = true;
+		buttons.add(new Button(690, 190, 500, 50, this, 1, "Singleplayer"), 0);
+		buttons.add(new Button(690, 340, 500, 50, this, 2, "Change Ship"), 0);
+		buttons.add(new Button(690, 490, 500, 50, this, 3, "Multiplayer"), 0);
+		buttons.add(new Button(690, 640, 500, 50, this, 4, "Options"), 0);
+		buttons.add(new Button(690, 790, 500, 50, this, 5, "Test"), 0); // Used to test new features.
+		buttons.add(new Button(690, 940, 500, 50, this, 6, "Quit"), 0);
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(buttonsel < 0 && (e.getKeyCode() != 17 && e.getKeyCode() != 10)) {
-			this.buttonsel *= -1;
-			buttons.get(buttonsel-1).pressedB = false;
-		}
-		
-		if (e.getKeyCode() == 38 && buttonsel > 1) {
-			buttons.get(buttonsel-1).selectedB = false;
-			this.buttonsel--;
-			buttons.get(buttonsel-1).selectedB = true;
-		}
-		
-		if (e.getKeyCode() == 40 && buttonsel < buttons.size() && buttonsel > 0) {
-			buttons.get(buttonsel-1).selectedB = false;
-			this.buttonsel++;
-			buttons.get(buttonsel-1).selectedB = true;
-		}
-		
-		if ((e.getKeyCode() == 17 || e.getKeyCode() == 10) && buttonsel > 0) {
-			buttons.get(buttonsel-1).pressedB = true;
-			this.buttonsel *= -1;
-		}
+		buttons.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if ((e.getKeyCode() == 17 || e.getKeyCode() == 10) && buttonsel < 0) {
-			buttons.get(-buttonsel-1).trigger();
-		}
+		buttons.keyReleased(e);
+	}
+	
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {
+		buttons.mouseUpdate(x, y, pressed);
 	}
 
 	@Override
-	public void paint(Graphics2D g) {} // Graphics are already handled by Screen.
+	public void paint(Graphics2D g) {
+		buttons.paint(g);
+	}
 
 	@Override
 	public void pressed(int id) {

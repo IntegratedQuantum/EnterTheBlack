@@ -6,53 +6,37 @@ import java.awt.event.KeyEvent;
 import entertheblack.gui.ActionListener;
 import entertheblack.gui.Screen;
 import entertheblack.gui.components.Button;
+import entertheblack.gui.components.ButtonHandler;
 
 public class Options extends Screen implements ActionListener {
-	int buttonsel = 1;
+	ButtonHandler buttons = new ButtonHandler();
 	
 	public Options() {
-		buttons.add(new Button(690, 190, 500, 50, this, 1, "Controls"));
-		buttons.add(new Button(690, 340, 500, 50, this, 2, "Graphics(WIP)"));
-		buttons.add(new Button(690, 490, 500, 50, this, 3, "Back To Menu and Save"));
-		buttons.add(new Button(690, 640, 500, 50, this, 4, "Back To Menu(without Saving)"));
-		buttons.get(0).selectedB = true;
+		buttons.add(new Button(690, 190, 500, 50, this, 1, "Controls"), 0);
+		buttons.add(new Button(690, 340, 500, 50, this, 2, "Graphics(WIP)"), 0);
+		buttons.add(new Button(690, 490, 500, 50, this, 3, "Back To Menu and Save"), 0);
+		buttons.add(new Button(690, 640, 500, 50, this, 4, "Back To Menu(without Saving)"), 0);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == 38 && buttonsel > 1) {
-			buttons.get(buttonsel-1).selectedB = false;
-			buttonsel--;
-			buttons.get(buttonsel-1).selectedB = true;
-		}
-		
-		if (e.getKeyCode() == 40 && buttonsel < buttons.size() && buttonsel > 0) {
-			buttons.get(buttonsel-1).selectedB = false;
-			buttonsel++;
-			buttons.get(buttonsel-1).selectedB = true;
-		}
-		
-		if ((e.getKeyCode() == 17 || e.getKeyCode() == 10) && buttonsel > 0) {
-			buttons.get(buttonsel-1).pressedB = true;
-			buttonsel *= -1;
-		}
-		
-		if (e.getKeyCode() != 17 && e.getKeyCode() != 10 && buttonsel < 0) {
-			buttonsel *= -1;
-			buttons.get(buttonsel-1).pressedB = false;
-		}
+		buttons.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if ((e.getKeyCode() == 17 || e.getKeyCode() == 10) && buttonsel < 0) {
-			buttons.get(-buttonsel-1).trigger();
-			this.buttonsel = 1;
-		}
+		buttons.keyReleased(e);
+	}
+	
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {
+		buttons.mouseUpdate(x, y, pressed);
 	}
 
 	@Override
-	public void paint(Graphics2D g) {}
+	public void paint(Graphics2D g) {
+		buttons.paint(g);
+	}
 
 	@Override
 	public void pressed(int id) {

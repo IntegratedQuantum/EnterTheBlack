@@ -7,6 +7,7 @@ import entertheblack.gui.ActionListener;
 import entertheblack.gui.Customize;
 import entertheblack.gui.Screen;
 import entertheblack.gui.components.Button;
+import entertheblack.gui.components.ButtonHandler;
 import entertheblack.menu.Assets;
 import entertheblack.menu.Options;
 import entertheblack.menu.ShipSelection;
@@ -21,16 +22,17 @@ public class StarbaseScreen extends Screen implements ActionListener {
 	
 	Screen previous;
 	Inventory inv;
+	ButtonHandler buttons = new ButtonHandler();
 	
 	public StarbaseScreen(Screen prev) {
 		previous = prev;
-		buttons.add(new Button(690, 190, 500, 50, this, 1, "Outfit ship"));
-		buttons.add(new Button(690, 940, 500, 50, this, 2, "Exit Starbase"));
-		buttons.add(new Button(690, 840, 500, 50, this, 3, "Sell All"));
+		buttons.add(new Button(690, 190, 500, 50, this, 1, "Outfit ship"), 2);
 		for(int i = 0; i < Assets.resources.length; i++) {
-			buttons.add(new Button(x-390, y0+i*deltaY, 130, deltaY-10, this, 2*i+4, "Buy("+Assets.resources[i].value+")"));
-			buttons.add(new Button(x-240, y0+i*deltaY, 130, deltaY-10, this, 2*i+5, "Sell("+Assets.resources[i].value+")"));
+			buttons.add(new Button(x-390, y0+i*deltaY, 130, deltaY-10, this, 2*i+4, "Buy("+Assets.resources[i].value+")"), 0);
+			buttons.add(new Button(x-240, y0+i*deltaY, 130, deltaY-10, this, 2*i+5, "Sell("+Assets.resources[i].value+")"), 1);
 		}
+		buttons.add(new Button(690, 840, 500, 50, this, 3, "Sell All"), 2);
+		buttons.add(new Button(690, 940, 500, 50, this, 2, "Exit Starbase"), 2);
 		inv = Assets.curWorld.player.inv;
 	}
 
@@ -39,13 +41,18 @@ public class StarbaseScreen extends Screen implements ActionListener {
 		if(e.getKeyCode() == 27) {
 			Assets.screen = previous;
 		}
+		buttons.keyPressed(e);
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {} // Not needed.
+	public void keyReleased(KeyEvent e) {
+		buttons.keyReleased(e);
+	}
 
 	@Override
 	public void paint(Graphics2D g) {
+		// Draw the buttons:
+		buttons.paint(g);
 		// Draw all resources and how much the player owns:
 		for(int i = 0; i < Assets.resources.length; i++) {
 			ResourceType res = Assets.resources[i];
