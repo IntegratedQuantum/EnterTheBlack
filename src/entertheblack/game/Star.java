@@ -92,6 +92,8 @@ public class Star extends Screen {
 		// Get the coordinates in the map:
 		String[] lines = str.split("\n");
 		for(int i = 0; i < lines.length; i++) {
+			if(lines[i].contains("{")) // Avoid reading the data of a sub and printing errors.
+				break;
 			String[] val = lines[i].split("=");
 			if(val.length < 2)
 				continue;
