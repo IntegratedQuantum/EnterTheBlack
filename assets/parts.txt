@@ -3,4 +3,8 @@
 	Mass = 50
 	Hull = 1
 	Image = basic_armor
+	ToolTip {"
+		A small, heavy, expensive, ineffective armor.\
+		All your ever want for your weak ship.
+	"}
 }

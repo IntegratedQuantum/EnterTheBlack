@@ -64,9 +64,9 @@ public class Planet {
 	public Planet(String name, String str, Planet orbiting, String file) {
 		this.orbiting = orbiting;
 		this.name = name;
-		String[] entries = str.split("\n");
-		for(int i = 0; i < entries.length; i++) {
-			String[] val = entries[i].split("=");
+		String[] lines = str.split("\n");
+		for(int i = 0; i < lines.length; i++) {
+			String[] val = lines[i].split("=");
 			if(val.length < 2) {
 				if(val[0].equals(STARBASE))
 					hasStarBase = true;
@@ -84,7 +84,7 @@ public class Planet {
 				T = Integer.parseInt(val[1]);
 			else if(val[0].equals(GOV)) {
 				species = val[1];
-				java.lang.System.out.println("Loaded planet "+name+" governed by "+species+".");
+				System.out.println("Loaded planet "+name+" governed by "+species+".");
 			} else if(val[0].equals(TECH))
 				techLevel = Integer.parseInt(val[1]);
 			else if(val[0].equals(LIFE)) {

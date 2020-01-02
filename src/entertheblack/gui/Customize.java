@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import entertheblack.gui.components.PartSlot;
+import entertheblack.gui.components.ToolTip;
 import entertheblack.menu.Assets;
 import entertheblack.storage.ShipData;
 import entertheblack.storage.ShipSlot;
@@ -17,6 +18,7 @@ public class Customize extends Screen {
 	Variant mainShip;
 	PartSlot[] slots;
 	Screen previous;
+	ToolTip tt;
 	private static final int size = 800;
 	
 	public Customize(Variant v, Screen prev) {
@@ -63,12 +65,21 @@ public class Customize extends Screen {
 		g.drawString("Weapon/Engine", 0, 420);
 		g.setColor(new Color(255, 255, 255, 100));
 		g.drawString("All", 0, 480);
+		if(tt != null) {
+			tt.paint(g);
+		}
 	}
 
 	@Override
 	public void mouseUpdate(int x, int y, boolean pressed) {
+		tt = null;
 		for(PartSlot sl : slots) {
 			sl.mouseUpdate(x, y, pressed);
+			if(sl.selectedM) {
+				tt = sl.toolTip;
+				if(tt != null)
+					tt.updatePosition(x, y);
+			}
 		}
 	}
 

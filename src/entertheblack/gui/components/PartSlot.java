@@ -9,8 +9,9 @@ import entertheblack.storage.ShipSlot;
 // TODO: Add interaction.
 
 public class PartSlot extends Component {
-	boolean selectedM; // Mouse is floating above
-	boolean pressedM; // Mouse is floating above
+	public boolean selectedM; // Mouse is floating above
+	public boolean pressedM; // Mouse is floating above
+	public ToolTip toolTip;
 	ShipSlot underlying;
 	public PartSlot(int x, int y, int width, int height, ShipSlot slot) {
 		this.x = x;
@@ -19,6 +20,8 @@ public class PartSlot extends Component {
 		this.height = height;
 		selectedM = pressedM = false;
 		underlying = slot;
+		if(slot.part != null)
+			toolTip = slot.part.toolTip;
 	}
 	@Override
 	public void mouseUpdate(int x, int y, boolean pressed) {

@@ -3,6 +3,7 @@ package entertheblack.storage;
 import java.awt.Image;
 
 import entertheblack.game.Player;
+import entertheblack.gui.components.ToolTip;
 import entertheblack.menu.Assets;
 
 // A type of weapon(TODO) or structure that can be put on a ship.
@@ -28,11 +29,25 @@ public class Part {
 	double turnSpeed; // How fast the ship turns. Scales with 1/m_Ship
 	// TODO weapon type.
 	
+	public ToolTip toolTip;
 	public Part(String data, String file) {
 		String[] lines = data.split("\n");
+		boolean textMode = false;
+		StringBuilder text = new StringBuilder();
 		for(int i = 0; i < lines.length; i++) {
+			if(textMode) {
+				text.append(" ");
+				text.append(lines[i]);
+				if(lines[i].contains("}"))
+					textMode = false;
+				continue;
+			}
 			String [] parts = lines[i].split("=");
 			if(parts.length < 2) {
+				if(parts.length == 1 && parts[0].startsWith("ToolTip")) {
+					textMode = true;
+					text.append(lines[i]);
+				}
 				if(lines[i].equals("Weapon")) {
 					weapon = true;
 				}
@@ -76,6 +91,11 @@ public class Part {
 				return;
 			}
 		}
+		if(textMode) {
+			System.err.println("Error in "+file+":");
+			System.err.println("Could not find \"}\"!");
+		}
+		toolTip = new ToolTip(text.toString(), 20);
 	}
 	
 	// Test if this part can be put in a slot, based on the players credits.

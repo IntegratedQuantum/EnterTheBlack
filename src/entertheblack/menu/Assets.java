@@ -58,6 +58,7 @@ public class Assets {
 	//static BufferedImage ships = new BufferedImage(100, 50, 2);
 	public static Color btn, btnpr, btnbg, btnsl; // Button colors
 	public static Color light = new Color(200, 200, 200); // text color.
+	public static Color toolTipbg = new Color(255, 255, 200);
 	public static Image bg, bgMenu, hb;
 	
 	public static Variant getVariant(String name) {
