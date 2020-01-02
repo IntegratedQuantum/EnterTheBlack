@@ -24,13 +24,13 @@ public class ShipSelection extends Screen {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == Assets.Controls[0] && ship1 < Assets.shipData.size()) {
+		if(e.getKeyCode() == Assets.Controls[0] && ship1 < Assets.variants.size()-1) {
 			ship1++;
 		}
 		if(e.getKeyCode() == Assets.Controls[1] && ship1 > 0) {
 			ship1--;
 		}
-		if(e.getKeyCode() == Assets.Controls[5] && ship2 < Assets.shipData.size()) {
+		if(e.getKeyCode() == Assets.Controls[5] && ship2 < Assets.variants.size()-1) {
 			ship2++;
 		}
 		if(e.getKeyCode() == Assets.Controls[6] && ship2 > 0) {
