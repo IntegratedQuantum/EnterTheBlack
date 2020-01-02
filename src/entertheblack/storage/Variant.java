@@ -36,7 +36,7 @@ public class Variant {
 				name = parts[1];
 			} else if(parts[0].equals("Ship")) {
 				useShip(Assets.getShipData(parts[1]));
-			} else if(parts[0].matches(".,.")) {
+			} else if(parts[0].matches(".*,.*")) {
 				String[] coords = parts[0].split(",");
 				int x = Integer.parseInt(coords[0]);
 				int y = Integer.parseInt(coords[1]);
