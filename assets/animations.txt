@@ -2,7 +2,7 @@
 	Name = Intro
 	{
 		Time = 1732
-		Image = bg.png
+		Image = $bg_menu
 		Text = "Some test text", 960, 540, 50
 	}
 	{

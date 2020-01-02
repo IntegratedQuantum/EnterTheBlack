@@ -104,8 +104,19 @@ public class Assets {
 			e.printStackTrace();
 		}
 	}
+	
+	// Game content should be able to reach auto-generated images.
+	public static Image getLocalImage(String name) {
+		if(name.equals("bg_menu"))
+			return bgMenu;
+		if(name.equals("bg"))
+			return bg;
+		return null;
+	}
 
-	public static BufferedImage getImage(String fileName) {
+	public static Image getImage(String fileName) {
+		if(fileName.charAt(0) == '$')
+			return getLocalImage(fileName.substring(1));
 		fileName = takeCareOfWindows("assets/"+fileName);
 		try {
 			return ImageIO.read(new File(fileName));
@@ -355,7 +366,6 @@ public class Assets {
 		if(g > 255) g = 255;
 		if(b < 0) b = 0;
 		if(b > 255) b = 255;
-		System.out.println(r+" "+g+" "+b+" "+temp);
 		return new Color(r, g, b);
 	}
 	
