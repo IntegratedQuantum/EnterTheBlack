@@ -16,8 +16,8 @@ public class WeaponData {
 	public Image img;
 	public int size;
 	public String name;
-	public WeaponData(String data, String file) { // Only accepts trimmed data.
-		String[] lines = data.split("\n");
+	public WeaponData(Node data, String file) { // Only accepts trimmed data.
+		String[] lines = data.value.split("\n");
 		for(int i = 0; i < lines.length; i++) {
 			String [] parts = lines[i].split("=");
 			if(parts.length < 2)

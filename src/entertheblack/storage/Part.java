@@ -30,24 +30,12 @@ public class Part {
 	// TODO weapon type.
 	
 	public ToolTip toolTip;
-	public Part(String data, String file) {
-		String[] lines = data.split("\n");
-		boolean textMode = false;
+	public Part(Node data, String file) {
+		String[] lines = data.value.split("\n");
 		StringBuilder text = new StringBuilder();
 		for(int i = 0; i < lines.length; i++) {
-			if(textMode) {
-				text.append(" ");
-				text.append(lines[i]);
-				if(lines[i].contains("}"))
-					textMode = false;
-				continue;
-			}
 			String [] parts = lines[i].split("=");
 			if(parts.length < 2) {
-				if(parts.length == 1 && parts[0].startsWith("ToolTip")) {
-					textMode = true;
-					text.append(lines[i]);
-				}
 				if(lines[i].equals("Weapon")) {
 					weapon = true;
 				}
@@ -91,9 +79,9 @@ public class Part {
 				return;
 			}
 		}
-		if(textMode) {
-			System.err.println("Error in "+file+":");
-			System.err.println("Could not find \"}\"!");
+		Node[] textNodes = data.nextNodes;
+		for(Node n : textNodes) {
+			text.append(n.value);
 		}
 		toolTip = new ToolTip(text.toString(), 20);
 	}

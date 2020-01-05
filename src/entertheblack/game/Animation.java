@@ -11,6 +11,7 @@ import java.util.Scanner;
 import entertheblack.Util.Graphics;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
+import entertheblack.storage.Node;
 
 // Display a series of animated images and text. Used for intro and others.
 
@@ -22,8 +23,8 @@ public class Animation extends Screen {
 		List<String> texts = new ArrayList<>();
 		List<int[]> textsPos = new ArrayList<>();
 		List<Color> textsColor = new ArrayList<>();
-		public Scene(String data, String file) {
-			String[] entries = data.split("\n");
+		public Scene(Node data, String file) {
+			String[] entries = data.value.split("\n");
 			for(int i = 0; i < entries.length; i++) {
 				String[] val = entries[i].split("=");
 				if(val.length < 2) {
@@ -68,8 +69,8 @@ public class Animation extends Screen {
 	public String name;
 	List<Scene> scenes = new ArrayList<>();
 	// Load animation from file:
-	public Animation(String str, String file) {
-		String[] entries = str.split("\n");
+	public Animation(Node node, String file) {
+		String[] entries = node.value.split("\n");
 		for(int i = 0; i < entries.length; i++) {
 			String[] val = entries[i].split("=");
 			if(val.length < 2) {
@@ -79,38 +80,9 @@ public class Animation extends Screen {
 				name = val[1];
 		}
 		System.out.println("Loading Animation \""+name+"\".");
-
-		char [] data = str.toCharArray();
-		int depth = 0;
-		StringBuilder stb = new StringBuilder();
-		// Each segment contains one image together with the display time and optionally an amount of strings to be displayed.
-		for(int i = 0; i < data.length; i++) {
-			if(depth == 0) {
-				if(data[i] == '{') {
-					stb = new StringBuilder();
-					depth = 1;
-				} else if(data[i] != ' ' && data[i] != '\n' && data[i] != '	') {
-					stb.append(data[i]);
-				}
-			} else {
-				if(data[i] == '}') {
-					depth--;
-					if(depth == 0) {
-						scenes.add(new Scene(stb.toString(), file));
-						stb = new StringBuilder();
-					}
-					else
-						stb.append(data[i]);
-				} else {
-					stb.append(data[i]);
-					if(data[i] == '{')
-						depth++;
-				}
-			}
-		}
-		if(depth != 0) {
-			System.err.println("Error in "+file+":");
-			System.err.println("Could not find \"}\"!");
+		Node[] scene = node.nextNodes;
+		for(Node n : scene) {
+			scenes.add(new Scene(n, file));
 		}
 	}
 	long t;

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
@@ -27,6 +26,7 @@ import entertheblack.game.ResourceType;
 import entertheblack.game.Star;
 import entertheblack.game.World;
 import entertheblack.gui.Screen;
+import entertheblack.storage.Node;
 import entertheblack.storage.Part;
 import entertheblack.storage.ShipData;
 import entertheblack.storage.Species;
@@ -206,54 +206,10 @@ public class Assets {
 		return Integer.parseInt(str.trim());
 	}
 	
-	// TODO: don't remove " " written inside "".
-	static String[] divideAndTrim(String text, String file) {
-		List<String> ret = new ArrayList<>();
-		char [] data = text.toCharArray();
-		int depth = 0;
-		boolean inPar = false;
-		StringBuilder stb = new StringBuilder();
-		for(int i = 0; i < data.length; i++) {
-			if(data[i] == '\"') { // Ignore parenthesis and change mode.
-				inPar = !inPar;
-			}
-			else if(inPar) { // Don't do any changes in the data inside parenthesis. Also ignore brackets.
-				stb.append(data[i]);
-			} else if(depth == 0) {
-				if(data[i] == '{') {
-					stb = new StringBuilder();
-					depth = 1;
-				}
-			} else {
-				if(data[i] == '}') {
-					depth--;
-					if(depth == 0) {
-						ret.add(stb.toString());
-					}
-					else
-						stb.append(data[i]);
-				} else if(data[i] != ' ' && data[i] != '	') {
-					stb.append(data[i]);
-					if(data[i] == '{')
-						depth++;
-				}
-			}
-		}
-		if(inPar) {
-			System.err.println("Error in "+file+":");
-			System.err.println("Found opening, but no closing parenthesis in file.");
-		}
-		if(depth != 0) {
-			System.err.println("Error in "+file+":");
-			System.err.println("Could not find \"}\"!");
-		}
-		
-		return ret.toArray(new String[0]);
-	}
-	
 	public static List<ShipData> createShipData(String data, String file) {
 		List<ShipData> list = new ArrayList<>();
-		String[] ships = divideAndTrim(data, file);
+		Node ship = new Node(data);
+		Node[] ships = ship.nextNodes;
 		for(int i = 0; i < ships.length; i++) {
 			list.add(new ShipData(ships[i], file));
 		}
@@ -261,22 +217,25 @@ public class Assets {
 	}
 	
 	static void createWeaponData(String data, String file) {
-		String[] weapons = divideAndTrim(data, file);
+		Node weapon = new Node(data);
+		Node[] weapons = weapon.nextNodes;
 		for(int i = 0; i < weapons.length; i++) {
 			weaponData.add(new WeaponData(weapons[i], file));
 		}
 	}
 	
 	static void createVariant(String data, String file) {
-		String[] vars = divideAndTrim(data, file);
-		for(int i = 0; i < vars.length; i++) {
-			variants.add(new Variant(vars[i], file));
+		Node variant = new Node(data);
+		Node[] variants = variant.nextNodes;
+		for(int i = 0; i < variants.length; i++) {
+			Assets.variants.add(new Variant(variants[i], file));
 		}
 	}
 	
 	static void loadResources() {
 		String res = readFile("resources.txt");
-		String[] data = divideAndTrim(res, "assets/resources.txt");
+		Node resource = new Node(res);
+		Node[] data = resource.nextNodes;
 		resources = new ResourceType[data.length];
 		for(int i = 0; i < data.length; i++) {
 			resources[i] = new ResourceType(data[i], "assets/resources.txt");
@@ -370,7 +329,8 @@ public class Assets {
 	
 	private static void loadAnimations() {
 		String res = readFile("animations.txt");
-		String[] data = divideAndTrim(res, "assets/animations.txt");
+		Node animation = new Node(res);
+		Node[] data = animation.nextNodes;
 		for(int i = 0; i < data.length; i++) {
 			animations.add(new Animation(data[i], "assets/animations.txt"));
 		}
@@ -378,7 +338,8 @@ public class Assets {
 	
 	private static void loadParts() {
 		String res = readFile("parts.txt");
-		String[] data = divideAndTrim(res, "assets/parts.txt");
+		Node part = new Node(res);
+		Node[] data = part.nextNodes;
 		for(int i = 0; i < data.length; i++) {
 			parts.add(new Part(data[i], "assets/parts.txt"));
 		}

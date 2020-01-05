@@ -27,9 +27,8 @@ public class Variant {
 	public List<Slot> secn = new ArrayList<>();
 	public List<ShipSlot> slots = new ArrayList<>(); // Slots that can be put things into.
 	public ShipData sd;
-	public Variant(String data, String file) { // Only accepts trimmed data!
-		String[] lines = data.split("\n");
-		StringBuilder text = new StringBuilder();
+	public Variant(Node data, String file) { // Only accepts trimmed data!
+		String[] lines = data.value.split("\n");
 		for(int i = 0; i < lines.length; i++) {
 			String [] parts = lines[i].split("=");
 			if(parts[0].equals("Name")) {

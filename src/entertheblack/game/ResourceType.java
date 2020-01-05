@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
+import entertheblack.storage.Node;
 
 // Cost type of resource. Contains multiple sub-groups of names,
 
@@ -28,8 +29,8 @@ public class ResourceType {
 		}
 	}
 	
-	public ResourceType(String data, String file) {
-		String[] entries = data.split("\n");
+	public ResourceType(Node data, String file) {
+		String[] entries = data.value.split("\n");
 		ArrayList<String> subNames = new ArrayList<>();
 		for(int i = 0; i < entries.length; i++) {
 			String[] val = entries[i].split("=");

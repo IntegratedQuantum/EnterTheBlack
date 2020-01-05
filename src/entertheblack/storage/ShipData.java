@@ -19,31 +19,18 @@ public class ShipData {
 	public double vmax;
 	public double turnRate;
 	public double energyGeneration;
-	public String name;
+	public String name="";
 	public Image img;
 	public int x, y;
-	public String description; // description for the ShipSelection Screen.
+	public String description=""; // description for the ShipSelection Screen.
 	public List<Slot> prim = new ArrayList<>();
 	public List<Slot> secn = new ArrayList<>();
 	public List<ShipSlot> slots = new ArrayList<>(); // Slots that can be put things into. 
-	public ShipData(String data, String file) { // Only accepts trimmed data!
-		String[] lines = data.split("\n");
-		boolean textMode = false;
-		StringBuilder text = new StringBuilder();
+	public ShipData(Node data, String file) { // Only accepts trimmed data!
+		String[] lines = data.value.split("\n");
 		for(int i = 0; i < lines.length; i++) {
-			if(textMode) {
-				text.append(" ");
-				text.append(lines[i]);
-				if(lines[i].contains("}"))
-					textMode = false;
-				continue;
-			}
 			String [] parts = lines[i].split("=");
 			if(parts.length < 2) {
-				if(parts.length == 1 && parts[0].startsWith("Text")) {
-					textMode = true;
-					text.append(lines[i]);
-				}
 				continue;
 			}
 			if(parts[0].equals("Primary")) {
@@ -89,9 +76,10 @@ public class ShipData {
 				System.err.println("Unknown argument for type Ship \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!");
 			}
 		}
-		if(textMode) {
-			System.err.println("Error in "+file+":");
-			System.err.println("Could not find \"}\"!");
+		Node[] texts = data.nextNodes;
+		StringBuilder text = new StringBuilder();
+		for(Node t : texts) {
+			text.append(t.value);
 		}
 		refineText(text.toString());
 	}
