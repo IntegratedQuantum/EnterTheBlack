@@ -7,7 +7,6 @@ import java.awt.Image;
 import entertheblack.fight.SPGame;
 import entertheblack.fight.Ship;
 import entertheblack.menu.Assets;
-import entertheblack.storage.ShipData;
 import entertheblack.storage.Variant;
 
 // Represents a group of ships in a system or hyperspace.

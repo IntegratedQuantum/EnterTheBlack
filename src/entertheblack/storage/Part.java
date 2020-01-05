@@ -1,6 +1,7 @@
 package entertheblack.storage;
 
 import java.awt.Image;
+import java.util.ArrayList;
 
 import entertheblack.game.Player;
 import entertheblack.gui.components.ToolTip;
@@ -83,7 +84,23 @@ public class Part {
 		for(Node n : textNodes) {
 			text.append(n.value);
 		}
-		toolTip = new ToolTip(text.toString(), 20);
+		ArrayList<String> dat = new ArrayList<>();
+		if(weapon) dat.add(" Weapon");
+		if(reactor && dat.size() != 0) dat.set(0, dat.get(0)+", "+"Reactor");
+		if(reactor && dat.size() == 0) dat.add("Reactor");
+		if(engine && dat.size() != 0) dat.set(0, dat.get(0)+", "+"Engine");
+		if(engine && dat.size() == 0) dat.add("Engine");
+		if(dat.size() == 0) dat.add("Structure");
+		if(cost != 0) dat.add("Cost: "+cost);
+		if(mass != 0) dat.add("Mass: "+mass);
+		if(hull != 0) dat.add("Hull Strength: "+hull);
+		if(speed != 0) dat.add("Speed Increase: "+speed);
+		if(force != 0) dat.add("Acceleration Increase: "+force);
+		if(turnSpeed != 0) dat.add("Turning Speed Increase: "+turnSpeed);
+		if(powerProd != 0) dat.add("Power Production: "+powerProd);
+		if(passivePowerConsumption != 0) dat.add("Power Consumption: "+passivePowerConsumption);
+		
+		toolTip = new ToolTip(name+":\\"+text.toString(), 20, dat);
 	}
 	
 	// Test if this part can be put in a slot, based on the players credits.

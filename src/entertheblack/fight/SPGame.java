@@ -2,7 +2,6 @@ package entertheblack.fight;
 
 import entertheblack.ai.AI;
 import entertheblack.ai.Simple;
-import entertheblack.storage.ShipData;
 import entertheblack.storage.Variant;
 
 // Single player fighting area.

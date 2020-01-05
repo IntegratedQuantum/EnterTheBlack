@@ -4,10 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
-import entertheblack.gui.components.Button;
 import entertheblack.menu.Assets;
 
 // General screen to access multiple different screens with the same interface.

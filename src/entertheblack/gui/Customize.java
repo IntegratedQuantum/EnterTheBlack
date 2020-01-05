@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import entertheblack.gui.components.PartSlot;
 import entertheblack.gui.components.ToolTip;
 import entertheblack.menu.Assets;
-import entertheblack.storage.ShipData;
 import entertheblack.storage.ShipSlot;
 import entertheblack.storage.Variant;
 

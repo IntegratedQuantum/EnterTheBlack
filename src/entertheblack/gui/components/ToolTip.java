@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.List;
 
 import entertheblack.Util.Graphics;
 import entertheblack.menu.Assets;
@@ -39,6 +40,7 @@ public class ToolTip {
 				int w = Graphics.textWidth(lines.get(lines.size()-1), metrics);
 				if(w > maxWidth)
 					maxWidth = w;
+				space = true;
 				continue;
 			}
 			if(data[i] == ' ' || data[i] == '	' || data[i] == '\n') {
@@ -54,6 +56,28 @@ public class ToolTip {
 		height = lines.size()*(size+10)+5;
 		this.size = size;
 	}
+	public ToolTip(String str, int size, List<String> additionalData) {
+		this(str, size);
+		Font font = new Font("serif", 0, size);
+		FontMetrics metrics = new Canvas().getFontMetrics(font);
+		// Increase the lines area size:
+		String[] newLines = new String[lines.length+additionalData.size()];
+		System.arraycopy(lines, 0, newLines, 0, lines.length);
+		int maxWidth = width;
+		// Increase approximate width and height:
+		for(int i = 0; i < additionalData.size(); i++) {
+			int w = Graphics.textWidth(additionalData.get(additionalData.size()-1), metrics);
+			if(w > maxWidth)
+				maxWidth = w;
+			height += size+10;
+		}
+		int i = lines.length;
+		lines = newLines;
+		for(String line : additionalData) {
+			lines[i] = line;
+			i++;
+		}
+	}
 	public void updatePosition(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -63,7 +87,7 @@ public class ToolTip {
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.BLACK);
 		for(int i = 0; i < lines.length; i++) {
-			Graphics.drawStringLeft(g, lines[i], size, x, y+i*(size+10)+size/2+5);
+			Graphics.drawStringLeft(g, lines[i], size, x+5, y+i*(size+10)+size/2+5);
 		}
 	}
 }

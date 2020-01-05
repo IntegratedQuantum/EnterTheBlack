@@ -1,6 +1,5 @@
 package entertheblack.game;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
-import entertheblack.storage.ShipData;
 import entertheblack.storage.Variant;
 
 public class HyperSpace extends Screen {

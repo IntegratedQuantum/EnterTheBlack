@@ -1,6 +1,5 @@
 package entertheblack.game;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.List;
 
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
-import entertheblack.menu.MainMenu;
 
 // A map of systems.
 // TODO: Use for automatic hyperspace navigation.

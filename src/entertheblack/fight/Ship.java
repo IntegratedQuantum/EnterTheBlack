@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import entertheblack.storage.ShipData;
 import entertheblack.storage.Variant;
 
 // Object implementation of a ship.

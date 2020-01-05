@@ -1,6 +1,5 @@
 package entertheblack.game;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import entertheblack.fight.Ship;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
-import entertheblack.storage.ShipData;
 import entertheblack.storage.Variant;
 
 // Interface of a solar system.

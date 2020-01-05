@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 
 import entertheblack.Util.Graphics;
 import entertheblack.gui.Screen;
-import entertheblack.storage.ShipData;
 import entertheblack.storage.Variant;
 import entertheblack.storage.WeaponData;
 

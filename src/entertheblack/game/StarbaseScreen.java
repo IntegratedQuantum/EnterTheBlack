@@ -9,8 +9,6 @@ import entertheblack.gui.Screen;
 import entertheblack.gui.components.Button;
 import entertheblack.gui.components.ButtonHandler;
 import entertheblack.menu.Assets;
-import entertheblack.menu.Options;
-import entertheblack.menu.ShipSelection;
 import entertheblack.storage.Inventory;
 
 // Screen where you can sell resources/buy fuel(TODO)/enter ship outfitter

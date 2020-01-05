@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entertheblack.storage.Inventory;
-import entertheblack.storage.ShipData;
 import entertheblack.storage.Species;
 import entertheblack.storage.Variant;
 
