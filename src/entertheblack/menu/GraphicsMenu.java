@@ -20,10 +20,13 @@ public class GraphicsMenu extends Screen implements ActionListener {
 	boolean showColorCircle = false;
 	int colorToChange = 0;
 	public GraphicsMenu() {
-		buttons.add(new Button(690, 190, 200, 65, this, 1, "Button Background Color"), 0);
-		buttons.add(new Button(690, 340, 200, 65, this, 2, "Button Frame Color"), 0);
-		buttons.add(new Button(690, 490, 200, 65, this, 3, "Button Selection Color"), 0);
-		buttons.add(new Button(690, 640, 200, 65, this, 4, "Button Press Color"), 0);
+		buttons.add(new Button(690, 190, 400, 65, this, 1, "Button Background Color"), 0);
+		buttons.add(new Button(690, 290, 400, 65, this, 2, "Button Frame Color"), 0);
+		buttons.add(new Button(690, 390, 400, 65, this, 3, "Button Selection Color"), 0);
+		buttons.add(new Button(690, 490, 400, 65, this, 4, "Button Press Color"), 0);
+		buttons.add(new Button(690, 590, 400, 65, this, 5, "Text Color"), 0);
+		buttons.add(new Button(690, 690, 400, 65, this, 6, "Tooltip Background Color"), 0);
+		buttons.add(new Button(690, 790, 400, 65, this, 7, "Tooltip Text Color"), 0);
 		buttons.add(new Button(690, 940, 200, 50, this, -1, "Back to Menu"), 0);
 		ok = new Button(860, 800, 200, 65, this, -2, "Apply");
 		
@@ -118,7 +121,7 @@ public class GraphicsMenu extends Screen implements ActionListener {
 			
 			g.setColor(Color.BLACK);
 			g.fillRect(640, 200, 640, 120);
-			g.setColor(Color.WHITE);
+			g.setColor(Assets.text);
 			Graphics.drawStringCentered(g, "Please select a color:", 50, 960, 260);
 		}
 	}
@@ -136,6 +139,9 @@ public class GraphicsMenu extends Screen implements ActionListener {
 			case 1: Assets.btn = c; break;
 			case 2: Assets.btnsl = c; break;
 			case 3: Assets.btnpr = c; break;
+			case 4: Assets.text = c; break;
+			case 5: Assets.toolTipbg = c; break;
+			case 6: Assets.toolTiptext = c; break;
 			}
 		}
 		else {

@@ -44,7 +44,7 @@ public class Button extends Component {
 		g.fillRect(x, y, width, height);
 		g.setColor((pressedM || pressedB) ? Assets.btnpr : Assets.btnbg);
 		g.fillRect(x + 5, y + 5, width - 10, height - 10);
-		g.setColor(Color.WHITE);
+		g.setColor(Assets.text);
 		g.drawString(text, x + 10, y + 25);
 	}
 	

@@ -56,8 +56,8 @@ public class Assets {
 	
 	//static BufferedImage ships = new BufferedImage(100, 50, 2);
 	public static Color btn, btnpr, btnbg, btnsl; // Button colors
-	public static Color light = new Color(200, 200, 200); // text color.
-	public static Color toolTipbg = new Color(255, 255, 200);
+	public static Color text; // text color.
+	public static Color toolTipbg, toolTiptext;
 	public static Image bg, bgMenu, hb;
 	
 	public static Variant getVariant(String name) {
@@ -247,6 +247,10 @@ public class Assets {
 		btnsl = new Color(204, 198, 24);
 		btnpr = new Color(169, 159, 0);
 		btnbg = new Color(0, 0, 0);
+		text = new Color(200, 200, 200);
+		toolTipbg = new Color(255, 255, 200);
+		toolTiptext = new Color(0, 0, 0);
+		
 		Controls = new int[]{ 37, 39, 17, 16, 38, 65, 68, 70, 71, 87 };
 		// Read the data file and overwrite the standard settings.
 		try {
@@ -270,6 +274,18 @@ public class Assets {
 				else if(val[0].equals("btnbg")) {
 					String[] rgb = val[1].split(",");
 					btnbg = new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+				}
+				else if(val[0].equals("text")) {
+					String[] rgb = val[1].split(",");
+					text = new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+				}
+				else if(val[0].equals("tooltip")) {
+					String[] rgb = val[1].split(",");
+					toolTipbg = new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+				}
+				else if(val[0].equals("tooltiptext")) {
+					String[] rgb = val[1].split(",");
+					toolTiptext = new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
 				}
 				else if(val[0].equals("keys")) {
 					String[] keys = val[1].split(",");
@@ -312,6 +328,15 @@ public class Assets {
 		sb.append("\n");
 		sb.append("btnbg=");
 		addColors(sb, btnbg);
+		sb.append("\n");
+		sb.append("text=");
+		addColors(sb, text);
+		sb.append("\n");
+		sb.append("tooltip=");
+		addColors(sb, toolTipbg);
+		sb.append("\n");
+		sb.append("tooltiptext=");
+		addColors(sb, toolTiptext);
 		sb.append("\n");
 		// Add key preferences:
 		sb.append("keys=");
@@ -435,13 +460,8 @@ public class Assets {
 	}
 
 	public static void resetSettings() {
-		String standardSettings = "btn=111,111,111\n"+
-				"btnsl=204,198,24\n"+
-				"btnpr=169,159,0\n"+
-				"btnbg=0,0,0\n"+
-				"keys=37,39,17,16,38,65,68,70,71,87\n";
 		// Load the standard settings:
-		loadSettings(standardSettings);
+		loadSettings("");
 		// Save them:
 		saveSettings();
 		

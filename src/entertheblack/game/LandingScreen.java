@@ -51,7 +51,7 @@ public class LandingScreen extends Screen {
 	public void paint(Graphics2D g) {
 		planet.drawNoiseMap(g);
 		g.drawImage(planet.img, 860, 440, 200, 200, null);
-		g.setColor(Color.WHITE);
+		g.setColor(Assets.text);
 		Graphics.drawStringCentered(g, planet.name, 80, 960, 360);
 		Graphics.drawStringLeft(g, "Temperature = "+planet.T+" K", 20, 1100, 500);
 		Graphics.drawStringRight(g, planet.species == null ? "No Government" : "Government: "+planet.species, 20, 800, 500);

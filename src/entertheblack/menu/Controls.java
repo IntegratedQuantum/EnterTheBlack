@@ -62,7 +62,7 @@ public class Controls extends Screen implements ActionListener {
 		if(showMessage) {
 			g.setColor(Color.BLACK);
 			g.fillRect(640, 480, 640, 120);
-			g.setColor(Color.WHITE);
+			g.setColor(Assets.text);
 			Graphics.drawStringCentered(g, "Please select a key", 50, 960, 540);
 		}
 	}

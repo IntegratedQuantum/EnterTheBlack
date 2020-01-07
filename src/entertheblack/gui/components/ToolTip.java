@@ -85,7 +85,7 @@ public class ToolTip {
 	public void paint(Graphics2D g) {
 		g.setColor(Assets.toolTipbg);
 		g.fillRect(x, y, width, height);
-		g.setColor(Color.BLACK);
+		g.setColor(Assets.toolTiptext);
 		for(int i = 0; i < lines.length; i++) {
 			Graphics.drawStringLeft(g, lines[i], size, x+5, y+i*(size+10)+size/2+5);
 		}

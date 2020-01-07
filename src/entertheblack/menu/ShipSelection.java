@@ -79,7 +79,7 @@ public class ShipSelection extends Screen {
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.setColor(Assets.light);
+		g.setColor(Assets.text);
 		g.setFont(new Font("Sansserif", 0, 15));
 		drawShip(g, Assets.variants.get(ship1), 150);
 		drawShip(g, Assets.variants.get(ship2), 650);

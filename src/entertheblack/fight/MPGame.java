@@ -55,7 +55,7 @@ public class MPGame extends Game {
 	
 	public void paint(Graphics2D g) {
 		super.paint(g);
-		g.setColor(Color.WHITE);
+		g.setColor(Assets.text);
 		g.drawString("Player 1", 50, 40);
 		g.drawString("Player 2", 50, 540);
 		g.drawString("Player 1", (int)(sh1.x), (int)((sh1.y - 10)));
