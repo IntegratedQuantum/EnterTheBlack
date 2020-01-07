@@ -30,6 +30,7 @@ public class Variant {
 	public Variant(Node data, String file) { // Only accepts trimmed data!
 		String[] lines = data.value.split("\n");
 		for(int i = 0; i < lines.length; i++) {
+			if(lines[i].length() == 0) continue; // Skip empty lines to prevent unnecessary error report.
 			String [] parts = lines[i].split("=");
 			if(parts[0].equals("Name")) {
 				name = parts[1];

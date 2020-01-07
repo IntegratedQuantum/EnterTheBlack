@@ -17,7 +17,6 @@ import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
-import entertheblack.Util.Noise;
 import entertheblack.fight.Game;
 import entertheblack.fight.MPGame;
 import entertheblack.game.Animation;
@@ -242,7 +241,7 @@ public class Assets {
 		}
 	}
 	
-	static void loadSettings() {
+	static void loadSettings(String file) {
 		// Initialize standard settings in case the settings file is corrupted/incomplete:
 		btn = new Color(111, 111, 111);
 		btnsl = new Color(204, 198, 24);
@@ -251,7 +250,6 @@ public class Assets {
 		Controls = new int[]{ 37, 39, 17, 16, 38, 65, 68, 70, 71, 87 };
 		// Read the data file and overwrite the standard settings.
 		try {
-			String file = readFile("settings.txt");
 			String [] lines = file.split("\n");
 			for(String line : lines) {
 				String [] val = line.split("=");
@@ -384,7 +382,6 @@ public class Assets {
 			Color c = tempToColor(temp);
 			g.setColor(tempToColor(temp));
 			for(int j = 0; j < size; j++) {
-				double alpha = Noise.sCurve(j/(double)(size-1));
 				g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), (int)(64)));
 				g.fillOval(x-size+j, y-size+j, 2*size-2*j, 2*size-2*j);
 				g.fillOval(x-size+j-img.getWidth(), y-size+j, 2*size-2*j, 2*size-2*j);
@@ -401,7 +398,7 @@ public class Assets {
 		bg = generateRandomStarField(1000, 1000, 1000);
 		// TODO: Load color from settings.txt
 		hb = getImage("hb.png");
-		loadSettings();
+		loadSettings(readFile("settings.txt"));
 		loadStars();
 		loadPlanets();
 		loadResources();
@@ -435,5 +432,18 @@ public class Assets {
 		curWorld.save(file);
 		file.append("}");
 		writeFile(file.toString(), "save.txt");
+	}
+
+	public static void resetSettings() {
+		String standardSettings = "btn=111,111,111\n"+
+				"btnsl=204,198,24\n"+
+				"btnpr=169,159,0\n"+
+				"btnbg=0,0,0\n"+
+				"keys=37,39,17,16,38,65,68,70,71,87\n";
+		// Load the standard settings:
+		loadSettings(standardSettings);
+		// Save them:
+		saveSettings();
+		
 	}
 }

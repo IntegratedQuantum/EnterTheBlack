@@ -40,17 +40,20 @@ public class Controls extends Screen implements ActionListener {
 			this.controlchange = 0;
 			showMessage = false;
 		}
-		buttons.keyPressed(e);
+		if(!showMessage)
+			buttons.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		buttons.keyReleased(e);
+		if(!showMessage)
+			buttons.keyReleased(e);
 	}
 	
 	@Override
 	public void mouseUpdate(int x, int y, boolean pressed) {
-		buttons.mouseUpdate(x, y, pressed);
+		if(!showMessage)
+			buttons.mouseUpdate(x, y, pressed);
 	}
 
 	@Override

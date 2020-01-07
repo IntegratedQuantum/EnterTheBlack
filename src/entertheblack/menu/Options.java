@@ -13,9 +13,10 @@ public class Options extends Screen implements ActionListener {
 	
 	public Options() {
 		buttons.add(new Button(690, 190, 500, 50, this, 1, "Controls"), 0);
-		buttons.add(new Button(690, 340, 500, 50, this, 2, "Graphics(WIP)"), 0);
-		buttons.add(new Button(690, 490, 500, 50, this, 3, "Back To Menu and Save"), 0);
-		buttons.add(new Button(690, 640, 500, 50, this, 4, "Back To Menu(without Saving)"), 0);
+		buttons.add(new Button(690, 340, 500, 50, this, 2, "Graphics"), 0);
+		buttons.add(new Button(690, 490, 500, 50, this, 3, "Reset Settings"), 0);
+		buttons.add(new Button(690, 640, 500, 50, this, 4, "Back To Menu and Save"), 0);
+		buttons.add(new Button(690, 790, 500, 50, this, 5, "Back To Menu(without Saving)"), 0);
 	}
 
 	@Override
@@ -42,12 +43,15 @@ public class Options extends Screen implements ActionListener {
 	public void pressed(int id) {
 		if(id == 1)
 			Assets.screen = new Controls();
-		// TODO graphics settings.
-		if(id == 3) {
+		if(id == 2)
+			Assets.screen = new GraphicsMenu();
+		if(id == 3)
+			Assets.resetSettings();
+		if(id == 4) {
 			Assets.screen = new MainMenu();
 			Assets.saveSettings();
 		}
-		if(id == 4)
+		if(id == 5)
 			Assets.screen = new MainMenu();
 	}
 
