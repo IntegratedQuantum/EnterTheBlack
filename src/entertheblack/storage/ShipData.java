@@ -89,30 +89,17 @@ public class ShipData {
 		char[] chars = text.toCharArray();
 		StringBuilder desc = new StringBuilder();
 		boolean lastWasSpace = false;
-		int depth = 0; // Depth of brackets.
 		for(int i = 0; i < chars.length; i++) {
-			if(depth >= 1) {
-				// Spaces and tabs are handled equally:
-				if(chars[i] == ' ' || chars[i] == '	') {
-					if(!lastWasSpace)
-						desc.append(' ');
-					lastWasSpace = true;
-				}
-				else {
-					if(chars[i] == '}')
-						depth--;
-					else if(chars[i] == '{')
-						depth++;
-					lastWasSpace = false;
-					if(depth >= 1)
-						desc.append(chars[i]);
-				}
+			// Spaces and tabs are handled equally:
+			if(chars[i] == ' ' || chars[i] == '	') {
+				if(!lastWasSpace)
+					desc.append(' ');
+				lastWasSpace = true;
 			}
-			else if(chars[i] == '{') {
-				depth++;
-				lastWasSpace = true; // Remove spaces at the beginning of the text;
+			else {
+				lastWasSpace = false;
+				desc.append(chars[i]);
 			}
-			// Ignore all characters outside the brackets.
 		}
 		description = desc.toString();
 	}
