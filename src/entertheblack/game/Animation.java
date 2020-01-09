@@ -104,7 +104,10 @@ public class Animation extends Screen {
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO: Skip if a special key is pressed.
+		if(e.getKeyCode() == 27) {
+			// Skip animation when escape is pressed:
+			Assets.screen = following;
+		}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {} // Not needed.
