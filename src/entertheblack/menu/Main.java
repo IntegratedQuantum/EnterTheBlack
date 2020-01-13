@@ -24,13 +24,11 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 
 	int curWidth = 1600;
 	int optimalHeight = curWidth*9/16;
-	double scaleX = curWidth/1920.0;
-	double scaleY = optimalHeight/1080.0;
+	double scale = curWidth/1920.0;
 	
 	public void determineOptimalScreenSize() {
 		optimalHeight = curWidth*9/16;
-		scaleX = curWidth/1920.0;
-		scaleY = optimalHeight/1080.0;
+		scale = curWidth/1920.0;
 	}
 	
 	public Main(JFrame frame) {
@@ -69,7 +67,7 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 		threadStarted = true;
 		Graphics2D g2d = (Graphics2D) g;
 		//g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); TOO laggy and doesn't really help!
-		g2d.scale(scaleX, scaleY);
+		g2d.scale(scale, scale);
 		Assets.screen.paintScreen(g2d);
 	}
 	public static void main(String[] args) throws InterruptedException {
@@ -111,18 +109,18 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 	public void mouseExited(MouseEvent e) {}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Assets.screen.mouseUpdate((int)(e.getX()/scaleX), (int)(e.getY()/scaleX), true);
+		Assets.screen.mouseUpdate((int)(e.getX()/scale), (int)(e.getY()/scale), true);
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		Assets.screen.mouseUpdate((int)(e.getX()/scaleX), (int)(e.getY()/scaleX), false);
+		Assets.screen.mouseUpdate((int)(e.getX()/scale), (int)(e.getY()/scale), false);
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		Assets.screen.mouseUpdate((int)(e.getX()/scaleX), (int)(e.getY()/scaleX), true);
+		Assets.screen.mouseUpdate((int)(e.getX()/scale), (int)(e.getY()/scale), true);
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		Assets.screen.mouseUpdate((int)(e.getX()/scaleX), (int)(e.getY()/scaleX), false);
+		Assets.screen.mouseUpdate((int)(e.getX()/scale), (int)(e.getY()/scale), false);
 	}
 }
