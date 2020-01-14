@@ -32,6 +32,7 @@ public class Planet {
 	String name;
 	Planet orbiting;
 	Image img;
+	String imageName;
 	
 	public Planet(double d, Planet orbiting) {
 		this.orbiting = orbiting;
@@ -78,9 +79,10 @@ public class Planet {
 				r = Double.parseDouble(val[1]);
 			else if(val[0].equals(DIST))
 				d = Double.parseDouble(val[1]);
-			else if(val[0].equals(IMAGE))
+			else if(val[0].equals(IMAGE)) {
 				img = Assets.getPlanetImg(val[1]);
-			else if(val[0].equals(TEMP))
+				imageName = val[1];
+			} else if(val[0].equals(TEMP))
 				T = Integer.parseInt(val[1]);
 			else if(val[0].equals(GOV)) {
 				species = val[1];
@@ -165,5 +167,27 @@ public class Planet {
 		if(groundMap == null)
 			generateSurfaceMap();
 		g.drawImage(groundMap, 0, 1080-groundMap.getHeight(null), null);
+	}
+	
+	public void save(StringBuilder file) {
+		if(hasStarBase)
+			file.append("\n"+STARBASE);
+		file.append("\n"+MASS+"=");
+		file.append(m);
+		file.append("\n"+RADIUS+"=");
+		file.append(r);
+		file.append("\n"+DIST+"=");
+		file.append(d);
+		file.append("\n"+IMAGE+"=");
+		file.append(imageName);
+		file.append("\n"+TEMP+"=");
+		file.append(T);
+		file.append("\n"+GOV+"=");
+		file.append(species);
+		file.append("\n"+TECH+"=");
+		file.append(techLevel);
+		file.append("\n"+LIFE+"=");
+		file.append(life);
+		// TODO: Color
 	}
 }

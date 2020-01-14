@@ -50,7 +50,8 @@ public class Node {
 				if(depth == 0) top.append(c);
 			} else if(c == '{') {
 				depth++;
-				nodes.add(new Node(data, i+1));
+				if(depth == 1)
+					nodes.add(new Node(data, i+1));
 			} else if(c == '}') {
 				depth--;
 				//if(depth == 0) {
@@ -68,5 +69,20 @@ public class Node {
 		}
 		value = top.toString();
 		nextNodes = nodes.toArray(new Node[nodes.size()]);
+	}
+	
+	public String recString(String tab) {
+		String ret = "";
+		String[] lines = value.split("\n");
+		for(int i = 0; i < lines.length; i++) {
+			ret += tab+lines[i]+"\n";
+		}
+		for(Node next : nextNodes) {
+			ret += next.recString(tab+"	");
+		}
+		return ret;
+	}
+	public String toString() {
+		return recString("");
 	}
 }

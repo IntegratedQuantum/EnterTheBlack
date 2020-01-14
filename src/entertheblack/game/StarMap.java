@@ -7,13 +7,14 @@ import java.util.List;
 
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
+import entertheblack.storage.Node;
 
 // A map of systems.
 // TODO: Use for automatic hyperspace navigation.
 
 public class StarMap extends Screen {
 	public List<Star> systems = new ArrayList<>();
-	
+
 	public StarMap(String str, String file) {
 		char [] data = str.toCharArray();
 		int depth = 0;
@@ -50,6 +51,26 @@ public class StarMap extends Screen {
 		if(depth != 0) {
 			System.err.println("Error in "+file+":");
 			System.err.println("Could not find \"}\"!");
+		}
+	}
+	public StarMap(Node data, String file) {
+		int depth = 0;
+		String name = data.value;
+		for(int i = 0; i < data.nextNodes.length; i++) {
+			systems.add(new Star(name, data.nextNodes[i], file));
+		}
+		if(depth != 0) {
+			System.err.println("Error in "+file+":");
+			System.err.println("Could not find \"}\"!");
+		}
+	}
+	
+	// Save all data from this system:
+	public void save(StringBuilder file) {
+		for(Star star : systems) {
+			file.append("{");
+			star.save(file);
+			file.append("}");
 		}
 	}
 	

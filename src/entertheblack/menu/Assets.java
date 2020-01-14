@@ -448,6 +448,10 @@ public class Assets {
 	
 	public static void saveGame(World curWorld, Star curSystem) {
 		StringBuilder file = new StringBuilder();
+		// Save world:
+		file.append("{");
+		curWorld.map.save(file);
+		file.append("}");
 		Player p = curWorld.player;
 		file.append(curSystem.x+","+curSystem.y);
 		file.append("{");
@@ -456,7 +460,7 @@ public class Assets {
 		file.append("{");
 		curWorld.save(file);
 		file.append("}");
-		writeFile(file.toString(), "save.txt");
+		writeFile(file.toString(), "saves/save.txt");
 	}
 
 	public static void resetSettings() {

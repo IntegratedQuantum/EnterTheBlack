@@ -9,6 +9,7 @@ import entertheblack.fight.Ship;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
+import entertheblack.storage.Node;
 import entertheblack.storage.Variant;
 
 // Interface of a solar system.
@@ -149,6 +150,35 @@ public class Star extends Screen {
 		activate(Assets.variants.get(0));
 	}
 	
+	public Star(String name, Node data, String file) {
+		this.name = name;
+		// Get the coordinates in the map:
+		String[] lines = data.value.split("\n");
+		for(int i = 0; i < lines.length; i++) {
+			String[] val = lines[i].split("=");
+			if(val.length < 2)
+				continue;
+			if(val[0].equals("X")) { // In milli parsec.
+				x = Integer.parseInt(val[1]);
+			} else if(val[0].equals("Y")) {  // In milli parsec.
+				y = Integer.parseInt(val[1]);
+			} else {
+				System.err.println("Error in "+file+" in planet definition of "+name+ " in line "+(i+1)+":");
+				System.err.println("Unknown argument for type Star \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
+			}
+		}
+		
+		System.out.println("Loading star system "+name+" at ("+x+", "+y+").");
+		List<Planet> lPlanets = new ArrayList<>();
+		for(int i = 0; i < data.nextNodes.length; i++) {
+			lPlanets.add(new Planet(name, data.nextNodes[i].value, lPlanets.size() == 0 ? null : lPlanets.get(0), file));
+		}
+		
+		planets = lPlanets.toArray(new Planet[0]);
+		
+		activate(Assets.variants.get(0));
+	}
+	
 	public void paint(Graphics2D g) {
 		g.translate(960, 540);
 		g.scale(zoom, zoom);
@@ -215,6 +245,18 @@ public class Star extends Screen {
 	}
 	
 	public void save(StringBuilder sb) {
+		// Save base system data:
+		sb.append("\nX:");
+		sb.append(x);
+		sb.append("\nY:");
+		sb.append(y);
+		// Save all planets:
+		for(Planet p : planets) {
+			sb.append("{");
+			p.save(sb);
+			sb.append("}");
+		}
+		
 		// TODO: Save what resources have been collected.
 	}
 }

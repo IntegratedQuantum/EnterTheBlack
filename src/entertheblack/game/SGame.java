@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
+import entertheblack.storage.Node;
 
 // Currently only used as redirect.
 // TODO: Structure it better.
@@ -18,8 +19,8 @@ public class SGame extends Screen {
 		}
 	}
 
-	public SGame() {
-		// Use the old world.
+	public SGame(String data) {
+		Assets.curWorld = new World(new Node(data));
 	}
 
 	private void generateWorld() {

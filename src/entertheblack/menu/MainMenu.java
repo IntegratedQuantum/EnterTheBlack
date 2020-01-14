@@ -45,7 +45,7 @@ public class MainMenu extends Screen implements ActionListener {
 	public void pressed(int id) {
 		switch(id) {
 		case 1:
-			Assets.screen = new SGame(-1);
+			Assets.screen = new LoadOrNew();
 			break;
 		case 2:
 			Assets.screen = new ShipSelection();
