@@ -25,8 +25,8 @@ public class LoadOrNew extends Screen implements ActionListener {
 			if (file != null) {
 				String name = file.getName();
 				files[i] = name;
-				buttons.add(new Button(690, curY, 500, 50, this, i, "Load World "+name.split("\\.")[0]), 0);
-				curY += 150;
+				buttons.add(new Button(690, curY, 500, 50, this, i, "Load World "+name), 0);
+				curY += 75;
 			}
 		}
 	}

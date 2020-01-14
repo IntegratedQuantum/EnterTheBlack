@@ -47,9 +47,6 @@ public class Star extends Screen {
 			Assets.screen = Assets.curWorld.map;
 			Assets.curWorld.map.activate(this);
 		}
-		if(e.getKeyChar() == 'p') {
-			Assets.saveGame(Assets.curWorld);
-		}
 	}
 
 	@Override

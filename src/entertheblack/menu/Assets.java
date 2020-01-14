@@ -443,7 +443,7 @@ public class Assets {
 		game.reset(0,  0);
 	}
 	
-	public static void saveGame(World curWorld) {
+	public static void saveGame(World curWorld, String fileName) {
 		StringBuilder file = new StringBuilder();
 		// Save world:
 		file.append("{");
@@ -456,7 +456,7 @@ public class Assets {
 		file.append("{");
 		curWorld.save(file);
 		file.append("}");
-		writeFile(file.toString(), "saves/save.txt");
+		writeFile(file.toString(), "saves/"+fileName);
 	}
 
 	public static void resetSettings() {
