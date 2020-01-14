@@ -15,53 +15,9 @@ import entertheblack.storage.Node;
 public class StarMap extends Screen {
 	public List<Star> systems = new ArrayList<>();
 
-	public StarMap(String str, String file) {
-		char [] data = str.toCharArray();
-		int depth = 0;
-		StringBuilder stb = new StringBuilder();
-		String name = "";
-		for(int i = 0; i < data.length; i++) {
-			switch(depth) {
-			case 0:
-				if(data[i] == '{') {
-					name = stb.toString();
-					stb = new StringBuilder();
-					depth = 1;
-				} else if(data[i] != ' ' && data[i] != '\n' && data[i] != '	') {
-					stb.append(data[i]);
-				}
-				break;
-			default:
-				if(data[i] == '}') {
-					depth--;
-					if(depth == 0) {
-						systems.add(new Star(name, stb.toString(), file));
-						stb = new StringBuilder();
-					}
-					else
-						stb.append(data[i]);
-				} else if(data[i] != ' ' && data[i] != '	') {
-					stb.append(data[i]);
-					if(data[i] == '{')
-						depth++;
-				}
-				break;
-			}
-		}
-		if(depth != 0) {
-			System.err.println("Error in "+file+":");
-			System.err.println("Could not find \"}\"!");
-		}
-	}
 	public StarMap(Node data, String file) {
-		int depth = 0;
-		String name = data.value;
-		for(int i = 0; i < data.nextNodes.length; i++) {
-			systems.add(new Star(name, data.nextNodes[i], file));
-		}
-		if(depth != 0) {
-			System.err.println("Error in "+file+":");
-			System.err.println("Could not find \"}\"!");
+		for(Node node : data.nextNodes) {
+			systems.add(new Star(node, file));
 		}
 	}
 	

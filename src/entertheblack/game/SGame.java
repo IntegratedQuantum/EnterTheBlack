@@ -19,8 +19,8 @@ public class SGame extends Screen {
 		}
 	}
 
-	public SGame(String data) {
-		Assets.curWorld = new World(new Node(data));
+	public SGame(Node data) {
+		Assets.curWorld = new World(data);
 		Assets.curWorld.player = new Player(Assets.variants.get(0));
 	}
 

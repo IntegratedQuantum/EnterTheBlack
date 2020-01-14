@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
-import entertheblack.menu.MainMenu;
 import entertheblack.storage.Variant;
 
 public class HyperSpace extends Screen {

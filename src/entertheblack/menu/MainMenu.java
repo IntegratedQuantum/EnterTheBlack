@@ -3,7 +3,6 @@ package entertheblack.menu;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-import entertheblack.game.SGame;
 import entertheblack.gui.ActionListener;
 import entertheblack.gui.Customize;
 import entertheblack.gui.Screen;

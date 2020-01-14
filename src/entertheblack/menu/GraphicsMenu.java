@@ -10,7 +10,6 @@ import entertheblack.gui.ActionListener;
 import entertheblack.gui.Screen;
 import entertheblack.gui.components.Button;
 import entertheblack.gui.components.ButtonHandler;
-import entertheblack.gui.components.KeyButton;
 
 // SettingsScreen to change Controls.
 

@@ -8,7 +8,6 @@ import java.util.List;
 import entertheblack.fight.Ship;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
-import entertheblack.menu.MainMenu;
 import entertheblack.storage.Node;
 import entertheblack.storage.Variant;
 
@@ -31,7 +30,7 @@ public class Star extends Screen {
 	double lockStrength = 0; // Factor of how planet-centered and how star-centered the current camera position is.
 	public int x, y; // Position on the map.
 	Ship ship;
-	String name;
+	String name = "";
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -87,71 +86,7 @@ public class Star extends Screen {
 		return null;
 	}
 	
-	public Star(String name, String str, String file) { // Data must not contain ' '!
-		this.name = name;
-		// Get the coordinates in the map:
-		String[] lines = str.split("\n");
-		for(int i = 0; i < lines.length; i++) {
-			if(lines[i].contains("{")) // Avoid reading the data of a sub and printing errors.
-				break;
-			String[] val = lines[i].split("=");
-			if(val.length < 2)
-				continue;
-			if(val[0].equals("X")) { // In milli parsec.
-				x = Integer.parseInt(val[1]);
-			} else if(val[0].equals("Y")) {  // In milli parsec.
-				y = Integer.parseInt(val[1]);
-			} else {
-				System.err.println("Error in "+file+" in planet definition of "+name+ " in line "+(i+1)+":");
-				System.err.println("Unknown argument for type Star \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
-			}
-		}
-		
-		System.out.println("Loading star system "+name+" at ("+x+", "+y+").");
-		char [] data = str.toCharArray();
-		int depth = 0;
-		List<Planet> lPlanets = new ArrayList<>();
-		StringBuilder stb = new StringBuilder();
-		for(int i = 0; i < data.length; i++) {
-			switch(depth) {
-			case 0:
-				if(data[i] == '{') {
-					name = stb.toString();
-					stb = new StringBuilder();
-					depth = 1;
-				} else if(data[i] != '\n') {
-					stb.append(data[i]);
-				} else {
-					stb = new StringBuilder(); // Name will only be the line directly in front of '{'
-				}
-				break;
-			default:
-				if(data[i] == '}') {
-					depth--;
-					if(depth == 0)
-						lPlanets.add(new Planet(name, stb.toString(), lPlanets.size() == 0 ? null : lPlanets.get(0), file));
-					else
-						stb.append(data[i]);
-				} else {
-					stb.append(data[i]);
-					if(data[i] == '{')
-						depth++;
-				}
-				break;
-			}
-		}
-		if(depth != 0) {
-			System.err.println("Error in "+file+":");
-			System.err.println("Could not find \"}\"!");
-		}
-		
-		planets = lPlanets.toArray(new Planet[0]);
-		
-		activate(Assets.variants.get(0));
-	}
-	
-	public Star(String name, Node data, String file) {
-		this.name = name;
+	public Star(Node data, String file) {
 		// Get the coordinates in the map:
 		String[] lines = data.value.split("\n");
 		for(int i = 0; i < lines.length; i++) {
@@ -162,8 +97,10 @@ public class Star extends Screen {
 				x = Integer.parseInt(val[1]);
 			} else if(val[0].equals("Y")) {  // In milli parsec.
 				y = Integer.parseInt(val[1]);
+			} else if(val[0].equals("Name")) {
+				name = val[1];
 			} else {
-				System.err.println("Error in "+file+" in planet definition of "+name+ " in line "+(i+1)+":");
+				System.err.println("Error in "+file+" in system definition of "+name+ " in line "+(i+1)+":");
 				System.err.println("Unknown argument for type Star \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
 			}
 		}
@@ -171,7 +108,7 @@ public class Star extends Screen {
 		System.out.println("Loading star system "+name+" at ("+x+", "+y+").");
 		List<Planet> lPlanets = new ArrayList<>();
 		for(int i = 0; i < data.nextNodes.length; i++) {
-			lPlanets.add(new Planet(name, data.nextNodes[i].value, lPlanets.size() == 0 ? null : lPlanets.get(0), file));
+			lPlanets.add(new Planet(data.nextNodes[i], lPlanets.size() == 0 ? null : lPlanets.get(0), file));
 		}
 		
 		planets = lPlanets.toArray(new Planet[0]);

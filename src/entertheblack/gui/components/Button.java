@@ -1,6 +1,5 @@
 package entertheblack.gui.components;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import entertheblack.gui.ActionListener;

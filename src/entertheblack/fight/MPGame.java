@@ -2,7 +2,6 @@ package entertheblack.fight;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.Color;
 
 import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;

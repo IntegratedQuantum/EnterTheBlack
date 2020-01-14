@@ -22,7 +22,6 @@ import entertheblack.fight.MPGame;
 import entertheblack.game.Animation;
 import entertheblack.game.Player;
 import entertheblack.game.ResourceType;
-import entertheblack.game.Star;
 import entertheblack.game.World;
 import entertheblack.gui.Screen;
 import entertheblack.storage.Node;
@@ -103,7 +102,7 @@ public class Assets {
 		return ret.toString();
 	}
 
-	public static String readFile(String fileName) {
+	public static String readFileRaw(String fileName) {
 		fileName = takeCareOfWindows("assets/"+fileName);
 		try {
 			File file = new File(fileName);
@@ -119,6 +118,10 @@ public class Assets {
 			return sb.toString();
 		} catch(Exception e) {e.printStackTrace();}
 		return "";
+	}
+	
+	public static Node readFile(String fileName) {
+		return new Node(readFileRaw(fileName));
 	}
 	
 	public static void writeFile(String data, String fileName) {
@@ -205,35 +208,31 @@ public class Assets {
 		return Integer.parseInt(str.trim());
 	}
 	
-	public static List<ShipData> createShipData(String data, String file) {
+	public static List<ShipData> createShipData(Node data, String file) {
 		List<ShipData> list = new ArrayList<>();
-		Node ship = new Node(data);
-		Node[] ships = ship.nextNodes;
+		Node[] ships = data.nextNodes;
 		for(int i = 0; i < ships.length; i++) {
 			list.add(new ShipData(ships[i], file));
 		}
 		return list;
 	}
 	
-	static void createWeaponData(String data, String file) {
-		Node weapon = new Node(data);
-		Node[] weapons = weapon.nextNodes;
+	static void createWeaponData(Node data, String file) {
+		Node[] weapons = data.nextNodes;
 		for(int i = 0; i < weapons.length; i++) {
 			weaponData.add(new WeaponData(weapons[i], file));
 		}
 	}
 	
-	static void createVariant(String data, String file) {
-		Node variant = new Node(data);
-		Node[] variants = variant.nextNodes;
+	static void createVariant(Node data, String file) {
+		Node[] variants = data.nextNodes;
 		for(int i = 0; i < variants.length; i++) {
 			Assets.variants.add(new Variant(variants[i], file));
 		}
 	}
 	
 	static void loadResources() {
-		String res = readFile("resources.txt");
-		Node resource = new Node(res);
+		Node resource = readFile("resources.txt");
 		Node[] data = resource.nextNodes;
 		resources = new ResourceType[data.length];
 		for(int i = 0; i < data.length; i++) {
@@ -351,8 +350,7 @@ public class Assets {
 	}
 	
 	private static void loadAnimations() {
-		String res = readFile("animations.txt");
-		Node animation = new Node(res);
+		Node animation = readFile("animations.txt");
 		Node[] data = animation.nextNodes;
 		for(int i = 0; i < data.length; i++) {
 			animations.add(new Animation(data[i], "assets/animations.txt"));
@@ -360,8 +358,7 @@ public class Assets {
 	}
 	
 	private static void loadParts() {
-		String res = readFile("parts.txt");
-		Node part = new Node(res);
+		Node part = readFile("parts.txt");
 		Node[] data = part.nextNodes;
 		for(int i = 0; i < data.length; i++) {
 			parts.add(new Part(data[i], "assets/parts.txt"));
@@ -423,13 +420,13 @@ public class Assets {
 		bg = generateRandomStarField(1000, 1000, 1000);
 		// TODO: Load color from settings.txt
 		hb = getImage("hb.png");
-		loadSettings(readFile("settings.txt"));
+		loadSettings(readFileRaw("settings.txt"));
 		loadStars();
 		loadPlanets();
 		loadResources();
 		loadAnimations();
 		loadParts();
-		String [] spec = readFile("species.txt").split("\n");
+		String [] spec = readFileRaw("species.txt").split("\n");
 		for(int i = 0; i < spec.length; i++) {
 			Species local = new Species(spec[i]);
 			species.add(local);

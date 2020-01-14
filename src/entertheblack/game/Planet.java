@@ -11,14 +11,13 @@ import java.util.Scanner;
 
 import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
+import entertheblack.storage.Node;
 
 // Planets are in general all kinds of solar bodys that fly around somewhere around a star.
 // TODO: Add proper graphics.
 
 
-public class Planet {
-	private static final String MASS = "Mass", RADIUS = "Radius", DIST = "Distance", IMAGE = "Image", TEMP = "T", LIFE = "Life", GOV = "Government", TECH = "TechLevel", COLOR = "Color", STARBASE = "Starbase";
-	
+public class Planet {	
 	private static final double MIN = 1000, MAX = 10000, rho = 1, G = 1;
 	double m, r, d, omega, alpha, omegaSelf, alphaSelf;
 	int T; // Temperature in Kelvin.
@@ -29,10 +28,10 @@ public class Planet {
 	int[] color = new int[6]; // Color specifications for planets surface map.
 	boolean hasStarBase = false; // All starbases can equip the ship, sell all unlocked parts and buy materials. 
 	public String species = null; // Species governing this planet.
-	String name;
+	String name = "";
 	Planet orbiting;
 	Image img;
-	String imageName;
+	String imageName = "";
 	
 	public Planet(double d, Planet orbiting) {
 		this.orbiting = orbiting;
@@ -62,36 +61,37 @@ public class Planet {
 		alphaSelf = 2*Math.PI*Math.random();
 	}
 	
-	public Planet(String name, String str, Planet orbiting, String file) {
+	public Planet(Node data, Planet orbiting, String file) {
 		this.orbiting = orbiting;
-		this.name = name;
-		String[] lines = str.split("\n");
+		String[] lines = data.value.split("\n");
 		for(int i = 0; i < lines.length; i++) {
 			String[] val = lines[i].split("=");
 			if(val.length < 2) {
-				if(val[0].equals(STARBASE))
+				if(val[0].equals("Starbase"))
 					hasStarBase = true;
 				continue;
 			}
-			if(val[0].equals(MASS))
+			if(val[0].equals("Name"))
+				name = val[1];
+			else if(val[0].equals("Mass"))
 				m = Double.parseDouble(val[1]);
-			else if(val[0].equals(RADIUS))
+			else if(val[0].equals("Radius"))
 				r = Double.parseDouble(val[1]);
-			else if(val[0].equals(DIST))
+			else if(val[0].equals("Distance"))
 				d = Double.parseDouble(val[1]);
-			else if(val[0].equals(IMAGE)) {
+			else if(val[0].equals("Image")) {
 				img = Assets.getPlanetImg(val[1]);
 				imageName = val[1];
-			} else if(val[0].equals(TEMP))
+			} else if(val[0].equals("T"))
 				T = Integer.parseInt(val[1]);
-			else if(val[0].equals(GOV)) {
+			else if(val[0].equals("Government")) {
 				species = val[1];
 				System.out.println("Loaded planet "+name+" governed by "+species+".");
-			} else if(val[0].equals(TECH))
+			} else if(val[0].equals("TechLevel"))
 				techLevel = Integer.parseInt(val[1]);
-			else if(val[0].equals(LIFE)) {
+			else if(val[0].equals("Life")) {
 				life = Integer.parseInt(val[1]);
-			} else if(val[0].equals(COLOR)) {
+			} else if(val[0].equals("Color")) {
 				for(int j = 0; j < 6; j++) {
 					color[j] = new Scanner(""+val[1].charAt(2*j)+val[1].charAt(2*j+1)).nextInt(16);
 				}
@@ -171,22 +171,22 @@ public class Planet {
 	
 	public void save(StringBuilder file) {
 		if(hasStarBase)
-			file.append("\n"+STARBASE);
-		file.append("\n"+MASS+"=");
+			file.append("\nStarbase");
+		file.append("\nMass=");
 		file.append(m);
-		file.append("\n"+RADIUS+"=");
+		file.append("\nRadius=");
 		file.append(r);
-		file.append("\n"+DIST+"=");
+		file.append("\nDistance=");
 		file.append(d);
-		file.append("\n"+IMAGE+"=");
+		file.append("\nImage=");
 		file.append(imageName);
-		file.append("\n"+TEMP+"=");
+		file.append("\nT=");
 		file.append(T);
-		file.append("\n"+GOV+"=");
+		file.append("\nGovernment=");
 		file.append(species);
-		file.append("\n"+TECH+"=");
+		file.append("\nTechLevel=");
 		file.append(techLevel);
-		file.append("\n"+LIFE+"=");
+		file.append("\nLife=");
 		file.append(life);
 		// TODO: Color
 	}
