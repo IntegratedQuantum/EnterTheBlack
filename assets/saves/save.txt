@@ -91,4 +91,4 @@ Image=star_A2.png
 T=50
 Government=null
 TechLevel=9
-Life=0}}}0,0{0,1000{-1}{}}{}
+Life=0}}}{0,1000{-1}{}}{}

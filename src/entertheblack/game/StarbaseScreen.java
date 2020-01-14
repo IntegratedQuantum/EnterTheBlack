@@ -36,15 +36,20 @@ public class StarbaseScreen extends Screen implements ActionListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == 27) {
-			Assets.screen = previous;
-		}
 		buttons.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		buttons.keyReleased(e);
+		if(e.getKeyCode() == 27) {
+			Assets.screen = previous;
+		}
+	}
+	
+	@Override
+	public void mouseUpdate(int x, int y, boolean pressed) {
+		buttons.mouseUpdate(x, y, pressed);
 	}
 
 	@Override

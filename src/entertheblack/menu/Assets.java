@@ -446,14 +446,13 @@ public class Assets {
 		game.reset(0,  0);
 	}
 	
-	public static void saveGame(World curWorld, Star curSystem) {
+	public static void saveGame(World curWorld) {
 		StringBuilder file = new StringBuilder();
 		// Save world:
 		file.append("{");
 		curWorld.map.save(file);
 		file.append("}");
 		Player p = curWorld.player;
-		file.append(curSystem.x+","+curSystem.y);
 		file.append("{");
 		p.save(file);
 		file.append("}");

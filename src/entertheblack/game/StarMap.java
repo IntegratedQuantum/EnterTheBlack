@@ -100,13 +100,14 @@ public class StarMap extends Screen {
 		if(e.getKeyChar() == 'm') {
 			Assets.screen = previous;
 		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == 27) {
 			Assets.screen = previous;
 		}
 	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {} // Not needed.
 
 	@Override
 	public void mouseUpdate(int x, int y, boolean pressed) {

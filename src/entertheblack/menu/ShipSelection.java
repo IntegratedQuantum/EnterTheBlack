@@ -14,12 +14,7 @@ import entertheblack.storage.WeaponData;
 public class ShipSelection extends Screen {
 	int ship1 = 0, ship2 = 0;
 	@Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == 27) {
-			Assets.screen = new MainMenu();
-			Assets.game.reset(ship1, ship2);
-		}
-	}
+	public void keyPressed(KeyEvent e) {} // Not needed.
 
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -34,6 +29,10 @@ public class ShipSelection extends Screen {
 		}
 		if(e.getKeyCode() == Assets.Controls[6] && ship2 > 0) {
 			ship2--;
+		}
+		if(e.getKeyCode() == 27) {
+			Assets.screen = new MainMenu();
+			Assets.game.reset(ship1, ship2);
 		}
 	}
 	

@@ -30,9 +30,6 @@ public class LandingScreen extends Screen {
 			Assets.screen = Assets.curWorld.map;
 			Assets.curWorld.map.activate(this);
 		}
-		if(e.getKeyCode() == 27) {
-			Assets.screen = last;
-		}
 		if(e.getKeyChar() == 'l') {
 			Assets.screen = new Surface(this, planet);
 		}
@@ -43,8 +40,9 @@ public class LandingScreen extends Screen {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getKeyCode() == 27) {
+			Assets.screen = last;
+		}
 	}
 
 	@Override

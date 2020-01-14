@@ -49,10 +49,7 @@ public class Star extends Screen {
 			Assets.curWorld.map.activate(this);
 		}
 		if(e.getKeyChar() == 'p') {
-			Assets.saveGame(Assets.curWorld, this);
-		}
-		if(e.getKeyCode() == 27) {
-			Assets.screen = new MainMenu();
+			Assets.saveGame(Assets.curWorld);
 		}
 	}
 
@@ -66,6 +63,9 @@ public class Star extends Screen {
 		}
 		if (e.getKeyCode() == Assets.Controls[4]) {
 			move = false;
+		}
+		if(e.getKeyCode() == 27) {
+			Assets.screen = new Pause(this);
 		}
 	}
 	
@@ -194,7 +194,8 @@ public class Star extends Screen {
 		}
 		ship.paint(g);
 		g.translate((int)(lockStrength*zoomLock.x), (int)(lockStrength*zoomLock.y));
-		g.scale(-zoom, -zoom);
+		g.scale(1/zoom, 1/zoom);
+		g.translate(-940, -540);
 	}
 	
 	int d = 0;

@@ -48,9 +48,6 @@ public class HyperSpace extends Screen {
 			Assets.screen = Assets.curWorld.map;
 			Assets.curWorld.map.activate(this);
 		}
-		if(e.getKeyCode() == 27) {
-			Assets.screen = new MainMenu();
-		}
 	}
 
 	@Override
@@ -63,6 +60,9 @@ public class HyperSpace extends Screen {
 		}
 		if (e.getKeyCode() == Assets.Controls[4]) {
 			move = false;
+		}
+		if(e.getKeyCode() == 27) {
+			Assets.screen = new Pause(this);
 		}
 	}
 

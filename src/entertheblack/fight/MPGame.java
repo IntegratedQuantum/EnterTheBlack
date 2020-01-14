@@ -28,10 +28,6 @@ public class MPGame extends Game {
 		if (e.getKeyCode() == Assets.Controls[9]) {
 			move2 = true;
 		}
-		if (e.getKeyCode() == 27) {
-			Assets.screen = new MainMenu();
-			die = 0;
-		}
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -50,6 +46,10 @@ public class MPGame extends Game {
 		}
 		if (e.getKeyCode() == Assets.Controls[6]) {
 			turnright2 = false;
+		}
+		if (e.getKeyCode() == 27) {
+			Assets.screen = new MainMenu();
+			die = 0;
 		}
 	}
 	

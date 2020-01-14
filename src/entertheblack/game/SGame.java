@@ -21,6 +21,7 @@ public class SGame extends Screen {
 
 	public SGame(String data) {
 		Assets.curWorld = new World(new Node(data));
+		Assets.curWorld.player = new Player(Assets.variants.get(0));
 	}
 
 	private void generateWorld() {

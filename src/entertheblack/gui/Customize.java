@@ -31,14 +31,14 @@ public class Customize extends Screen {
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {} // Not needed.
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == 27) {
 			Assets.screen = previous;
 		}
 	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {} // Not needed.
 
 	@Override
 	public void paint(Graphics2D g) {
