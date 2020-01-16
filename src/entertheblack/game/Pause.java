@@ -27,7 +27,6 @@ public class Pause extends Screen implements ActionListener {
 		if(!enterText)
 			buttons.keyPressed(e);
 		else {
-			System.out.println(e.getKeyChar());
 			if(e.getKeyChar() == '')
 				text = text.substring(0, text.length()-1);
 			else if(e.getKeyChar() == '\n') { // Save when enter pressed

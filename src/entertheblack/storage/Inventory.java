@@ -5,6 +5,7 @@ import java.util.List;
 
 import entertheblack.game.Resource;
 import entertheblack.game.ResourceType;
+import entertheblack.menu.Assets;
 
 // Contains resources.
 
@@ -18,6 +19,18 @@ public class Inventory {
 	public Inventory(int lim) {
 		limit = lim;
 		resources = new ArrayList<>();
+	}
+	public Inventory(Node data) {
+		resources = new ArrayList<>();
+		String[] lines = data.value.split("\n");
+		for(String line : lines) {
+			String[] val = line.split("=");
+			if(val[0].equals("Limit"))
+				limit = Integer.parseInt(val[1]);
+		}
+		for(Node node : data.nextNodes) {
+			resources.add(new ResourceStack(node));
+		}
 	}
 	
 	public void merge(Inventory inv) { // Merge all items from the second inventory to this one.
@@ -59,16 +72,14 @@ public class Inventory {
 	public String toString() {
 		StringBuilder ret = new StringBuilder();
 		for(ResourceStack r : resources) {
-			if(r.type != null)
-				ret.append(r.type.name + ": "+r.amount);
-			else
-				ret.append("null: "+r.amount);
+			ret.append(r.type.name + ": "+r.amount);
 		}
 		
 		return ret.toString();
 	}
 	
 	public void save(StringBuilder sb) {
+		sb.append("\nLimit=");
 		sb.append(limit);
 		for(ResourceStack rs : resources) {
 			sb.append("{");

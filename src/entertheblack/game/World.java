@@ -16,6 +16,7 @@ public class World {
 	
 	public World(Node save) {
 		map = new StarMap(save.nextNodes[0], "Assets/saves");
+		player = new Player(save.nextNodes[1]);
 		// TODO!
 	}
 	

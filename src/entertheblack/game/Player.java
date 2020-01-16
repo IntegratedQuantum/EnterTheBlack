@@ -3,7 +3,9 @@ package entertheblack.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.menu.Assets;
 import entertheblack.storage.Inventory;
+import entertheblack.storage.Node;
 import entertheblack.storage.Species;
 import entertheblack.storage.Variant;
 
@@ -22,6 +24,20 @@ public class Player {
 		mainShip = main;
 	}
 	
+	public Player(Node data) {
+		String[] lines = data.value.split("\n");
+		for(String line : lines) {
+			String[] val = line.split("=");
+			if(val[0].equals("TechLevel"))
+				techLevel = Integer.parseInt(val[1]);
+			if(val[0].equals("Credits"))
+				credits = Integer.parseInt(val[1]);
+			if(val[0].equals("MainShip"))
+				mainShip = Assets.getVariant(val[1]);
+		}
+		inv = new Inventory(data.nextNodes[0]);
+	}
+	
 	// Used for adding and removing credits. Returns if transaction was successful.
 	public boolean addCredits(int amount) {
 		if(credits+amount < 0)
@@ -31,8 +47,9 @@ public class Player {
 	}
 	
 	public void save(StringBuilder sb) {
+		sb.append("\nTechLevel=");
 		sb.append(techLevel);
-		sb.append(",");
+		sb.append("\nCredits=");
 		sb.append(credits);
 		sb.append("{");
 		inv.save(sb);

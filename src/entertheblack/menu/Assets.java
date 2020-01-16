@@ -88,6 +88,13 @@ public class Assets {
 		}
 		return null;
 	}
+	public static ResourceType getResourceType(String name) {
+		for(ResourceType r : resources) {
+			if(r.name.equals(name))
+				return r;
+		}
+		return null;
+	}
 	
 	// Some people seem to use windows which for unknown reasons still uses "\" as path separator.
 	public static String takeCareOfWindows(String path) {

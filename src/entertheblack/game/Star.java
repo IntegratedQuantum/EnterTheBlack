@@ -72,7 +72,7 @@ public class Star extends Screen {
 		
 		// TODO: Properly initialize fleets!
 		if(getPlanet("Earth") != null)
-			fleets.add(new Fleet("Human", getPlanet("Earth").x, getPlanet("Earth").y, Assets.variants.get(0)));
+			fleets.add(new Fleet("Human", getPlanet("Earth").x, getPlanet("Earth").y, Assets.variants.get(4)));
 	}
 	
 	public Planet getPlanet(String name) {
@@ -164,8 +164,10 @@ public class Star extends Screen {
 			inRange = false;
 			lockStrength = 1-(r - zoomLock.r*2)/6/zoomLock.r;
 		}
-		for(Fleet f : fleets) {
-			f.update(ship);
+		for(int i = 0; i < fleets.size(); i++) {
+			Fleet f = fleets.get(i);
+			if(f.update(ship, this))
+				fleets.remove(f); // TODO: Behavior on flee.
 		}
 		
 		r += zoomLock.r*4;
