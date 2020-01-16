@@ -162,6 +162,16 @@ public class Ship {
 		if(energy > v.energy)
 			energy = v.energy;
 	}
+	
+	public void change(boolean x, boolean y) {
+		// Simulate what happens when the ships change position:
+		for(Projectile p : projectiles) {
+			if(x)
+				p.x -= 1920;
+			if(y)
+				p.y -= 1080;
+		}
+	}
 
 	public void shoot(boolean type1, boolean type2) {
 		if(type1 && shoot1cd <= 0) shoot1();

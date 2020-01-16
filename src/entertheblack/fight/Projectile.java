@@ -37,6 +37,16 @@ public class Projectile {
 	public boolean update(Ship en) {
 		x += vx;
 		y += vy;
+		// Make sure projectile stays inside the region around the players.
+		if(x < -960) {
+			x += 3840;
+		} else if(x > 2880) {
+			x -= 3840;
+		} else if(y < -540) {
+			y += 2160;
+		} else if(y > 1620) {
+			y -= 2160;
+		}
 		range += Math.sqrt(vx*vx+vy*vy);
 		if (range >= wd.range) {
 			return true;
