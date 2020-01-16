@@ -64,4 +64,7 @@ public class MPGame extends Game {
 			g.drawString("Press escape to quit to title.", 900, 525);
 		}
 	}
+
+	@Override
+	void end(boolean win) {} // Not needed.
 }

@@ -74,10 +74,12 @@ public abstract class Game extends Screen {
 		
 		if (sh1.health <= 0) {
 			this.die = 2;
+			end(false);
 			return;
 		}
 		if (sh2.health <= 0) {
 			this.die = 1;
+			end(true);
 			return;
 		}
 		if (this.bgx <= -1000) {
@@ -156,4 +158,6 @@ public abstract class Game extends Screen {
 		sh1 = new Ship(sh1.v, 1600, 490);
 		sh2 = new Ship(sh2.v, 400, 490);
 	}
+	
+	abstract void end(boolean win);
 }

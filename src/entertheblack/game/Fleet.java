@@ -30,19 +30,21 @@ public class Fleet {
 		vel = v.vmax/1.1; // Let it fly slightly slower than the equivalent ship would.
 		img = v.img; // Give it the image of the ship it represents.
 	}
-	public void update(Ship player) {
+	public boolean update(Ship player, Star cur) {
 		double deltax = player.x - x;
 		double deltay = player.y - y;
 		double r = Math.sqrt(deltax*deltax + deltay*deltay);
 		if(r <= (radius+player.r)) {
 			// Enter fight when it hits the player. TODO: interaction screen.
-			Assets.screen = new SPGame(player.v, v);
+			Assets.screen = new SPGame(player.v, v, cur);
+			return true;
 		}
 		x += deltax/r*vel;
 		y += deltay/r*vel;
 		alpha = Math.atan(deltay/deltax);
 		alpha += Math.PI/2;
 		if(deltax < 0) alpha += Math.PI;
+		return false;
 	}
 	
 	public void paint(Graphics2D g) {
