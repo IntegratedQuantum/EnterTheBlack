@@ -183,10 +183,13 @@ public class Star extends Screen {
 	
 	public void save(StringBuilder sb) {
 		// Save base system data:
-		sb.append("\nX:");
+		sb.append("\nX=");
 		sb.append(x);
-		sb.append("\nY:");
+		sb.append("\nY=");
 		sb.append(y);
+		sb.append("\nName=\"");
+		sb.append(name);
+		sb.append("\"");
 		// Save all planets:
 		for(Planet p : planets) {
 			sb.append("{");

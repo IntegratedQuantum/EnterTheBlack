@@ -86,7 +86,6 @@ public class Planet {
 				T = Integer.parseInt(val[1]);
 			else if(val[0].equals("Government")) {
 				species = val[1];
-				System.out.println("Loaded planet "+name+" governed by "+species+".");
 			} else if(val[0].equals("TechLevel"))
 				techLevel = Integer.parseInt(val[1]);
 			else if(val[0].equals("Life")) {
@@ -110,6 +109,7 @@ public class Planet {
 		updateOrbit(0);
 		omegaSelf = Math.random()/100;
 		alphaSelf = 2*Math.PI*Math.random();
+		System.out.println("Loaded planet "+name+" governed by "+species+".");
 	}
 
 	public void updateOrbit(int date) { // TODO: Planet creation after exact start.
@@ -169,25 +169,30 @@ public class Planet {
 		g.drawImage(groundMap, 0, 1080-groundMap.getHeight(null), null);
 	}
 	
-	public void save(StringBuilder file) {
+	public void save(StringBuilder sb) {
 		if(hasStarBase)
-			file.append("\nStarbase");
-		file.append("\nMass=");
-		file.append(m);
-		file.append("\nRadius=");
-		file.append(r);
-		file.append("\nDistance=");
-		file.append(d);
-		file.append("\nImage=");
-		file.append(imageName);
-		file.append("\nT=");
-		file.append(T);
-		file.append("\nGovernment=");
-		file.append(species);
-		file.append("\nTechLevel=");
-		file.append(techLevel);
-		file.append("\nLife=");
-		file.append(life);
+			sb.append("\nStarbase");
+		sb.append("\nMass=");
+		sb.append(m);
+		sb.append("\nRadius=");
+		sb.append(r);
+		sb.append("\nDistance=");
+		sb.append(d);
+		sb.append("\nImage=\"");
+		sb.append(imageName);
+		sb.append("\"");
+		sb.append("\nT=");
+		sb.append(T);
+		sb.append("\nGovernment=\"");
+		sb.append(species);
+		sb.append("\"");
+		sb.append("\nTechLevel=");
+		sb.append(techLevel);
+		sb.append("\nLife=");
+		sb.append(life);
+		sb.append("\nName=\"");
+		sb.append(name);
+		sb.append("\"");
 		// TODO: Color
 	}
 }
