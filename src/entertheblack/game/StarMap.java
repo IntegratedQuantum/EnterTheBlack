@@ -42,6 +42,15 @@ public class StarMap extends Screen {
 		return (int)r;
 	}
 	
+	public Star getStar(int x, int y) {
+		for(Star star : systems) {
+			if(star.x == x && star.y == y) {
+				return star;
+			}
+		}
+		return null;
+	}
+	
 	public void paint(Graphics2D g) {
 		g.translate(960, 540);
 		for(Star system : systems) {

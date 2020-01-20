@@ -29,7 +29,7 @@ public class Star extends Screen {
 	Planet zoomLock; // The planet that is in the center of zoom. Used to smoothly close into planets.
 	double lockStrength = 0; // Factor of how planet-centered and how star-centered the current camera position is.
 	public int x, y; // Position on the map.
-	Ship ship;
+	public Ship ship;
 	String name = "";
 	
 	@Override

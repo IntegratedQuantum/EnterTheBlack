@@ -51,6 +51,8 @@ public class Player {
 		sb.append(techLevel);
 		sb.append("\nCredits=");
 		sb.append(credits);
+		sb.append("\nMainShip=");
+		sb.append(mainShip.name);
 		sb.append("{");
 		inv.save(sb);
 		sb.append("}");

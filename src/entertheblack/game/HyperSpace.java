@@ -14,21 +14,24 @@ public class HyperSpace extends Screen {
 	boolean move = false;
 	boolean left = false;
 	boolean right = false;
-	double xShip, yShip, alphaShip, vmax, turn;
+	public double xShip, yShip, alphaShip, vmax, turn;
 	Image shipImg;
 	Variant v;
 	Star cameFrom;
 	
 	ArrayList<Fleet> fleets;
-	
+
 	public HyperSpace(StarMap map, Variant mainShip, Star current) {
+		this(map, mainShip, current.x, current.y);
+		cameFrom = current;
+	}
+	public HyperSpace(StarMap map, Variant mainShip, int x, int y) {
 		this.map = map;
 		shipImg = mainShip.img;
 		vmax = mainShip.vmax;
 		turn = mainShip.turnRate;
-		xShip = current.x;
-		yShip = current.y;
-		cameFrom = current;
+		xShip = x;
+		yShip = y;
 		v = mainShip;
 	}
 

@@ -12,7 +12,7 @@ import entertheblack.menu.Assets;
 import entertheblack.menu.MainMenu;
 
 public class Pause extends Screen implements ActionListener {
-	Screen previous;
+	public Screen previous;
 	ButtonHandler buttons = new ButtonHandler();
 	boolean enterText = false;
 	String text = "";

@@ -11,6 +11,7 @@ import entertheblack.storage.Node;
 // TODO: Structure it better.
 
 public class SGame extends Screen {
+	Screen following = null;
 	public SGame(int save) {
 		if(save >= 0) {
 			loadWorld();
@@ -20,7 +21,8 @@ public class SGame extends Screen {
 	}
 
 	public SGame(Node data) {
-		Assets.curWorld = new World(data);
+		Assets.curWorld = new World(data.nextNodes[0]);
+		following = Assets.curWorld.getStart(data.nextNodes[1]);
 	}
 
 	private void generateWorld() {
@@ -43,7 +45,10 @@ public class SGame extends Screen {
 
 	@Override
 	public void paint(Graphics2D g) {
-		Assets.getAnimation("Intro").activate(Assets.curWorld.getStar(0));
+		if(following == null) // new World
+			Assets.getAnimation("Intro").activate(Assets.curWorld.getStar(0));
+		else // Loaded world
+			Assets.screen = following;
 	}
 
 }

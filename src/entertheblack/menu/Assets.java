@@ -20,8 +20,11 @@ import javax.imageio.ImageIO;
 import entertheblack.fight.Game;
 import entertheblack.fight.MPGame;
 import entertheblack.game.Animation;
+import entertheblack.game.HyperSpace;
+import entertheblack.game.Pause;
 import entertheblack.game.Player;
 import entertheblack.game.ResourceType;
+import entertheblack.game.Star;
 import entertheblack.game.World;
 import entertheblack.gui.Screen;
 import entertheblack.storage.Node;
@@ -454,14 +457,30 @@ public class Assets {
 		StringBuilder file = new StringBuilder();
 		// Save world:
 		file.append("{");
-		curWorld.map.save(file);
-		file.append("}");
-		Player p = curWorld.player;
-		file.append("{");
-		p.save(file);
-		file.append("}");
-		file.append("{");
 		curWorld.save(file);
+		file.append("}");
+		// Save the current coordinates of the player:
+		file.append("{");
+		// Game can only be saved in Pause Screen:
+		Pause p = (Pause)screen;
+		if(p.previous instanceof Star) {
+			Star s = (Star)p.previous;
+			file.append("\nX=");
+			file.append(s.x);
+			file.append("\nY=");
+			file.append(s.y);
+			file.append("\nXSystem=");
+			file.append((int)s.ship.x);
+			file.append("\nYSystem=");
+			file.append((int)s.ship.y);
+		}
+		else if(p.previous instanceof HyperSpace) {
+			HyperSpace s = (HyperSpace)p.previous;
+			file.append("\nX=");
+			file.append((int)s.xShip);
+			file.append("\nY=");
+			file.append((int)s.yShip);
+		}
 		file.append("}");
 		writeFile(file.toString(), "saves/"+fileName);
 	}
