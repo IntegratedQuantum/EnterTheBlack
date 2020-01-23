@@ -5,7 +5,6 @@ import java.util.List;
 
 import entertheblack.game.Resource;
 import entertheblack.game.ResourceType;
-import entertheblack.menu.Assets;
 
 // Contains resources.
 

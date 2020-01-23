@@ -14,6 +14,8 @@ import entertheblack.storage.Node;
 
 public class StarMap extends Screen {
 	public List<Star> systems = new ArrayList<>();
+	double x=0, y=0;
+	double zoom=1;
 
 	public StarMap(Node data, String file) {
 		for(Node node : data.nextNodes) {
@@ -33,6 +35,8 @@ public class StarMap extends Screen {
 	Screen previous;
 	public void activate(Screen prev) {
 		previous = prev; // Store the previous screen upon opening the map.
+		x = y = 0;
+		zoom = 1;
 	}
 	
 	private static int getRadius(Planet p) {
@@ -52,18 +56,44 @@ public class StarMap extends Screen {
 	}
 	
 	public void paint(Graphics2D g) {
-		g.translate(960, 540);
+		g.translate(960+x, 540+y);
+		g.scale(zoom, zoom);
 		for(Star system : systems) {
 			int r = getRadius(system.planets[0]);
 			g.drawImage(system.planets[0].img, system.x/100-r, system.y/100-r, r*2, r*2, null);
 		}
-		g.translate(-960, -540);
+		g.scale(1/zoom, 1/zoom);
+		g.translate(-960+x, -540+y);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyChar() == 'm') {
 			Assets.screen = previous;
+		}
+		// zoom
+		if(e.getKeyChar() == '+') {
+			zoom *= 1.1;
+			x *= 1.1;
+			y *= 1.1;
+		}
+		if(e.getKeyChar() == '-') {
+			zoom /= 1.1;
+			x /= 1.1;
+			y /= 1.1;
+		}
+		// movement
+		if(e.getKeyCode() == 37) {
+			x -= 10;///zoom;
+		}
+		if(e.getKeyCode() == 38) {
+			y -= 10;///zoom;
+		}
+		if(e.getKeyCode() == 39) {
+			x += 10;//zoom;
+		}
+		if(e.getKeyCode() == 40) {
+			y += 10;//zoom;
 		}
 	}
 
@@ -73,9 +103,27 @@ public class StarMap extends Screen {
 			Assets.screen = previous;
 		}
 	}
+	
+	@Override
+	public void mouseWheel(int num) {
+		double change = Math.pow(1.1, -num);
+		zoom *= change;
+		x *= change;
+		y *= change;
+	}
+	int lastMouseX = 0;
+	int lastMouseY = 0;
 
 	@Override
 	public void mouseUpdate(int x, int y, boolean pressed) {
+		// Move map if mouse is dragged:
+		if(pressed) {
+			this.x += x-lastMouseX;
+			this.y += y-lastMouseY;
+		}
 		// TODO: Show Information when hovering above with mouse.
+		
+		lastMouseX = x;
+		lastMouseY = y;
 	}
 }

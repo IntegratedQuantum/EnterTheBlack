@@ -22,7 +22,6 @@ import entertheblack.fight.MPGame;
 import entertheblack.game.Animation;
 import entertheblack.game.HyperSpace;
 import entertheblack.game.Pause;
-import entertheblack.game.Player;
 import entertheblack.game.ResourceType;
 import entertheblack.game.Star;
 import entertheblack.game.World;

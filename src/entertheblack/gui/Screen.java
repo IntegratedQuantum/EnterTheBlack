@@ -13,8 +13,9 @@ public abstract class Screen {
 	
 	public abstract void keyPressed(KeyEvent e);
 	public abstract void keyReleased(KeyEvent e);
-	
+
 	public void mouseUpdate(int x, int y, boolean pressed) {}
+	public void mouseWheel(int num) {}
 	
 	public void paintScreen(Graphics2D g) {
 		g.setColor(Color.BLACK);

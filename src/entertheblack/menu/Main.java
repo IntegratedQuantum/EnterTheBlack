@@ -9,6 +9,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,7 +20,7 @@ import entertheblack.gui.Screen;
 
 // Contains main method and JFrame stuff.
 
-public class Main extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
+public class Main extends JPanel implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 	static MPGame game = new MPGame();
 	static Screen screen;
 
@@ -35,6 +37,7 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 		frame.addKeyListener(this);
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		addMouseWheelListener(this);
 		frame.add(this);
 	}
 	public void keyTyped(KeyEvent e) {}
@@ -122,5 +125,10 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		Assets.screen.mouseUpdate((int)(e.getX()/scale), (int)(e.getY()/scale), false);
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		Assets.screen.mouseWheel(arg0.getWheelRotation());
 	}
 }
