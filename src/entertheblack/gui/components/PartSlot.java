@@ -3,22 +3,25 @@ package entertheblack.gui.components;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import entertheblack.storage.Part;
 import entertheblack.storage.ShipSlot;
 
 // GUI for ShipSlot.
 // TODO: Add interaction.
 
 public class PartSlot extends Component {
+	CarriedPart carrier;
 	public boolean selectedM; // Mouse is floating above
 	public boolean pressedM; // Mouse is floating above
 	public ToolTip toolTip;
 	ShipSlot underlying;
-	public PartSlot(int x, int y, int width, int height, ShipSlot slot) {
+	public PartSlot(int x, int y, int width, int height, ShipSlot slot, CarriedPart c) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		selectedM = pressedM = false;
+		carrier = c;
 		underlying = slot;
 		if(slot.part != null)
 			toolTip = slot.part.toolTip;
@@ -42,9 +45,13 @@ public class PartSlot extends Component {
 		g.fillRect(x, y, width, height);
 	}
 	
-	// Trigger what action is supposed to happen.
+	// Remove the current Part from the slot and attach it to the mouse, if the currently carried part can be placed in this slot.
 	public void trigger() {
-		
+		Part p = carrier.part;
+		if(p == null || p.fitsIn(underlying)) {
+			carrier.part = underlying.part;
+			underlying.part = p;
+		}
 	}
 
 	public boolean liesIn(int x, int y) { // Tests if a point lies inside the button.

@@ -73,7 +73,7 @@ public class StarbaseScreen extends Screen implements ActionListener {
 	public void pressed(int id) {
 		switch(id) {
 		case 1:
-			Assets.screen = new Customize(Assets.curWorld.player.mainShip, this);
+			Assets.screen = new Customize(this, Assets.curWorld.player);
 			return;
 		case 2:
 			Assets.screen = previous;

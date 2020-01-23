@@ -104,13 +104,13 @@ public class Part {
 	}
 	
 	// Test if this part can be put in a slot, based on the players credits.
-	public boolean fitsIn(ShipSlot sl, Player p) {
+	public boolean fitsIn(ShipSlot sl) {
 		if(weapon && !sl.weapon)
 			return false;
 		if(engine && !sl.engine)
 			return false;
 		if(reactor && !sl.reactor)
 			return false;
-		return p.credits >= cost;
+		return true;
 	}
 }

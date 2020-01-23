@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import entertheblack.game.Player;
+import entertheblack.gui.components.CarriedPart;
 import entertheblack.gui.components.PartSlot;
 import entertheblack.gui.components.ToolTip;
 import entertheblack.menu.Assets;
@@ -18,15 +20,19 @@ public class Customize extends Screen {
 	PartSlot[] slots;
 	Screen previous;
 	ToolTip tt;
+	Player p;
+	CarriedPart carrier;
 	private static final int size = 800;
 	
-	public Customize(Variant v, Screen prev) {
-		mainShip = v;
+	public Customize(Screen prev, Player p) {
+		mainShip = p.mainShip;
+		this.p = p;
 		slots = new PartSlot[mainShip.slots.size()];
 		previous = prev;
+		carrier = new CarriedPart(100, 100);
 		for(int i = 0; i < slots.length; i++) {
 			ShipSlot sl = mainShip.slots.get(i);
-			slots[i] = new PartSlot(960-size/2+size*sl.x/mainShip.x+1, 540-size/2+size*sl.y/mainShip.y+1, size/mainShip.x-2, size/mainShip.y-2, sl);
+			slots[i] = new PartSlot(960-size/2+size*sl.x/mainShip.x+1, 540-size/2+size*sl.y/mainShip.y+1, size/mainShip.x-2, size/mainShip.y-2, sl, carrier);
 		}
 	}
 	
@@ -46,6 +52,7 @@ public class Customize extends Screen {
 		for(PartSlot sl : slots) {
 			sl.paint(g);
 		}
+		carrier.paint(g);
 		g.setFont(new Font("sanserif", 0, 40));
 		// Draw help:
 		g.setColor(new Color(64, 64, 64, 100));
@@ -80,6 +87,7 @@ public class Customize extends Screen {
 					tt.updatePosition(x, y);
 			}
 		}
+		carrier.mouseUpdate(x, y, pressed);
 	}
 
 }

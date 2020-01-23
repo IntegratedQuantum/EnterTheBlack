@@ -3,6 +3,7 @@ package entertheblack.menu;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import entertheblack.game.Player;
 import entertheblack.gui.ActionListener;
 import entertheblack.gui.Customize;
 import entertheblack.gui.Screen;
@@ -57,7 +58,7 @@ public class MainMenu extends Screen implements ActionListener {
 			Assets.screen = new Options();
 			break;
 		case 5:
-			Assets.screen = new Customize(Assets.variants.get(5), this);
+			Assets.screen = new Customize(this, new Player(Assets.variants.get(5)));
 			break;
 		case 6:
 			System.exit(1);
