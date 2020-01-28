@@ -23,7 +23,7 @@ public class PartSlot extends Component {
 		selectedM = pressedM = false;
 		carrier = c;
 		underlying = slot;
-		if(slot.part != null)
+		if(slot != null && slot.part != null)
 			toolTip = slot.part.toolTip;
 	}
 	@Override

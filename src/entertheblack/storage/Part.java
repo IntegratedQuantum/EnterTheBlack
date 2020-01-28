@@ -3,22 +3,21 @@ package entertheblack.storage;
 import java.awt.Image;
 import java.util.ArrayList;
 
-import entertheblack.game.Player;
 import entertheblack.gui.components.ToolTip;
 import entertheblack.menu.Assets;
 
 // A type of weapon(TODO) or structure that can be put on a ship.
 
 public class Part {
-	int cost; // Cost in credits
+	public int cost; // Cost in credits
 	// TODO: Add resource costs.
 	public String name;
 	String info; // A small info text that will be displayed in the customize screen.
 	public Image img;
 	
-	boolean weapon;
-	boolean engine;
-	boolean reactor;
+	public boolean weapon;
+	public boolean engine;
+	public boolean reactor;
 	int techLevel; // Tech level needed to use.
 	// structure Stats(mostly 0):
 	int hull;
@@ -64,6 +63,8 @@ public class Part {
 				passivePowerConsumption = Double.parseDouble(parts[1]);
 			} else if(parts[0].equals("Turn")) {
 				turnSpeed = Double.parseDouble(parts[1]);
+			} else if(parts[0].equals("Cost")) {
+				cost = Integer.parseInt(parts[1]);
 			} else if(parts[0].equals("Name")) {
 				name = parts[1];
 			} else if(parts[0].equals("Tech")) {
