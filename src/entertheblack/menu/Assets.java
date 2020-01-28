@@ -481,6 +481,10 @@ public class Assets {
 			file.append((int)s.yShip);
 		}
 		file.append("}");
+		//Make sure we have a saves folder before writing.
+		File path = new File("assets/saves");
+		if (!path.exists())
+			path.mkdir();	
 		writeFile(file.toString(), "saves/"+fileName);
 	}
 

@@ -17,18 +17,25 @@ public class LoadOrNew extends Screen implements ActionListener {
 		buttons.add(new Button(690, 190, 500, 50, this, -1, "New Game"), 0);
 		// Find all save files and add a button for each of them.:
 		String fileName = Assets.takeCareOfWindows("assets/saves/");
-		File[] f = (new File(fileName)).listFiles();
-		int curY = 340;
-		files = new String[f.length];
-		for (int i = 0; i < f.length; i++) {
-			File file = f[i];
-			if (file != null) {
-				String name = file.getName();
-				files[i] = name;
-				buttons.add(new Button(690, curY, 500, 50, this, i, "Load World "+name), 0);
-				curY += 75;
+		//Attempt to find save files.
+		try {
+			File[] f = (new File(fileName)).listFiles();
+			int curY = 340;
+			files = new String[f.length];
+			for (int i = 0; i < f.length; i++) {
+				File file = f[i];
+				if (file != null) {
+					String name = file.getName();
+					files[i] = name;
+					buttons.add(new Button(690, curY, 500, 50, this, i, "Load World "+name), 0);
+					curY += 75;
+				}
 			}
+		//Prevent game crashing if there are no saves yet.
+		} catch (NullPointerException e) {
+			System.out.println("No Saves found!");
 		}
+	
 	}
 	
 	@Override
