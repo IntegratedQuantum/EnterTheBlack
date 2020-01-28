@@ -6,6 +6,6 @@
 	Cost = 100
 	ToolTip {"
 		A small, heavy, expensive, ineffective armor.\
-		All your ever want for your weak ship.
+		All you ever want for your weak ship.
 	"}
 }
