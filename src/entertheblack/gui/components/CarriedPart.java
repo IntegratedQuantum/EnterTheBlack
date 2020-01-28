@@ -6,7 +6,7 @@ import entertheblack.storage.Part;
 
 public class CarriedPart extends Component {
 	int x, y, width, height;
-	Part part;
+	public Part part;
 	public CarriedPart(int width, int height) {
 		this.width = width;
 		this.height = height;
