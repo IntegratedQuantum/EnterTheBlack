@@ -22,7 +22,7 @@ public class World {
 	}
 	public Screen getStart(Node save) {
 		// Get the coordinates of the player in the star map:
-		String[] lines = save.value.split("\n");
+		String[] lines = save.lines;
 		int x = 0;
 		int y = 0;
 		int xSys = 0;

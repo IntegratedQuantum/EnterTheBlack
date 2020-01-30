@@ -30,7 +30,7 @@ public class ResourceType {
 	}
 	
 	public ResourceType(Node data, String file) {
-		String[] entries = data.value.split("\n");
+		String[] entries = data.lines;
 		ArrayList<String> subNames = new ArrayList<>();
 		for(int i = 0; i < entries.length; i++) {
 			String[] val = entries[i].split("=");

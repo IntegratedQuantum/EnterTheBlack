@@ -31,7 +31,7 @@ public class Part {
 	
 	public ToolTip toolTip;
 	public Part(Node data, String file) {
-		String[] lines = data.value.split("\n");
+		String[] lines = data.lines;
 		StringBuilder text = new StringBuilder();
 		for(int i = 0; i < lines.length; i++) {
 			String [] parts = lines[i].split("=");
@@ -83,7 +83,7 @@ public class Part {
 		}
 		Node[] textNodes = data.nextNodes;
 		for(Node n : textNodes) {
-			text.append(n.value);
+			text.append(n.toString());
 		}
 		ArrayList<String> dat = new ArrayList<>();
 		if(weapon) dat.add(" Weapon");

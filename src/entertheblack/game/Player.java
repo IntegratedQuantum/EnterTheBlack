@@ -25,7 +25,7 @@ public class Player {
 	}
 	
 	public Player(Node data) {
-		String[] lines = data.value.split("\n");
+		String[] lines = data.lines;
 		for(String line : lines) {
 			String[] val = line.split("=");
 			if(val[0].equals("TechLevel"))

@@ -85,7 +85,7 @@ public class Star extends Screen {
 	
 	public Star(Node data, String file) {
 		// Get the coordinates in the map:
-		String[] lines = data.value.split("\n");
+		String[] lines = data.lines;
 		for(int i = 0; i < lines.length; i++) {
 			String[] val = lines[i].split("=");
 			if(val.length < 2)

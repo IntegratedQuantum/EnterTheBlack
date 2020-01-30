@@ -21,7 +21,7 @@ public class Inventory {
 	}
 	public Inventory(Node data) {
 		resources = new ArrayList<>();
-		String[] lines = data.value.split("\n");
+		String[] lines = data.lines;
 		for(String line : lines) {
 			String[] val = line.split("=");
 			if(val[0].equals("Limit"))

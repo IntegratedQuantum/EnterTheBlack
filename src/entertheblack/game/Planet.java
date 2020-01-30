@@ -63,7 +63,7 @@ public class Planet {
 	
 	public Planet(Node data, Planet orbiting, String file) {
 		this.orbiting = orbiting;
-		String[] lines = data.value.split("\n");
+		String[] lines = data.lines;
 		for(int i = 0; i < lines.length; i++) {
 			String[] val = lines[i].split("=");
 			if(val.length < 2) {
