@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.Util.Logger;
 import entertheblack.fight.Ship;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
@@ -99,13 +100,11 @@ public class Star extends Screen {
 			} else {
 				// Only give error message when the string isn't empty:
 				if(val.length > 1 || val[0].length() > 0) {
-					System.err.println("Error in "+file+" in line "+data.lineNumber[i]+":");
-					System.err.println("Unknown argument for type Star \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+					Logger.logWarning(file, data.lineNumber[i], "Unknown argument for type Star \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
 				}
 			}
 		}
-		
-		System.out.println("Loading star system "+name+" at ("+x+", "+y+").");
+		Logger.log("Loading star system "+name+" at ("+x+", "+y+").");
 		List<Planet> lPlanets = new ArrayList<>();
 		for(int i = 0; i < data.nextNodes.length; i++) {
 			lPlanets.add(new Planet(data.nextNodes[i], lPlanets.size() == 0 ? null : lPlanets.get(0), file));

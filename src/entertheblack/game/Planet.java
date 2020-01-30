@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import entertheblack.Util.Logger;
 import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Node;
@@ -95,8 +96,7 @@ public class Planet {
 					color[j] = new Scanner(""+val[1].charAt(2*j)+val[1].charAt(2*j+1)).nextInt(16);
 				}
 			} else {
-				System.err.println("Error in "+file+" in planet definition of "+name+ " in line "+(i+1)+":");
-				System.err.println("Unknown argument for type Planet \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
+				Logger.logWarning(file, data.lineNumber[i], "Unknown argument for type Planet \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
 			}
 		}
 		omega = alpha = 0;
@@ -109,7 +109,7 @@ public class Planet {
 		updateOrbit(0);
 		omegaSelf = Math.random()/100;
 		alphaSelf = 2*Math.PI*Math.random();
-		System.out.println("Loaded planet "+name+" governed by "+species+".");
+		Logger.log("Loaded planet "+name+" governed by "+species+".");
 	}
 
 	public void updateOrbit(int date) { // TODO: Planet creation after exact start.

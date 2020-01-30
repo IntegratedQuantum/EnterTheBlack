@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.Util.Logger;
 import entertheblack.menu.Assets;
 
 // Data(hull, energy, ...) for each ship type and each ship variant.
@@ -68,12 +69,10 @@ public class ShipData {
 			} else if(parts[0].equals("Image")) {
 				img = Assets.getImage("ships/"+parts[1]+".png");
 				if(img == null) {
-					System.err.println("Error in "+file+" in line "+(i+1)+":");
-					System.err.println("Could not find ship image "+parts[1]+".png in assets/ships!");
+					Logger.logError(file, data.lineNumber[i], "Could not find ship image "+parts[1]+".png in assets/ships!");
 				}
 			} else {
-				System.err.println("Error in "+file+" in line "+(i+1)+":");
-				System.err.println("Unknown argument for type Ship \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!");
+				Logger.logError(file, data.lineNumber[i], "Unknown argument for type Ship \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!");
 			}
 		}
 		Node[] texts = data.nextNodes;

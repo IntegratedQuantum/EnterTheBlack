@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import entertheblack.Util.Logger;
 import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Node;
@@ -24,8 +25,7 @@ public class ResourceType {
 		img = Assets.getImage("resources/"+name);
 		if(img == null) {
 			img = Assets.getPlanetImg("");
-			System.err.println("Error in resource loading:");
-			System.err.println("Couldn't find Resource image "+name+"!");
+			Logger.logError("resource loading", "Couldn't find Resource image "+name+"!");
 		}
 	}
 	
@@ -67,11 +67,12 @@ public class ResourceType {
 			else {
 				// Only give error message when the string isn't empty:
 				if(val.length > 1 || val[0].length() > 0) {
-					System.err.println("Error in "+file+" in line "+data.lineNumber[i]+":");
+					String message;
 					if(val.length >= 2)
-						System.err.println("Unknown argument for ResourceType \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+						message = "Unknown argument for ResourceType \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!";
 					else
-						System.err.println("Unknown argument for resourceType \""+val[0]+"\" without value. Skipping line!");
+						message = "Unknown argument for resourceType \""+val[0]+"\" without value. Skipping line!";
+					Logger.logWarning(file, data.lineNumber[i], message);
 				}
 			}
 		}
@@ -81,9 +82,9 @@ public class ResourceType {
 			img = Assets.getImage("resources/"+name+".png");
 			if(img == null) {
 				img = Assets.getPlanetImg("");
-				System.err.println("Couldn't find Resource image "+name+"!");
+				Logger.logError("Couldn't find Resource image "+name+"!");
 			}
 		}
-		System.out.println("Loaded Resource "+name+".");
+		Logger.log("Loaded Resource "+name+".");
 	}
 }

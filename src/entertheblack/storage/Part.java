@@ -3,6 +3,7 @@ package entertheblack.storage;
 import java.awt.Image;
 import java.util.ArrayList;
 
+import entertheblack.Util.Logger;
 import entertheblack.gui.components.ToolTip;
 import entertheblack.menu.Assets;
 
@@ -72,14 +73,12 @@ public class Part {
 			} else if(val[0].equals("Image")) {
 				img = Assets.getImage("parts/"+val[1]+".png");
 				if(img == null) {
-					System.err.println("Error in "+file+" in line "+data.lineNumber[i]+":");
-					System.err.println("Could not find Part image "+val[1]+".png in assets/parts!");
+					Logger.logError(file, data.lineNumber[i], "Could not find Part image "+val[1]+".png in assets/parts!");
 				}
 			} else {
 				// Only give error message when the string isn't empty:
 				if(val.length > 1 || val[0].length() > 0) {
-					System.err.println("Error in "+file+" in line "+data.lineNumber[i]+":");
-					System.err.println("Unknown argument for Part \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+					Logger.logWarning(file, data.lineNumber[i], "Unknown argument for Part \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
 				}
 			}
 		}

@@ -17,6 +17,7 @@ import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
+import entertheblack.Util.Logger;
 import entertheblack.fight.Game;
 import entertheblack.fight.MPGame;
 import entertheblack.game.Animation;
@@ -170,7 +171,7 @@ public class Assets {
 				String name = file.getName();
 				try {
 					stars.put(name, ImageIO.read(file));
-					System.out.println("Loaded image "+name+".");
+					Logger.log("Loaded image "+name+".");
 				} catch (IOException e) {}
 			}
 		}
@@ -184,7 +185,7 @@ public class Assets {
 				String name = file.getName();
 				try {
 					planets.put(name, ImageIO.read(file));
-					System.out.println("Loaded image "+name+".");
+					Logger.log("Loaded image "+name+".");
 				} catch (IOException e) {}
 			}
 		}
@@ -195,7 +196,7 @@ public class Assets {
 		if(ret == null)
 			ret = planets.get(key);
 		if(ret == null) {
-			System.err.println("No Planet/Star Image named \""+key+"\" found!");
+			Logger.logError("No Planet/Star Image named \""+key+"\" found! Using random image instead.");
 			return randPlanetImg(1);
 		}
 		return ret;
@@ -263,8 +264,8 @@ public class Assets {
 		// Read the data file and overwrite the standard settings.
 		try {
 			String [] lines = file.split("\n");
-			for(String line : lines) {
-				String [] val = line.split("=");
+			for(int i = 0; i < lines.length; i++) {
+				String [] val = lines[i].split("=");
 				if(val.length <= 1)
 					continue;
 				if(val[0].equals("btn")) {
@@ -302,14 +303,14 @@ public class Assets {
 							Controls[j] = Integer.parseInt(keys[j]);
 						}
 					} else {
-						System.err.println("Wrong number of arguments in settings.txt for keys: "+keys.length+" instead of "+Controls.length+".");
+						Logger.logError("settings.txt", i+1, "Wrong number of arguments in settings.txt for keys: "+keys.length+" instead of "+Controls.length+".");
 					}
 				}
 			}
 		} catch(Exception e) { // Catch any error if occuring when reading the settings and revert to standard settings:
-			System.err.println("File \"settings.txt\" corrupted:");
+			Logger.logError("File \"settings.txt\" corrupted:");
 			e.printStackTrace();
-			System.err.println("Reverting to standard settings.");
+			Logger.log("Reverting to standard settings.");
 		}
 	}
 	
@@ -424,7 +425,6 @@ public class Assets {
 	}
 
 	static void loadData() {
-		System.out.println((int)'\t');
 		bgMenu = generateRandomStarField(1000, 1920, 1080);
 		bg = generateRandomStarField(1000, 1000, 1000);
 		// TODO: Load color from settings.txt
@@ -440,14 +440,14 @@ public class Assets {
 			Species local = new Species(spec[i]);
 			species.add(local);
 			createWeaponData(readFile(spec[i]+"/weapons"), "assets/"+spec[i]+"/weapons");
-			System.out.println("Registered species: "+spec[i]+".");
+			Logger.log("Registered species: "+spec[i]+".");
 		}
 		for(ShipData sd : shipData) {
 			sd.assignWeaponData(weaponData);
 		}
 		for(int i = 0; i < spec.length; i++) {
 			createVariant(readFile(spec[i]+"/variants.txt"), "assets/"+spec[i]+"/variants");
-			System.out.println("Registered species: "+spec[i]+".");
+			Logger.log("Registered species: "+spec[i]+".");
 		}
 		game.reset(0,  0);
 	}

@@ -3,6 +3,7 @@ package entertheblack.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.Util.Logger;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Inventory;
 import entertheblack.storage.Node;
@@ -24,7 +25,7 @@ public class Player {
 		mainShip = main;
 	}
 	
-	public Player(Node data) {
+	public Player(Node data, String file) {
 		String[] lines = data.lines;
 		for(int i = 0; i < lines.length; i++) {
 			String[] val = lines[i].split("=");
@@ -37,15 +38,16 @@ public class Player {
 			else {
 				// Only give error message when the string isn't empty:
 				if(val.length > 1 || val[0].length() > 0) {
-					System.err.println("Error in save file in line "+data.lineNumber[i]+":");
-					if(val.length >= 2)
-						System.err.println("Unknown argument for Player \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
-					else
-						System.err.println("Unknown argument for Player \""+val[0]+"\" without value. Skipping line!");
+					String message = "";
+					if(val.length >= 2) {
+						message = "Unknown argument for Player \""+val[0]+"\" with values: \""+val[1]+"\". Skipping line!";
+					} else
+						message = "Unknown argument for Player \""+val[0]+"\" without value. Skipping line!";
+					Logger.logWarning(file, data.lineNumber[i], message);
 				}
 			}
 		}
-		inv = new Inventory(data.nextNodes[0]);
+		inv = new Inventory(data.nextNodes[0], file);
 	}
 	
 	// Used for adding and removing credits. Returns if transaction was successful.

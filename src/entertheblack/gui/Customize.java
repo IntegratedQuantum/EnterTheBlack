@@ -116,7 +116,6 @@ public class Customize extends Screen {
 		carrier.mouseUpdate(x, y, pressed);
 		if(dropIt && carrier.part != null) {
 			p.credits += carrier.part.cost;
-			System.err.println(p.credits);
 			carrier.part = null;
 		}
 	}

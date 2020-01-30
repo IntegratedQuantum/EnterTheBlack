@@ -2,6 +2,7 @@ package entertheblack.storage;
 
 import java.awt.Image;
 
+import entertheblack.Util.Logger;
 import entertheblack.menu.Assets;
 
 // Contains data(damage velocity, ...) for a weaapon.
@@ -41,12 +42,10 @@ public class WeaponData {
 			} else if(parts[0].equals("Image")) {
 				img = Assets.getImage("weapons/"+parts[1]+".png");
 				if(img == null) {
-					System.err.println("Error in "+file+" in line "+(i+1)+":");
-					System.err.println("Could not find weapon image "+parts[1]+".png in assets/weapons!");
+					Logger.logError(file, data.lineNumber[i], "Could not find weapon image "+parts[1]+".png in assets/weapons!");
 				}
 			} else {
-				System.err.println("Error in "+file+" in line "+(i+1)+":");
-				System.err.println("Unknown argument for type Weapon \"" + parts[0] + "\" with value" + parts[1] + ". Skipping line!");
+				Logger.logWarning(file, data.lineNumber[i], "Unknown argument for type Weapon \"" + parts[0] + "\" with value" + parts[1] + ". Skipping line!");
 				return;
 			}
 		}

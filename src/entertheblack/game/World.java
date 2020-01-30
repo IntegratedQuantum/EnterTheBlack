@@ -1,5 +1,6 @@
 package entertheblack.game;
 
+import entertheblack.Util.Logger;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Node;
@@ -15,12 +16,12 @@ public class World {
 		player = new Player(Assets.variants.get(0));
 	}
 	
-	public World(Node save) {
+	public World(Node save, String file) {
 		map = new StarMap(save.nextNodes[0], "Assets/saves");
-		player = new Player(save.nextNodes[1]);
+		player = new Player(save.nextNodes[1], file);
 		// TODO!
 	}
-	public Screen getStart(Node save) {
+	public Screen getStart(Node save, String file) {
 		// Get the coordinates of the player in the star map:
 		String[] lines = save.lines;
 		int x = 0;
@@ -42,8 +43,7 @@ public class World {
 			} else {
 				// Only give error message when the string isn't empty:
 				if(val.length > 1 || val[0].length() > 0) {
-					System.err.println("Error in save file in line "+save.lineNumber[i]+":");
-					System.err.println("Unknown argument for World Coordinates \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+					Logger.logWarning(file, save.lineNumber[i], "Unknown argument for World Coordinates \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
 				}
 			}
 		}

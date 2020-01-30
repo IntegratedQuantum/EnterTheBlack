@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.Util.Logger;
 import entertheblack.menu.Assets;
 
 // A ship equipped with special parts.
@@ -47,11 +48,12 @@ public class Variant {
 					}
 				}
 			} else {
-				System.err.println("Error in "+file+" in line "+(i+1)+":");
+				String message;
 				if(parts.length >= 2)
-					System.err.println("Unknown argument for type Variant \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!");
+					message = "Unknown argument for type Variant \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!";
 				else
-					System.err.println("Unknown argument for type Variant \"" + parts[0] + "\" without value. Skipping line!");
+					message = "Unknown argument for type Variant \"" + parts[0] + "\" without value. Skipping line!";
+				Logger.logWarning(file, data.lineNumber[i], message);
 			}
 		}
 		finalize();

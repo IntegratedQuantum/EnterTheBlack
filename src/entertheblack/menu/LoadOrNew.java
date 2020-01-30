@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+import entertheblack.Util.Logger;
 import entertheblack.game.SGame;
 import entertheblack.gui.ActionListener;
 import entertheblack.gui.Screen;
@@ -33,7 +34,7 @@ public class LoadOrNew extends Screen implements ActionListener {
 			}
 		//Prevent game crashing if there are no saves yet.
 		} catch (NullPointerException e) {
-			System.out.println("No Saves found!");
+			Logger.logWarning("No Saves found!");
 		}
 	
 	}
@@ -64,7 +65,7 @@ public class LoadOrNew extends Screen implements ActionListener {
 			Assets.screen = new SGame(-1);
 		}
 		else {
-			Assets.screen = new SGame(Assets.readFile("saves/"+files[id]));
+			Assets.screen = new SGame(Assets.readFile("saves/"+files[id]), "assets/saves/"+files[id]);
 		}
 	}
 }
