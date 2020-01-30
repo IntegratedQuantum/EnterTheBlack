@@ -34,8 +34,8 @@ public class Part {
 		String[] lines = data.lines;
 		StringBuilder text = new StringBuilder();
 		for(int i = 0; i < lines.length; i++) {
-			String [] parts = lines[i].split("=");
-			if(parts.length < 2) {
+			String [] val = lines[i].split("=");
+			if(val.length < 2) {
 				if(lines[i].equals("Weapon")) {
 					weapon = true;
 				}
@@ -47,38 +47,40 @@ public class Part {
 				}
 				continue;
 			}
-			if(parts[0].equals("Hull")) {
-				hull = Integer.parseInt(parts[1]);
-			} else if(parts[0].equals("Speed")) {
-				speed = Integer.parseInt(parts[1]);
-			} else if(parts[0].equals("Force")) {
-				force = Integer.parseInt(parts[1]);
-			} else if(parts[0].equals("Mass")) {
-				mass = Integer.parseInt(parts[1]);
-			} else if(parts[0].equals("Hull")) {
-				hull = Integer.parseInt(parts[1]);
-			} else if(parts[0].equals("PowerProduction")) {
-				powerProd = Double.parseDouble(parts[1]);
-			} else if(parts[0].equals("PowerConsumtion")) {
-				passivePowerConsumption = Double.parseDouble(parts[1]);
-			} else if(parts[0].equals("Turn")) {
-				turnSpeed = Double.parseDouble(parts[1]);
-			} else if(parts[0].equals("Cost")) {
-				cost = Integer.parseInt(parts[1]);
-			} else if(parts[0].equals("Name")) {
-				name = parts[1];
-			} else if(parts[0].equals("Tech")) {
-				techLevel = Integer.parseInt(parts[1]);
-			} else if(parts[0].equals("Image")) {
-				img = Assets.getImage("parts/"+parts[1]+".png");
+			if(val[0].equals("Hull")) {
+				hull = Integer.parseInt(val[1]);
+			} else if(val[0].equals("Speed")) {
+				speed = Integer.parseInt(val[1]);
+			} else if(val[0].equals("Force")) {
+				force = Integer.parseInt(val[1]);
+			} else if(val[0].equals("Mass")) {
+				mass = Integer.parseInt(val[1]);
+			} else if(val[0].equals("Hull")) {
+				hull = Integer.parseInt(val[1]);
+			} else if(val[0].equals("PowerProduction")) {
+				powerProd = Double.parseDouble(val[1]);
+			} else if(val[0].equals("PowerConsumtion")) {
+				passivePowerConsumption = Double.parseDouble(val[1]);
+			} else if(val[0].equals("Turn")) {
+				turnSpeed = Double.parseDouble(val[1]);
+			} else if(val[0].equals("Cost")) {
+				cost = Integer.parseInt(val[1]);
+			} else if(val[0].equals("Name")) {
+				name = val[1];
+			} else if(val[0].equals("Tech")) {
+				techLevel = Integer.parseInt(val[1]);
+			} else if(val[0].equals("Image")) {
+				img = Assets.getImage("parts/"+val[1]+".png");
 				if(img == null) {
-					System.err.println("Error in "+file+" in line "+(i+1)+":");
-					System.err.println("Could not find part image "+parts[1]+".png in assets/parts!");
+					System.err.println("Error in "+file+" in line "+data.lineNumber[i]+":");
+					System.err.println("Could not find Part image "+val[1]+".png in assets/parts!");
 				}
 			} else {
-				System.err.println("Error in "+file+" in line "+(i+1)+":");
-				System.err.println("Unknown argument for type Part \"" + parts[0] + "\" with value" + parts[1] + ". Skipping line!");
-				return;
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					System.err.println("Error in "+file+" in line "+data.lineNumber[i]+":");
+					System.err.println("Unknown argument for Part \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+				}
 			}
 		}
 		Node[] textNodes = data.nextNodes;

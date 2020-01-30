@@ -39,6 +39,12 @@ public class World {
 				xSys = Integer.parseInt(val[1]);
 			} else if(val[0].equals("YSystem")) {
 				ySys = Integer.parseInt(val[1]);
+			} else {
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					System.err.println("Error in save file in line "+save.lineNumber[i]+":");
+					System.err.println("Unknown argument for World Coordinates \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+				}
 			}
 		}
 		// Check if the coordinates correspond to a system. Otherwise start in hyperspace.

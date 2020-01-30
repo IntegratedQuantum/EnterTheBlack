@@ -7,11 +7,11 @@ import java.util.ArrayList;
 public class Node {
 	public Node[] nextNodes;
 	public String[] lines; // Stores all lines that are part of the top level node.
-	int[] lineNumber; // Store the line number of each line to be able to more exactly display issues in the file.
+	public int[] lineNumber; // Store the line number of each line to be able to more exactly display issues in the file.
 	public Node(String text) {
-		this(text.toCharArray(), 0);
+		this(text.toCharArray(), 0, 0);
 	}
-	public Node(char[] data, int start) {
+	public Node(char[] data, int start, int line) {
 		ArrayList<Node> nodes = new ArrayList<>();
 		ArrayList<String> lns = new ArrayList<>();
 		int[] number = new int[10]; // Create an ArrayList-like structure locally, because ints are no Objects.
@@ -19,7 +19,6 @@ public class Node {
 		StringBuilder curLine = new StringBuilder();
 		int depth = 0;
 		boolean inPar = false;
-		int line = 1;
 		for(int i = start; i < data.length; i++) {
 			char c = data[i];
 			if(c == '\n') {
@@ -43,7 +42,7 @@ public class Node {
 			} else if(c == '{') {
 				depth++;
 				if(depth == 1)
-					nodes.add(new Node(data, i+1));
+					nodes.add(new Node(data, i+1, line));
 			} else if(c == '}') {
 				depth--;
 				if(depth == -1) {

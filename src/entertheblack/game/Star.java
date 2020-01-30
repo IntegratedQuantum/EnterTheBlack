@@ -97,8 +97,11 @@ public class Star extends Screen {
 			} else if(val[0].equals("Name")) {
 				name = val[1];
 			} else {
-				System.err.println("Error in "+file+" in system definition of "+name+ " in line "+(i+1)+":");
-				System.err.println("Unknown argument for type Star \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					System.err.println("Error in "+file+" in line "+data.lineNumber[i]+":");
+					System.err.println("Unknown argument for type Star \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+				}
 			}
 		}
 		

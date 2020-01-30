@@ -65,8 +65,14 @@ public class ResourceType {
 				g2d.dispose();
 			}
 			else {
-				System.err.println("Error in "+file+" in line "+i+":");
-				System.err.println("Unknown argument for type ResourceType \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					System.err.println("Error in "+file+" in line "+data.lineNumber[i]+":");
+					if(val.length >= 2)
+						System.err.println("Unknown argument for ResourceType \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+					else
+						System.err.println("Unknown argument for resourceType \""+val[0]+"\" without value. Skipping line!");
+				}
 			}
 		}
 		subTypes = subNames.toArray(new String[0]);
