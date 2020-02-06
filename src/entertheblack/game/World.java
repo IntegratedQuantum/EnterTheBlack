@@ -12,12 +12,12 @@ public class World {
 	public StarMap map;
 	public Player player;
 	public World(int size) {
-		map = new StarMap(Assets.readFile("systems.txt"), "Assets/systems.txt");
+		map = new StarMap(Assets.readFile("systems.txt"), "Assets/systems.txt", 40, 10000, Assets.readFile("star_names.txt"));
 		player = new Player(Assets.variants.get(0));
 	}
 	
 	public World(Node save, String file) {
-		map = new StarMap(save.nextNodes[0], "Assets/saves");
+		map = new StarMap(save.nextNodes[0], "Assets/saves", 0, 0, null);
 		player = new Player(save.nextNodes[1], file);
 		// TODO!
 	}

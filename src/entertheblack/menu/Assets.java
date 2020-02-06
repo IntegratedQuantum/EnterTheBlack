@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -61,6 +62,8 @@ public class Assets {
 	public static Color text; // text color.
 	public static Color toolTipbg, toolTiptext;
 	public static Image bg, bgMenu, hb;
+	
+	public static Random random = new Random(System.nanoTime());
 	
 	public static Variant getVariant(String name) {
 		for(Variant v : variants) {

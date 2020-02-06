@@ -115,6 +115,17 @@ public class Star extends Screen {
 		activate(Assets.variants.get(0));
 	}
 	
+	// Generate a random star:
+	public Star(String name, int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.name = name;
+		planets = new Planet[1];
+		planets[0] = new Planet();
+		
+		activate(Assets.variants.get(0));
+	}
+	
 	public void paint(Graphics2D g) {
 		g.translate(960, 540);
 		g.scale(zoom, zoom);
