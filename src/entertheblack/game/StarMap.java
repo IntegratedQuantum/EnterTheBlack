@@ -13,8 +13,7 @@ import entertheblack.storage.Node;
 // A map of systems.
 // TODO: Use for automatic hyperspace navigation.
 
-public class StarMap extends Screen {
-	
+public class StarMap extends Screen {	
 	public List<Star> systems = new ArrayList<>();
 	double x=0, y=0;
 	double zoom=1;
@@ -27,8 +26,7 @@ public class StarMap extends Screen {
 		// Generate an additional amount of random stars.
 		if(constellations > 0) {
 			// The total radius of the map:
-			double maxRadius = averageDistance*Math.sqrt(constellations)*2;
-			int averageDistSqr = averageDistance*averageDistance;
+			double maxRadius = averageDistance*Math.sqrt(constellations);
 			// Start with a sorted array of indexes and do some random swaps to randomly choose n out of m numbers(will be the first n in the array):
 			int[] indexes = new int[starNames.nextNodes.length];
 			for(int i = 0; i < indexes.length; i++) {
@@ -54,14 +52,28 @@ public class StarMap extends Screen {
 				// Generate all stars from this constellation:
 				Node constellation = starNames.nextNodes[indexes[i]];
 				for(String name : constellation.lines) {
-					double randomX = 2*Assets.random.nextDouble()-1;
-					randomX = randomX*randomX*Math.signum(randomX);
-					double randomY = 2*Assets.random.nextDouble()-1;
-					randomY = randomY*randomY*Math.signum(randomY);
-					int xStar = (int)(averageDistance*randomX*0.7)+x;
-					int yStar = (int)(averageDistance*randomY*0.7)+y;
-					systems.add(new Star(name, xStar, yStar));
-					System.out.println(name);
+					int xStar, yStar, size;
+					boolean toClose;
+					// Choose random star coordinates. Discard the positions, if they are to close to another star.
+					do {
+						toClose = false;
+						double randomX = 2*Assets.random.nextDouble()-1;
+						randomX = randomX*Math.sqrt(Math.abs(randomX));
+						double randomY = 2*Assets.random.nextDouble()-1;
+						randomY = randomY*Math.sqrt(Math.abs(randomY)); // The number of stars is proportional to 1/r^1.5
+						xStar = (int)(averageDistance*randomX*0.7)+x;
+						yStar = (int)(averageDistance*randomY*0.7)+y;
+						size = 100+(int)(200*Assets.random.nextDouble());
+						for(Star other : systems) {
+							long deltaX = xStar-other.x;
+							long deltaY = yStar-other.y;
+							if(deltaX*deltaX + deltaY*deltaY <= 8*(size+other.planets[0].r)*(size+other.planets[0].r)) {
+								toClose = true;
+								break;
+							}
+						}
+					} while(toClose);
+					systems.add(new Star(name, xStar, yStar, size));
 				}
 				Logger.log("Generated constellation "+starNames.lines[indexes[i]]+" at ("+x+", "+y+").");
 			}

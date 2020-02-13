@@ -49,11 +49,11 @@ public class Planet {
 		alphaSelf = 2*Math.PI*Math.random();
 	}
 	
-	public Planet() { // Star
+	public Planet(int size) { // Star
 		orbiting = null;
 		d = 0;
-		m = 1000*(MIN + (MAX-MIN)*Math.random()); // Suns are a lot heavier.
-		r = Math.cbrt(m/rho);
+		r = size;
+		m = rho*r*r*r;
 		omega = alpha = 0;
 		lastDate = 0;
 		updateOrbit(0);

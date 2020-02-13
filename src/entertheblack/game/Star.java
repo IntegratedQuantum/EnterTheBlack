@@ -116,12 +116,12 @@ public class Star extends Screen {
 	}
 	
 	// Generate a random star:
-	public Star(String name, int x, int y) {
+	public Star(String name, int x, int y, int size) {
 		this.x = x;
 		this.y = y;
 		this.name = name;
 		planets = new Planet[1];
-		planets[0] = new Planet();
+		planets[0] = new Planet(size);
 		
 		activate(Assets.variants.get(0));
 	}
