@@ -44,20 +44,23 @@ public class Planet {
 		alpha = 2*Math.PI*Math.random();
 		lastDate = -1;
 		updateOrbit(0);
-		img = Assets.randPlanetImg(d/orbiting.m); // TODO: moons
+		imageName = Assets.randPlanetImg(d/orbiting.m); // TODO: moons
+		img = Assets.getPlanetImg(imageName);
 		omegaSelf = Math.random()/100;
 		alphaSelf = 2*Math.PI*Math.random();
 	}
 	
-	public Planet(int size) { // Star
+	public Planet(int size, String name) { // Star
 		orbiting = null;
+		this.name = name;
 		d = 0;
 		r = size;
 		m = rho*r*r*r;
 		omega = alpha = 0;
 		lastDate = 0;
 		updateOrbit(0);
-		img = Assets.randStarImg(m); // TODO: moons
+		imageName = Assets.randStarImg(m); // TODO: moons
+		img = Assets.getPlanetImg(imageName);
 		omegaSelf = Math.random()/100;
 		alphaSelf = 2*Math.PI*Math.random();
 	}

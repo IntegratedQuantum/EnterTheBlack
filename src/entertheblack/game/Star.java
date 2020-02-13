@@ -121,7 +121,7 @@ public class Star extends Screen {
 		this.y = y;
 		this.name = name;
 		planets = new Planet[1];
-		planets[0] = new Planet(size);
+		planets[0] = new Planet(size, name);
 		
 		activate(Assets.variants.get(0));
 	}

@@ -200,21 +200,21 @@ public class Assets {
 			ret = planets.get(key);
 		if(ret == null) {
 			Logger.logError("No Planet/Star Image named \""+key+"\" found! Using random image instead.");
-			return randPlanetImg(1);
+			return getPlanetImg(randPlanetImg(1));
 		}
 		return ret;
 	}
 	
-	public static Image randPlanetImg(double eng) {
+	public static String randPlanetImg(double eng) {
 		Entry<String, Image> [] imgs = planets.entrySet().toArray(new Entry[0]);
 		int selection = (int)(Math.random()*imgs.length);
-		return imgs[selection].getValue();
+		return imgs[selection].getKey();
 	}
 	
-	public static Image randStarImg(double eng) {
+	public static String randStarImg(double eng) {
 		Entry<String, Image> [] imgs = stars.entrySet().toArray(new Entry[0]);
 		int selection = (int)(Math.random()*imgs.length);
-		return imgs[selection].getValue();
+		return imgs[selection].getKey();
 	}
 
 	static int parseInt(String str) {
