@@ -15,7 +15,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import entertheblack.Util.Logger;
 import entertheblack.fight.MPGame;
 import entertheblack.gui.Screen;
 

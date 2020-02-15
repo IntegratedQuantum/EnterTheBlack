@@ -43,7 +43,7 @@ public class ButtonHandler {
 		}
 		else if((e.getKeyCode() == 17 || e.getKeyCode() == 10) && buttonArea.get(x).size() > 0) {
 			buttonArea.get(x).get(y).pressedB = true;
-			pressed= true;
+			pressed = true;
 		}
 		else if(e.getKeyCode() == 39 && x < buttonArea.size()-1) {
 			buttonArea.get(x).get(y).selectedB = false;
@@ -64,6 +64,7 @@ public class ButtonHandler {
 		if ((e.getKeyCode() == 17 || e.getKeyCode() == 10) && pressed) {
 			buttonArea.get(x).get(y).trigger();
 			buttonArea.get(x).get(y).pressedB = false;
+			pressed = false;
 		}
 	}
 	public void mouseUpdate(int x, int y, boolean pressed) {
