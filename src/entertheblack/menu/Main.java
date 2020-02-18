@@ -24,14 +24,9 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 	static MPGame game = new MPGame();
 	static Screen screen;
 
-	int curWidth = 1600;
-	int optimalHeight = curWidth*9/16;
-	double scale = curWidth/1920.0;
-	
-	public void determineOptimalScreenSize() {
-		optimalHeight = curWidth*9/16;
-		scale = curWidth/1920.0;
-	}
+	static int curWidth = 1600;
+	static int optimalHeight = curWidth*9/16;
+	static double scale = curWidth/1920.0;
 	
 	public Main(JFrame frame) {
 		frame.addKeyListener(this);
@@ -78,24 +73,22 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 		Main main = new Main(frame);
 		main.repaint();
 		frame.add(main);
+		main.setPreferredSize(new Dimension(curWidth, optimalHeight));
+		frame.pack();
 		frame.setBackground(Color.BLACK);
 		frame.setDefaultCloseOperation(3);
-		frame.setSize(main.curWidth, main.optimalHeight);
 		frame.setVisible(true);
-		Rectangle rectangle1 = new Rectangle();
-		Rectangle rectangle2 = new Rectangle();
 		Assets.loadData();
 		long start = System.nanoTime();
 		long deltat = 1000000000/60; // Play the game at 60 fps always!
 		while (true) {
-			// resize the window to keep aspect ratio if the user changed the size.
-			rectangle1 = frame.getBounds();
-			if (rectangle1 != rectangle2) {
-				main.curWidth = rectangle1.width;
-				main.determineOptimalScreenSize();
-				rectangle1.height = main.optimalHeight;
-				rectangle2 = rectangle1;
-				main.setPreferredSize(new Dimension(rectangle1.width, rectangle1.height));
+			// Resize the window to keep aspect ratio if the user changed the size.
+			Rectangle panelBounds = main.getBounds();
+			if (curWidth != panelBounds.width || optimalHeight != panelBounds.height) {
+				curWidth = panelBounds.width;
+				optimalHeight = curWidth*9/16;
+				scale = curWidth/1920.0;
+				main.setPreferredSize(new Dimension(curWidth, optimalHeight));
 				frame.pack();
 			}
 			Assets.screen.update();
