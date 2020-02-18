@@ -99,7 +99,7 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 				rectangle1.height = main.optimalHeight;
 				rectangle2 = rectangle1;
 				main.setPreferredSize(new Dimension(rectangle1.width, rectangle1.height));
-				System.out.println(Integer.toString(rectangle1.height));
+				//System.out.println(Integer.toString(rectangle1.width)); Uncomment to track changes in window size.
 				frame.pack();
 			}
 			Assets.screen.update();
