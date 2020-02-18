@@ -3,6 +3,7 @@ package entertheblack.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.Util.Logger;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Inventory;
 import entertheblack.storage.Node;
@@ -24,18 +25,29 @@ public class Player {
 		mainShip = main;
 	}
 	
-	public Player(Node data) {
-		String[] lines = data.value.split("\n");
-		for(String line : lines) {
-			String[] val = line.split("=");
+	public Player(Node data, String file) {
+		String[] lines = data.lines;
+		for(int i = 0; i < lines.length; i++) {
+			String[] val = lines[i].split("=");
 			if(val[0].equals("TechLevel"))
 				techLevel = Integer.parseInt(val[1]);
-			if(val[0].equals("Credits"))
+			else if(val[0].equals("Credits"))
 				credits = Integer.parseInt(val[1]);
-			if(val[0].equals("MainShip"))
+			else if(val[0].equals("MainShip"))
 				mainShip = Assets.getVariant(val[1]);
+			else {
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					String message = "";
+					if(val.length >= 2) {
+						message = "Unknown argument for Player \""+val[0]+"\" with values: \""+val[1]+"\". Skipping line!";
+					} else
+						message = "Unknown argument for Player \""+val[0]+"\" without value. Skipping line!";
+					Logger.logWarning(file, data.lineNumber[i], message);
+				}
+			}
 		}
-		inv = new Inventory(data.nextNodes[0]);
+		inv = new Inventory(data.nextNodes[0], file);
 	}
 	
 	// Used for adding and removing credits. Returns if transaction was successful.

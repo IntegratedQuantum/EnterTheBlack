@@ -20,9 +20,9 @@ public class SGame extends Screen {
 		}
 	}
 
-	public SGame(Node data) {
-		Assets.curWorld = new World(data.nextNodes[0]);
-		following = Assets.curWorld.getStart(data.nextNodes[1]);
+	public SGame(Node data, String file) {
+		Assets.curWorld = new World(data.nextNodes[0], file);
+		following = Assets.curWorld.getStart(data.nextNodes[1], file);
 	}
 
 	private void generateWorld() {

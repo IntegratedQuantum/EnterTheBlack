@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.Util.Logger;
 import entertheblack.fight.Ship;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
@@ -85,7 +86,7 @@ public class Star extends Screen {
 	
 	public Star(Node data, String file) {
 		// Get the coordinates in the map:
-		String[] lines = data.value.split("\n");
+		String[] lines = data.lines;
 		for(int i = 0; i < lines.length; i++) {
 			String[] val = lines[i].split("=");
 			if(val.length < 2)
@@ -97,18 +98,30 @@ public class Star extends Screen {
 			} else if(val[0].equals("Name")) {
 				name = val[1];
 			} else {
-				System.err.println("Error in "+file+" in system definition of "+name+ " in line "+(i+1)+":");
-				System.err.println("Unknown argument for type Star \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					Logger.logWarning(file, data.lineNumber[i], "Unknown argument for type Star \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+				}
 			}
 		}
-		
-		System.out.println("Loading star system "+name+" at ("+x+", "+y+").");
+		Logger.log("Loading star system "+name+" at ("+x+", "+y+").");
 		List<Planet> lPlanets = new ArrayList<>();
 		for(int i = 0; i < data.nextNodes.length; i++) {
 			lPlanets.add(new Planet(data.nextNodes[i], lPlanets.size() == 0 ? null : lPlanets.get(0), file));
 		}
 		
 		planets = lPlanets.toArray(new Planet[0]);
+		
+		activate(Assets.variants.get(0));
+	}
+	
+	// Generate a random star:
+	public Star(String name, int x, int y, int size) {
+		this.x = x;
+		this.y = y;
+		this.name = name;
+		planets = new Planet[1];
+		planets[0] = new Planet(size, name);
 		
 		activate(Assets.variants.get(0));
 	}

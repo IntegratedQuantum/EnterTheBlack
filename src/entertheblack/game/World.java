@@ -1,5 +1,6 @@
 package entertheblack.game;
 
+import entertheblack.Util.Logger;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Node;
@@ -11,18 +12,18 @@ public class World {
 	public StarMap map;
 	public Player player;
 	public World(int size) {
-		map = new StarMap(Assets.readFile("systems.txt"), "Assets/systems.txt");
+		map = new StarMap(Assets.readFile("systems.txt"), "Assets/systems.txt", 40, 10000, Assets.readFile("star_names.txt"));
 		player = new Player(Assets.variants.get(0));
 	}
 	
-	public World(Node save) {
-		map = new StarMap(save.nextNodes[0], "Assets/saves");
-		player = new Player(save.nextNodes[1]);
+	public World(Node save, String file) {
+		map = new StarMap(save.nextNodes[0], "Assets/saves", 0, 0, null);
+		player = new Player(save.nextNodes[1], file);
 		// TODO!
 	}
-	public Screen getStart(Node save) {
+	public Screen getStart(Node save, String file) {
 		// Get the coordinates of the player in the star map:
-		String[] lines = save.value.split("\n");
+		String[] lines = save.lines;
 		int x = 0;
 		int y = 0;
 		int xSys = 0;
@@ -39,6 +40,11 @@ public class World {
 				xSys = Integer.parseInt(val[1]);
 			} else if(val[0].equals("YSystem")) {
 				ySys = Integer.parseInt(val[1]);
+			} else {
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					Logger.logWarning(file, save.lineNumber[i], "Unknown argument for World Coordinates \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+				}
 			}
 		}
 		// Check if the coordinates correspond to a system. Otherwise start in hyperspace.

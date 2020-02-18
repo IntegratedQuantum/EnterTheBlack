@@ -1,5 +1,6 @@
 package entertheblack.storage;
 
+import entertheblack.Util.Logger;
 import entertheblack.game.ResourceType;
 import entertheblack.menu.Assets;
 
@@ -11,14 +12,19 @@ public class ResourceStack {
 		amount = 0;
 	}
 	
-	public ResourceStack(Node data) {
-		String[] lines = data.value.split("\n");
-		for(String line : lines) {
-			String[] val = line.split("=");
+	public ResourceStack(Node data, String file) {
+		String[] lines = data.lines;
+		for(int i = 0; i < lines.length; i++) {
+			String[] val = lines[i].split("=");
 			if(val[0].equals("Amount"))
 				amount = Integer.parseInt(val[1]);
 			else if(val[0].equals("Type")) {
 				type = Assets.getResourceType(val[1]);
+			} else {
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					Logger.logWarning(file, data.lineNumber[i], "Unknown argument for ResourceStack \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+				}
 			}
 		}
 	}

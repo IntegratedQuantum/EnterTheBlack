@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.Util.Logger;
 import entertheblack.menu.Assets;
 
 // Data(hull, energy, ...) for each ship type and each ship variant.
@@ -27,7 +28,7 @@ public class ShipData {
 	public List<Slot> secn = new ArrayList<>();
 	public List<ShipSlot> slots = new ArrayList<>(); // Slots that can be put things into. 
 	public ShipData(Node data, String file) { // Only accepts trimmed data!
-		String[] lines = data.value.split("\n");
+		String[] lines = data.lines;
 		for(int i = 0; i < lines.length; i++) {
 			String [] parts = lines[i].split("=");
 			if(parts.length < 2) {
@@ -68,18 +69,16 @@ public class ShipData {
 			} else if(parts[0].equals("Image")) {
 				img = Assets.getImage("ships/"+parts[1]+".png");
 				if(img == null) {
-					System.err.println("Error in "+file+" in line "+(i+1)+":");
-					System.err.println("Could not find ship image "+parts[1]+".png in assets/ships!");
+					Logger.logError(file, data.lineNumber[i], "Could not find ship image "+parts[1]+".png in assets/ships!");
 				}
 			} else {
-				System.err.println("Error in "+file+" in line "+(i+1)+":");
-				System.err.println("Unknown argument for type Ship \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!");
+				Logger.logError(file, data.lineNumber[i], "Unknown argument for type Ship \"" + parts[0] + "\" with value \"" + parts[1] + "\". Skipping line!");
 			}
 		}
 		Node[] texts = data.nextNodes;
 		StringBuilder text = new StringBuilder();
 		for(Node t : texts) {
-			text.append(t.value);
+			text.append(t.toString());
 		}
 		refineText(text.toString());
 	}

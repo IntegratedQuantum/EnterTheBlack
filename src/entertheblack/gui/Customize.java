@@ -108,15 +108,18 @@ public class Customize extends Screen {
 			PartSlot sl = (PartSlot) c;
 			if(sl.selectedM) {
 				tt = sl.toolTip;
-				if(tt != null)
-					tt.updatePosition(x, y);
+				if(tt != null) {
+					if(x+tt.width <= 1920)
+						tt.updatePosition(x, y);
+					else
+						tt.updatePosition(x-tt.width, y);
+				}
 				dropIt = false;
 			}
 		}
 		carrier.mouseUpdate(x, y, pressed);
 		if(dropIt && carrier.part != null) {
 			p.credits += carrier.part.cost;
-			System.err.println(p.credits);
 			carrier.part = null;
 		}
 	}

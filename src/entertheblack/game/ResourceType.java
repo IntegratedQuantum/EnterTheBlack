@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import entertheblack.Util.Logger;
 import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Node;
@@ -24,13 +25,12 @@ public class ResourceType {
 		img = Assets.getImage("resources/"+name);
 		if(img == null) {
 			img = Assets.getPlanetImg("");
-			System.err.println("Error in resource loading:");
-			System.err.println("Couldn't find Resource image "+name+"!");
+			Logger.logError("resource loading", "Couldn't find Resource image "+name+"!");
 		}
 	}
 	
 	public ResourceType(Node data, String file) {
-		String[] entries = data.value.split("\n");
+		String[] entries = data.lines;
 		ArrayList<String> subNames = new ArrayList<>();
 		for(int i = 0; i < entries.length; i++) {
 			String[] val = entries[i].split("=");
@@ -65,8 +65,15 @@ public class ResourceType {
 				g2d.dispose();
 			}
 			else {
-				System.err.println("Error in "+file+" in line "+i+":");
-				System.err.println("Unknown argument for type ResourceType \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					String message;
+					if(val.length >= 2)
+						message = "Unknown argument for ResourceType \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!";
+					else
+						message = "Unknown argument for resourceType \""+val[0]+"\" without value. Skipping line!";
+					Logger.logWarning(file, data.lineNumber[i], message);
+				}
 			}
 		}
 		subTypes = subNames.toArray(new String[0]);
@@ -75,9 +82,9 @@ public class ResourceType {
 			img = Assets.getImage("resources/"+name+".png");
 			if(img == null) {
 				img = Assets.getPlanetImg("");
-				System.err.println("Couldn't find Resource image "+name+"!");
+				Logger.logError("Couldn't find Resource image "+name+"!");
 			}
 		}
-		System.out.println("Loaded Resource "+name+".");
+		Logger.log("Loaded Resource "+name+".");
 	}
 }

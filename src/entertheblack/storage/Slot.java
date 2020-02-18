@@ -2,6 +2,8 @@ package entertheblack.storage;
 
 import java.util.Arrays;
 
+import entertheblack.Util.Logger;
+
 // Weapon slot(point where a weapon is released).
 
 public class Slot {
@@ -10,8 +12,7 @@ public class Slot {
 	public double alpha = 0;
 	public Slot(String[] data, String file, int line) { // The first position of the array is irrelevant!
 		if(data.length < 2) {
-			System.err.println("Error in "+file+" in line "+(line+1)+":");
-			System.err.println("Data for Slot has insufficient length: "+Arrays.toString(data));
+			Logger.logError(file, line, "Data for Slot has insufficient length: "+Arrays.toString(data));
 			return;
 		}
 		x = Integer.parseInt(data[0]);

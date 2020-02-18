@@ -13,7 +13,7 @@ import entertheblack.menu.Assets;
 // Show more information about something(a part) the mouse is hovering above.
 
 public class ToolTip {
-	int x, y, width, height, size;
+	public int x, y, width, height, size;
 	String[] lines;
 	public ToolTip(String str, int size) {
 		char[] data = str.toCharArray();

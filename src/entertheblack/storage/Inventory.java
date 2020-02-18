@@ -3,6 +3,7 @@ package entertheblack.storage;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.Util.Logger;
 import entertheblack.game.Resource;
 import entertheblack.game.ResourceType;
 
@@ -19,16 +20,22 @@ public class Inventory {
 		limit = lim;
 		resources = new ArrayList<>();
 	}
-	public Inventory(Node data) {
+	public Inventory(Node data, String file) {
 		resources = new ArrayList<>();
-		String[] lines = data.value.split("\n");
-		for(String line : lines) {
-			String[] val = line.split("=");
+		String[] lines = data.lines;
+		for(int i = 0; i < lines.length; i++) {
+			String[] val = lines[i].split("=");
 			if(val[0].equals("Limit"))
 				limit = Integer.parseInt(val[1]);
+			else {
+				// Only give error message when the string isn't empty:
+				if(val.length > 1 || val[0].length() > 0) {
+					Logger.logWarning(file, data.lineNumber[i], "Unknown argument for Inventory \""+val[0]+"\" with value \""+val[1]+"\". Skipping line!");
+				}
+			}
 		}
 		for(Node node : data.nextNodes) {
-			resources.add(new ResourceStack(node));
+			resources.add(new ResourceStack(node, file));
 		}
 	}
 	

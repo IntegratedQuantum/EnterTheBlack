@@ -24,12 +24,12 @@ public class Pause extends Screen implements ActionListener {
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(!enterText)
+		if(!enterText) {
 			buttons.keyPressed(e);
-		else {
-			if(e.getKeyChar() == '')
+		} else {
+			if(e.getKeyChar() == '') {
 				text = text.substring(0, text.length()-1);
-			else if(e.getKeyChar() == '\n') { // Save when enter pressed
+			} else if(e.getKeyChar() == '\n') { // Save when enter pressed
 				Assets.saveGame(Assets.curWorld, text);
 				enterText = false;
 				text = "";
@@ -43,10 +43,12 @@ public class Pause extends Screen implements ActionListener {
 		if(!enterText)
 			buttons.keyReleased(e);
 		if(e.getKeyCode() == 27) {
-			if(enterText)
+			if(enterText) {
 				enterText = false;
-			else
+				text = "";
+			} else {
 				Assets.screen = previous;
+			}
 		}
 	}
 	@Override

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import entertheblack.Util.Logger;
 import entertheblack.Util.Noise;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Node;
@@ -43,27 +44,30 @@ public class Planet {
 		alpha = 2*Math.PI*Math.random();
 		lastDate = -1;
 		updateOrbit(0);
-		img = Assets.randPlanetImg(d/orbiting.m); // TODO: moons
+		imageName = Assets.randPlanetImg(d/orbiting.m); // TODO: moons
+		img = Assets.getPlanetImg(imageName);
 		omegaSelf = Math.random()/100;
 		alphaSelf = 2*Math.PI*Math.random();
 	}
 	
-	public Planet() { // Star
+	public Planet(int size, String name) { // Star
 		orbiting = null;
+		this.name = name;
 		d = 0;
-		m = 1000*(MIN + (MAX-MIN)*Math.random()); // Suns are a lot heavier.
-		r = Math.cbrt(m/rho);
+		r = size;
+		m = rho*r*r*r;
 		omega = alpha = 0;
 		lastDate = 0;
 		updateOrbit(0);
-		img = Assets.randStarImg(m); // TODO: moons
+		imageName = Assets.randStarImg(m); // TODO: moons
+		img = Assets.getPlanetImg(imageName);
 		omegaSelf = Math.random()/100;
 		alphaSelf = 2*Math.PI*Math.random();
 	}
 	
 	public Planet(Node data, Planet orbiting, String file) {
 		this.orbiting = orbiting;
-		String[] lines = data.value.split("\n");
+		String[] lines = data.lines;
 		for(int i = 0; i < lines.length; i++) {
 			String[] val = lines[i].split("=");
 			if(val.length < 2) {
@@ -95,8 +99,7 @@ public class Planet {
 					color[j] = new Scanner(""+val[1].charAt(2*j)+val[1].charAt(2*j+1)).nextInt(16);
 				}
 			} else {
-				System.err.println("Error in "+file+" in planet definition of "+name+ " in line "+(i+1)+":");
-				System.err.println("Unknown argument for type Planet \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
+				Logger.logWarning(file, data.lineNumber[i], "Unknown argument for type Planet \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
 			}
 		}
 		omega = alpha = 0;
@@ -109,7 +112,7 @@ public class Planet {
 		updateOrbit(0);
 		omegaSelf = Math.random()/100;
 		alphaSelf = 2*Math.PI*Math.random();
-		System.out.println("Loaded planet "+name+" governed by "+species+".");
+		Logger.log("Loaded planet "+name+" governed by "+species+".");
 	}
 
 	public void updateOrbit(int date) { // TODO: Planet creation after exact start.

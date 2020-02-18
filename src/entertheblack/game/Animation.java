@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import entertheblack.Util.Graphics;
+import entertheblack.Util.Logger;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Node;
@@ -24,7 +25,7 @@ public class Animation extends Screen {
 		List<int[]> textsPos = new ArrayList<>();
 		List<Color> textsColor = new ArrayList<>();
 		public Scene(Node data, String file) {
-			String[] entries = data.value.split("\n");
+			String[] entries = data.lines;
 			for(int i = 0; i < entries.length; i++) {
 				String[] val = entries[i].split("=");
 				if(val.length < 2) {
@@ -50,8 +51,7 @@ public class Animation extends Screen {
 					int b = new Scanner(""+values[4].charAt(4)+values[4].charAt(5)).nextInt(16);
 					textsColor.add(new Color(r, g, b));
 				} else {
-					System.err.println("Error in "+file+" in planet definition of "+name+ " in line "+(i+1)+":");
-					System.err.println("Unknown argument for type Animation \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
+					Logger.logWarning(file, data.lineNumber[i], "Unknown argument for type Animation \"" + val[0] + "\" with value \"" + val[1] + "\". Skipping line!");
 				}
 			}
 		}
@@ -70,7 +70,7 @@ public class Animation extends Screen {
 	List<Scene> scenes = new ArrayList<>();
 	// Load animation from file:
 	public Animation(Node node, String file) {
-		String[] entries = node.value.split("\n");
+		String[] entries = node.lines;
 		for(int i = 0; i < entries.length; i++) {
 			String[] val = entries[i].split("=");
 			if(val.length < 2) {
@@ -79,7 +79,7 @@ public class Animation extends Screen {
 			if(val[0].equals("Name"))
 				name = val[1];
 		}
-		System.out.println("Loading Animation \""+name+"\".");
+		Logger.log("Loading Animation \""+name+"\".");
 		Node[] scene = node.nextNodes;
 		for(Node n : scene) {
 			scenes.add(new Scene(n, file));
