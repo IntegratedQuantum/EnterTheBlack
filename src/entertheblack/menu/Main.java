@@ -87,15 +87,19 @@ public class Main extends JPanel implements KeyListener, MouseListener, MouseMot
 		Assets.loadData();
 		long start = System.nanoTime();
 		long deltat = 1000000000/60; // Play the game at 60 fps always!
+		int widthLimiter = 20; //Max difference between change in window width before window is rescaled.
+		int heightLimiter = 40;//Max difference between change in window height before window is rescaled.
 		while (true) {
 			// resize the window to keep aspect ratio if the user changed the size.
 			rectangle1 = frame.getBounds();
-			if (rectangle1 != rectangle2) {
+			if (Math.abs(rectangle1.width-rectangle2.width)>widthLimiter
+			|| Math.abs(rectangle1.height-rectangle2.height)>heightLimiter) {
 				main.curWidth = rectangle1.width;
 				main.determineOptimalScreenSize();
 				rectangle1.height = main.optimalHeight;
 				rectangle2 = rectangle1;
 				main.setPreferredSize(new Dimension(rectangle1.width, rectangle1.height));
+				System.out.println(Integer.toString(rectangle1.height));
 				frame.pack();
 			}
 			Assets.screen.update();
