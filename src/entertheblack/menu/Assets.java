@@ -64,6 +64,62 @@ public class Assets {
 	public static Image bg, bgMenu, hb;
 	
 	public static Random random = new Random(System.nanoTime());
+	/*static { // Algorithm for automatically generating different temperature stars from one single template image. Does only work if the temperature of the template is lower than the temperature of the generated image.
+		int averageT = 2000; // average temperature of the star in the image. Needs to be determined seperately.
+		for(int deltaT = 0; deltaT <= 10000-averageT; deltaT += 200) {
+			BufferedImage img = (BufferedImage)getImage("stars/sun.png");
+			double sum = 0;
+			int n = 0;
+			for(int i = 0; i < img.getWidth(); i++) {
+				for(int j = 0; j < img.getHeight(); j++) {
+					int color = img.getRGB(i, j);
+					int b = color & 255;
+					int g = (color >> 8) & 255;
+					int r = (color >> 16) & 255;
+					double a = ((color >> 24) & 255)/255.0;
+					
+					int offsetR = 0;
+					int offsetG = 0;
+					int offsetB = 0;
+					double T = colorToTemp(a*r, a*g, a*b);
+					if(T >= 1500) {
+						sum += T;
+						n++;
+					}
+					Color c = tempToColor((int)T);
+					i = img.getWidth()-i;
+					i = img.getWidth()-i;
+					i = img.getWidth()-i;
+					i = img.getWidth()-i;
+					offsetR = (int)(r*a-c.getRed()*a);
+					offsetG = (int)(g*a-c.getGreen()*a);
+					offsetB = (int)(b*a-c.getBlue()*a);
+					offsetR *= (T/(T+1*Math.abs(deltaT)));
+					offsetG *= (T/(T+1*Math.abs(deltaT)));
+					offsetB *= (T/(T+1*Math.abs(deltaT)));
+					T += deltaT;
+					c = tempToColor((int)T);
+					offsetR += c.getRed();
+					if(offsetR > 255) offsetR = 255;
+					if(offsetR < 0) offsetR = 0;
+					offsetG += c.getGreen();
+					if(offsetG > 255) offsetG = 255;
+					if(offsetG < 0) offsetG = 0;
+					offsetB += c.getBlue();
+					if(offsetB > 255) offsetB = 255;
+					if(offsetB < 0) offsetB = 0;
+					img.setRGB(i, j, new Color(offsetR, offsetG, offsetB, ((color >> 24) & 255)).getRGB());
+				}
+			}
+			// Save the image:
+			System.out.println(n+" "+(sum/n));
+			
+			File outputfile = new File("assets/stars/"+(deltaT+averageT)+"_K.png");
+			try {
+				ImageIO.write(img, "png", outputfile);
+			} catch (IOException e) {}
+		}
+	} //*/
 	
 	public static Variant getVariant(String name) {
 		for(Variant v : variants) {
@@ -382,12 +438,12 @@ public class Assets {
 		int r, g, b;
 		if(temp < 1000)
 			r = temp*256/1000;
-		if(temp < 6600)
+		else if(temp < 6600)
 			r = 255;
 		else
 			r = (int)(329.698727446*Math.pow(temp/100-60, -0.1332047592));
 		if(temp < 6600)
-			g = (int)(temp/100*99.4708025861*Math.log(temp/100)-161.1195681661);
+			g = (int)(99.4708025861*Math.log(temp/100)-161.1195681661);
 		else
 			g = (int)(288.1221695283*Math.pow(temp/100-60, -0.0755148492));
 		if(temp > 6600)
@@ -403,6 +459,23 @@ public class Assets {
 		if(b < 0) b = 0;
 		if(b > 255) b = 255;
 		return new Color(r, g, b);
+	}
+	
+	static double colorToTemp(double r, double g, double b) {
+		// A simple inversion of the above tempToColor method.
+		int temp = 0;
+		if(b < 5) {
+			if(r < 250) { // T < 1000 K
+				temp = (int)(r/256*1000);
+			} else { // 1000 K < T < 1900 K
+				temp = (int)(100*Math.exp((g + 161.1195681661)/99.4708025861));
+			}
+		} else if(b > 250) { // T > 6600 K
+			temp = (int)(6000 + 100*Math.pow(r/329.698727446, -1/0.1332047592));
+		} else { // 1900 K < T < 6600 K
+			temp = (int)(1000 + 100*Math.exp((b+305.0447927307)/138.5177312231));
+		}
+		return temp;
 	}
 	
 	static Image generateRandomStarField(int stars, int width, int height) {
