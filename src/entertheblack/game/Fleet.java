@@ -15,7 +15,7 @@ import entertheblack.storage.Variant;
 // TODO: Open diplomacy screen on contact.
 
 public class Fleet {
-	static int radius = 50;
+	int radius;
 	double x, y;
 	double vel;
 	double alpha;
@@ -27,6 +27,7 @@ public class Fleet {
 		this.x = x;
 		this.y = y;
 		this.v = v;
+		radius = v.size; // 2*v.radius
 		vel = v.vmax/1.1; // Let it fly slightly slower than the equivalent ship would.
 		img = v.img; // Give it the image of the ship it represents.
 	}

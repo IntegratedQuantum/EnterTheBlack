@@ -68,12 +68,15 @@ public class Star extends Screen {
 	
 	public void activate(Variant mainShip) {
 		ship = new Ship(mainShip, 0, size - (size >> 2));
+		ship.r *= 2;
+		ship.size *= 2;
 		fleets = new ArrayList<>();
 		zoomLock = planets[0];
 		
 		// TODO: Properly initialize fleets!
-		if(getPlanet("Earth") != null)
-			fleets.add(new Fleet("Human", getPlanet("Earth").x, getPlanet("Earth").y, Assets.variants.get(4)));
+		if(getPlanet("Earth") != null) {
+			fleets.add(new Fleet("Human", getPlanet("Earth").x, getPlanet("Earth").y, Assets.variants.get(1)));
+		}
 	}
 	
 	public Planet getPlanet(String name) {

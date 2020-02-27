@@ -13,7 +13,7 @@ public class Ship {
 	public Variant v;
 	public double x, y;
 	public double vx, vy;
-	double size;
+	public double size;
 	public double r;
 	public double a;
 	public double vmax;
