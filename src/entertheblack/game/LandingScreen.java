@@ -27,7 +27,7 @@ public class LandingScreen extends Screen {
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyChar() == 'm') {
 			Assets.screen = Assets.curWorld.map;
-			Assets.curWorld.map.activate(this);
+			Assets.curWorld.map.activate(this, last.x, last.y);
 		}
 		if(e.getKeyChar() == 'l') {
 			Assets.screen = new Surface(this, planet);

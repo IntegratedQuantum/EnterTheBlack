@@ -48,7 +48,7 @@ public class HyperSpace extends Screen {
 		}
 		if(e.getKeyChar() == 'm') {
 			Assets.screen = Assets.curWorld.map;
-			Assets.curWorld.map.activate(this);
+			Assets.curWorld.map.activate(this, -xShip, -yShip);
 		}
 	}
 

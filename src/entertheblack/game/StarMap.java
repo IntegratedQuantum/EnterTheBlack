@@ -1,22 +1,30 @@
 package entertheblack.game;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import entertheblack.Util.Graphics;
 import entertheblack.Util.Logger;
 import entertheblack.gui.Screen;
 import entertheblack.menu.Assets;
 import entertheblack.storage.Node;
 
 // A map of systems.
+// Also a GUI element for displaying these systems.
 // TODO: Use for automatic hyperspace navigation.
 
-public class StarMap extends Screen {	
+public class StarMap extends Screen {
+	private static final double MAX_ZOOM = 1, MIN_ZOOM = 0.001;
 	public List<Star> systems = new ArrayList<>();
 	double x=0, y=0;
-	double zoom=1;
+	private int lastMouseX = 0;
+	private int lastMouseY = 0;
+	private double playerX, playerY; // Position of player when opening the map.
+	private double zoom;
+	private Star hovered;
 
 	public StarMap(Node data, String file, int constellations, int averageDistance, Node starNames) {
 		// Generate the stars of the data file:
@@ -90,10 +98,12 @@ public class StarMap extends Screen {
 	}
 	
 	Screen previous;
-	public void activate(Screen prev) {
+	public void activate(Screen prev, double px, double py) {
 		previous = prev; // Store the previous screen upon opening the map.
+		playerX = px;
+		playerY = py;
 		x = y = 0;
-		zoom = 1;
+		zoom = 0.01;
 	}
 	
 	private static int getRadius(Planet p) {
@@ -117,10 +127,22 @@ public class StarMap extends Screen {
 		g.scale(zoom, zoom);
 		for(Star system : systems) {
 			int r = getRadius(system.planets[0]);
-			g.drawImage(system.planets[0].img, system.x/100-r, system.y/100-r, r*2, r*2, null);
+			g.drawImage(system.planets[0].img, system.x-r*100, system.y-r*100, r*200, r*200, null);
 		}
 		g.scale(1/zoom, 1/zoom);
-		g.translate(-960+x, -540+y);
+		g.translate(-960-x, -540-y);
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(1720, 0, 200, 1080);
+		// Display a bigger image and some useful information on the system hovered by the cursor:
+		if(hovered != null) {
+			g.drawImage(hovered.planets[0].img, 1770, 50, 100, 100, null);
+			g.setColor(Assets.text);
+			Graphics.drawStringCentered(g, hovered.name, 20, 1820, 30);
+			Graphics.drawStringLeft(g, "Distance:", 20, 1730, 240);
+			Graphics.drawStringLeft(g, String.format("%.2f pc", Math.sqrt((hovered.x-playerX)*(hovered.x-playerX) + (hovered.y-playerY)*(hovered.y-playerY))/1000.0), 20, 1730, 260);
+			Graphics.drawStringLeft(g, "Known planets:", 20, 1730, 300);
+			Graphics.drawStringLeft(g, ""+(hovered.planets.length - 1), 20, 1730, 320);
+		}
 	}
 
 	@Override
@@ -167,9 +189,17 @@ public class StarMap extends Screen {
 		zoom *= change;
 		x *= change;
 		y *= change;
+		if(zoom > MAX_ZOOM) {
+			x *= MAX_ZOOM/zoom;
+			y *= MAX_ZOOM/zoom;
+			zoom = MAX_ZOOM;
+		}
+		if(zoom < MIN_ZOOM) {
+			x *= MIN_ZOOM/zoom;
+			y *= MIN_ZOOM/zoom;
+			zoom = MIN_ZOOM;
+		}
 	}
-	int lastMouseX = 0;
-	int lastMouseY = 0;
 
 	@Override
 	public void mouseUpdate(int x, int y, boolean pressed) {
@@ -177,9 +207,26 @@ public class StarMap extends Screen {
 		if(pressed) {
 			this.x += x-lastMouseX;
 			this.y += y-lastMouseY;
+		} else { // Show Information when hovering above a star with mouse.
+			hovered = null;
+			// Find the closest star to the cursor:
+			double xInMap = (x - 960 - this.x)/zoom;
+			double yInMap = (y - 540 - this.y)/zoom;
+			double closest = Double.MAX_VALUE;
+			Star closestStar = null;
+			for(Star star : systems) {
+				double dist = (xInMap - star.x)*(xInMap - star.x) + (yInMap - star.y)*(yInMap - star.y);
+				if(dist < closest) {
+					closest = dist;
+					closestStar = star;
+				}
+			}
+			if(closestStar != null) {
+				int r = getRadius(closestStar.planets[0])*100;
+				if(closest < r*r*4)
+					hovered = closestStar;
+			}
 		}
-		// TODO: Show Information when hovering above with mouse.
-		
 		lastMouseX = x;
 		lastMouseY = y;
 	}

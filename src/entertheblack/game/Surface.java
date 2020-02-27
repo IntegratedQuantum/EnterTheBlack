@@ -29,7 +29,7 @@ public class Surface extends Screen {
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyChar() == 'm') {
 			Assets.screen = Assets.curWorld.map;
-			Assets.curWorld.map.activate(this);
+			Assets.curWorld.map.activate(this, previous.last.x, previous.last.y);
 		}
 		if (e.getKeyCode() == Assets.Controls[1]) {
 			right = true;
