@@ -12,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
@@ -44,12 +43,12 @@ public class Assets {
 	
 	public static World curWorld;
 	
-	public static List<Part> parts = new ArrayList<>();
-	public static List<ShipData> shipData = new ArrayList<>();
-	public static List<WeaponData> weaponData = new ArrayList<>();
-	public static List<Animation> animations = new ArrayList<>();
-	public static List<Species> species = new ArrayList<>();
-	public static List<Variant> variants = new ArrayList<>();
+	public static ArrayList<Part> parts = new ArrayList<>();
+	public static ArrayList<ShipData> shipData = new ArrayList<>();
+	public static ArrayList<WeaponData> weaponData = new ArrayList<>();
+	public static ArrayList<Animation> animations = new ArrayList<>();
+	public static ArrayList<Species> species = new ArrayList<>();
+	public static ArrayList<Variant> variants = new ArrayList<>();
 	
 	public static ResourceType[] resources;
 	
@@ -277,8 +276,8 @@ public class Assets {
 		return Integer.parseInt(str.trim());
 	}
 	
-	public static List<ShipData> createShipData(Node data, String file) {
-		List<ShipData> list = new ArrayList<>();
+	public static ArrayList<ShipData> createShipData(Node data, String file) {
+		ArrayList<ShipData> list = new ArrayList<>();
 		Node[] ships = data.nextNodes;
 		for(int i = 0; i < ships.length; i++) {
 			list.add(new ShipData(ships[i], file));

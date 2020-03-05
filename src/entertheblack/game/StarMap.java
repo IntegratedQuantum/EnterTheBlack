@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.List;
 
 import entertheblack.Util.Graphics;
 import entertheblack.Util.Logger;
@@ -15,10 +14,11 @@ import entertheblack.storage.Node;
 // A map of systems.
 // Also a GUI element for displaying these systems.
 // TODO: Use for automatic hyperspace navigation.
+// TODO: Enable/disable species location marking.
 
 public class StarMap extends Screen {
 	private static final double MAX_ZOOM = 1, MIN_ZOOM = 0.001;
-	public List<Star> systems = new ArrayList<>();
+	public ArrayList<Star> systems = new ArrayList<>();
 	double x=0, y=0;
 	private int lastMouseX = 0;
 	private int lastMouseY = 0;
@@ -106,7 +106,7 @@ public class StarMap extends Screen {
 		zoom = 0.01;
 	}
 	
-	private static int getRadius(Planet p) {
+	public static int getRadius(Planet p) {
 		double r = Math.sqrt(p.r/10);
 		if(r > 10)
 			r = 9+Math.log(r); // Prevent r from growing too fast.
@@ -121,6 +121,15 @@ public class StarMap extends Screen {
 		}
 		return null;
 	}
+
+	public Star getStar(String name) {
+		for(Star star : systems) {
+			if(star.name.equals(name)) {
+				return star;
+			}
+		}
+		return null;
+	}
 	
 	public void paint(Graphics2D g) {
 		g.translate(960+x, 540+y);
@@ -129,6 +138,7 @@ public class StarMap extends Screen {
 			int r = getRadius(system.planets[0]);
 			g.drawImage(system.planets[0].img, system.x-r*100, system.y-r*100, r*200, r*200, null);
 		}
+		Assets.curWorld.player.drawSpecies(g);
 		g.scale(1/zoom, 1/zoom);
 		g.translate(-960-x, -540-y);
 		g.setColor(Color.DARK_GRAY);

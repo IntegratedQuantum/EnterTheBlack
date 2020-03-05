@@ -31,7 +31,7 @@ public class Star extends Screen {
 	double lockStrength = 0; // Factor of how planet-centered and how star-centered the current camera position is.
 	public int x, y; // Position on the map.
 	public Ship ship;
-	String name = "";
+	public String name = "";
 	
 	@Override
 	public void keyPressed(KeyEvent e) {

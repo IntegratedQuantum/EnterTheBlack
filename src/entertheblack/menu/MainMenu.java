@@ -58,7 +58,6 @@ public class MainMenu extends Screen implements ActionListener {
 			Assets.screen = new Options();
 			break;
 		case 5:
-			Assets.screen = new Customize(this, new Player(Assets.variants.get(5)));
 			break;
 		case 6:
 			System.exit(1);

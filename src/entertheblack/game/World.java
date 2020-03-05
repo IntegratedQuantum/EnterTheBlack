@@ -13,7 +13,7 @@ public class World {
 	public Player player;
 	public World(int size) {
 		map = new StarMap(Assets.readFile("systems.txt"), "Assets/systems.txt", 40, 10000, Assets.readFile("star_names.txt"));
-		player = new Player(Assets.variants.get(0));
+		player = new Player(Assets.variants.get(0), map);
 	}
 	
 	public World(Node save, String file) {

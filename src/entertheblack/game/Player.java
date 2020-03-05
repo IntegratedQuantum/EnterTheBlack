@@ -1,5 +1,6 @@
 package entertheblack.game;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +19,15 @@ public class Player {
 	public Inventory inv;
 	public int credits = 1000;
 	public Variant mainShip;
-	List<Species> discoveredSpecies = new ArrayList<>(); // Store what species have been discovered so far by the player.
-	List<Integer> speciesReputation = new ArrayList<>(); // Store the reputation of the player towards given species. May be altered by missions/events/conversation.
-	public Player(Variant main) { // TODO: Read from file.
+	List<Species> species = new ArrayList<>();
+	List<Integer> speciesReputation = new ArrayList<>(); // Store the reputation of the player towards given species. May be altered by missions/events/conversation. A reputation of Integer.MAX_VALUE means undiscovered.
+	public Player(Variant main, StarMap map) {
 		inv = new Inventory(); // TODO: Make finite!
 		mainShip = main;
+		species = Assets.species;
+		for(Species spec : species) {
+			spec.initializeGameSpecifics(map.systems);
+		}
 	}
 	
 	public Player(Node data, String file) {
@@ -48,6 +53,7 @@ public class Player {
 			}
 		}
 		inv = new Inventory(data.nextNodes[0], file);
+		// TODO: Load species:
 	}
 	
 	// Used for adding and removing credits. Returns if transaction was successful.
@@ -69,12 +75,18 @@ public class Player {
 		inv.save(sb);
 		sb.append("}");
 		sb.append("{");
-		for(int i = 0; i < discoveredSpecies.size(); i++) {
-			sb.append(discoveredSpecies.get(i).name);
-			sb.append("=");
-			sb.append(speciesReputation.get(i));
-			sb.append("\n");
+		for(int i = 0; i < species.size(); i++) {
+			sb.append("{");
+			species.get(i).saveGameSpecifics(sb);
+			// TODO: save reputation
+			sb.append("}");
 		}
 		sb.append("}");
+	}
+	
+	public void drawSpecies(Graphics2D g) {
+		for(int i = 0; i < species.size(); i++) {
+			species.get(i).markHome(g);
+		}
 	}
 }
