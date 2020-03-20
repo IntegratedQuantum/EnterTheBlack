@@ -18,7 +18,7 @@ import entertheblack.storage.Node;
 // TODO: Add proper graphics.
 
 
-public class Planet {	
+public class Planet {
 	private static final double MIN = 1000, MAX = 10000, rho = 1, G = 1;
 	double m, r, d, omega, alpha, omegaSelf, alphaSelf;
 	int T; // Temperature in Kelvin.
@@ -26,6 +26,7 @@ public class Planet {
 	int techLevel; // Tech level needed to land here.
 	int life = 0; // How many specimen can live here.
 	int lastDate;
+	long seed;
 	int[] color = new int[6]; // Color specifications for planets surface map.
 	boolean hasStarBase = false; // All starbases can equip the ship, sell all unlocked parts and buy materials. 
 	public String species = null; // Species governing this planet.
