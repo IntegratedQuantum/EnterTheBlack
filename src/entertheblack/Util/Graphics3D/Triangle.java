@@ -46,17 +46,11 @@ public class Triangle {
 	
 	
 	Vector[] points = new Vector[3];
-	Triangle [] next;
 	Vector orthogonal;
 	public Triangle(Vector p1, Vector p2, Vector p3) {
 		points[0] = p1;
 		points[1] = p2;
 		points[2] = p3;
-		orthogonal = (points[1].minus(points[0])).cross(points[2].minus(points[0]));
-		if(orthogonal.dot(points[0]) < 0) {
-			orthogonal.negate(); // The lazy way of making sure the orthgonal is pointed in the right direction.
-		}
-		orthogonal.timesEquals(1/orthogonal.value());
 	}
 	
 	static long rotate(long in, int amount) {
@@ -88,29 +82,32 @@ public class Triangle {
 			return 0xff000000 | (r << 16) | (g << 8) | (b << 0);
 		}
 	}
-
-	public void paint(Image3D image) {
-		if(next == null) {
-			double depth = (points[0].value()+points[1].value()+points[2].value())/3 - 400;
-			int color = getColor(depth, Math.abs(points[0].y+points[1].y+points[2].y)/3);
-			int [] x = new int[3];
-			int [] y = new int[3];
-			float [] z = new float[3];
-			for(int i = 0; i < 3; i++) {
-				x[i] = 200+(int)points[i].px;
-				y[i] = 200+(int)points[i].py;
-				z[i] = (float)points[i].pz;
-			}
-			double view = orthogonal.z;
-			float lighting = (float)(view/2 + 0.5);
-			// Make sure it is inside bounds:
-			if(lighting < 0) lighting = 0;
-			
-			image.drawTriangle(x, y, z, color, lighting);
-		} else {
-			for(Triangle t : next) {
-				t.paint(image);
-			}
+	
+	public void calculateOrthogonal() {
+		orthogonal = (points[1].minus(points[0])).cross(points[2].minus(points[0]));
+		if(orthogonal.dot(points[0]) < 0) {
+			orthogonal.negate(); // The lazy way of making sure the orthgonal is pointed in the right direction.
 		}
+		orthogonal.timesEquals(1/orthogonal.value());
+	}
+
+	public void paint(Image3D image, Camera cam) {
+		if(orthogonal.dot(cam.sight) > 0) return; // Only draw triangles facing towards the camera.
+		double depth = (points[0].value()+points[1].value()+points[2].value())/3 - 400;
+		int color = getColor(depth, Math.abs(points[0].y+points[1].y+points[2].y)/3);
+		int [] x = new int[3];
+		int [] y = new int[3];
+		float [] z = new float[3];
+		for(int i = 0; i < 3; i++) {
+			x[i] = 200+(int)points[i].px;
+			y[i] = 200+(int)points[i].py;
+			z[i] = (float)points[i].pz;
+		}
+		double view = orthogonal.z;
+		float lighting = (float)(view/2 + 0.5);
+		// Make sure it is inside bounds:
+		if(lighting < 0) lighting = 0;
+		
+		image.drawTriangle(x, y, z, color, lighting);
 	}
 }

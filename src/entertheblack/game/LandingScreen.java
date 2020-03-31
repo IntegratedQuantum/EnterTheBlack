@@ -101,6 +101,10 @@ public class LandingScreen extends Screen {
 				v.timesEquals(400/v.value());
 			}
 		}
+		// Precalculate the orthogonals so they don't need to be calculated at rendering time.
+		for(Triangle tr : triangles) {
+			tr.calculateOrthogonal();
+		}
 		// TODO: more planet types.
 		// Rivers/Lakes: TODO
 		// Calculate the new normals of the triangles: TODO
@@ -132,7 +136,7 @@ public class LandingScreen extends Screen {
 	public void paint(Graphics2D g) {
 		//planet.drawNoiseMap(g);
 		// Draw the planet model:
-		long t1 = System.nanoTime();
+		//long t1 = System.nanoTime();
 		planetView.flush();
 		camera.updateAngle(0.01, 0);
 		camera.update(0, 0, 0);
@@ -140,11 +144,11 @@ public class LandingScreen extends Screen {
 			v.project(camera);
 		}
 		for(Triangle t : triangles) {
-			t.paint(planetView);
+			t.paint(planetView, camera);
 		}
 		g.drawImage(planetView.drawToImage(), 760, 340, 400, 400, null);
-		long t2 = System.nanoTime();
-		System.out.println(t2-t1);
+		//long t2 = System.nanoTime();
+		//System.out.println(t2-t1);
 		g.setColor(Assets.text);
 		Graphics.drawStringCentered(g, planet.name, 80, 960, 360);
 		Graphics.drawStringLeft(g, "Temperature = "+planet.T+" K", 20, 1100, 500);

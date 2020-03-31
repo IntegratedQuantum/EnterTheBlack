@@ -11,7 +11,6 @@ public class Image3D {
 	float[] z;
 	BufferedImage drawable;
 	byte[] pixels;
-	Camera cam;
 	public Image3D(int width, int height) {
 		z = new float[width*height];
 		this.width = width;
@@ -19,7 +18,6 @@ public class Image3D {
 		drawable = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
 		pixels = ((DataBufferByte)drawable.getRaster().getDataBuffer()).getData();
 		flush();
-		cam = new Camera(10000);
 	}
 
 	public BufferedImage drawToImage() {

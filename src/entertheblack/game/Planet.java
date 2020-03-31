@@ -78,6 +78,8 @@ public class Planet {
 			}
 			if(val[0].equals("Name"))
 				name = val[1];
+			else if(val[0].equals("Seed"))
+				seed = Long.parseLong(val[1]);
 			else if(val[0].equals("Mass"))
 				m = Double.parseDouble(val[1]);
 			else if(val[0].equals("Radius"))
